@@ -1,62 +1,66 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+# Arquivo: .github/workflows/deploy.yml
+
+name: Build and Deploy (Vite/pnpm)
 
 on:
-  # Runs on pushes targeting the default branch
   push:
-    branches: ['main'] # Mude para o nome da sua branch principal se for diferente
+    branches: ["main"]
 
-  # Allows you to run this workflow manually from the Actions tab
+  # Permite rodar manualmente
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+# Permissões necessárias para publicar no GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
-  group: 'pages'
+  group: "pages"
   cancel-in-progress: false
 
 jobs:
-  # Build job
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      # --- ALTERAÇÃO APLICADA AQUI ---
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 8
-
-      - name: Set up Node
+      
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18.x' # Usar '18.x' é uma boa prática
-          cache: 'pnpm'
-      # --- FIM DA ALTERAÇÃO ---
+          node-version: 20 # Versão estável
+          cache: 'pnpm' # Cache para acelerar a instalação
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8 # Versão do pnpm
+      
       - name: Install dependencies
-        run: pnpm install
-        
-      - name: Build
+        run: pnpm install --frozen-lockfile
+
+      - name: Build project (pnpm run build)
         run: pnpm run build
-        
+      
       - name: Setup Pages
         uses: actions/configure-pages@v5
-        
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
         with:
-          # Upload a pasta 'dist' que o Vite gera
-          path: './dist'
-          
+          # Define o diretório de artefato para a pasta 'dist' gerada pelo Vite
+          static_site_artifact_path: './dist' 
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: 'dist'
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
