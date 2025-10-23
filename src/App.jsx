@@ -2,21 +2,60 @@ import { useState, useEffect } from 'react';
 import { ArrowRight, Zap, Target, Globe, Key, Rocket, BookOpen, Brain, TrendingUp, CheckCircle, Sparkles, User, Lightbulb, Search, Eye, Users, FileText, Calendar, Trophy, BarChart, Clock, Hash, Percent } from 'lucide-react';
 import './App.css';
 
-// Importando as imagens (Mantenha se estiver usando)
+// Importando as bibliotecas novas
+import Marquee from "react-fast-marquee";
+import CountUp from 'react-countup';
+import { useInView } from 'react-intersection-observer';
+
+// Importando as imagens
 import ppdf01Img from './assets/ppdf01.png'; // Imagem Principal
 import ppdf02Img from './assets/ppdf02.png'; // Imagem de Fundo (ou banner)
 
-// Componente simples para as caixas de dados
-const DataCard = ({ icon: Icon, title, value, description, colorClass }) => (
-  <div className={`p-6 bg-[#1C2A35]/60 border border-[#0D3A46]/50 rounded-xl transition-all duration-300 hover:border-[#4FD1C5] hover:shadow-lg ${colorClass}`}>
-    <div className="flex items-center mb-4">
-      <Icon className={`w-8 h-8 mr-3 ${colorClass}`} />
-      <h3 className="text-xl font-semibold text-white">{title}</h3>
+// Componente simples para as caixas de dados (ATUALIZADO com animação)
+const DataCard = ({ icon: Icon, title, value, description, colorClass }) => {
+  // 1. Hook para observar se o componente está visível
+  const { ref, inView } = useInView({
+    triggerOnce: true, // Anima apenas uma vez
+    threshold: 0.3,    // Dispara quando 30% do card estiver visível
+  });
+
+  // 2. Lógica para extrair o número puro e o prefixo (como o '~')
+  // Isso garante que o CountUp anime apenas o número.
+  const prefix = value.startsWith('~') ? '~' : '';
+  const numericValue = parseInt(value.replace(/[^0-9]/g, ''), 10);
+  
+  // 3. Define o separador de milhar (ex: 16.200 ou 1.286)
+  const separator = numericValue > 999 ? '.' : '';
+
+  return (
+    <div 
+      ref={ref} // 4. Atribui a referência ao 'IntersectionObserver'
+      className={`p-6 bg-[#1C2A35]/60 border border-[#0D3A46]/50 rounded-xl transition-all duration-300 hover:border-[#4FD1C5] hover:shadow-lg ${colorClass}`}
+    >
+      <div className="flex items-center mb-4">
+        <Icon className={`w-8 h-8 mr-3 ${colorClass}`} />
+        <h3 className="text-xl font-semibold text-white">{title}</h3>
+      </div>
+      
+      {/* 5. Substitui o <p> estático pelo <CountUp> animado */}
+      <p className={`text-4xl font-bold mb-3 ${colorClass}`}>
+        {inView ? (
+          <CountUp 
+            start={0} 
+            end={numericValue} 
+            duration={2.5} // Duração da animação em segundos
+            separator={separator} // Separador de milhar
+            prefix={prefix} // Prefixo (ex: '~')
+          />
+        ) : (
+          `${prefix}0` // Mostra '0' ou '~0' antes de animar
+        )}
+      </p>
+      
+      <p className="text-gray-400 text-sm">{description}</p>
     </div>
-    <p className={`text-4xl font-bold mb-3 ${colorClass}`}>{value}</p>
-    <p className="text-gray-400 text-sm">{description}</p>
-  </div>
-);
+  );
+};
 
 function App() {
   const [isVisible, setIsVisible] = useState(false);
@@ -97,6 +136,34 @@ function App() {
           </div>
         </div>
       </section>
+
+      {/* ==================================================================== */}
+      {/* NOVA SEÇÃO: MARQUEE (FAIXA DE ROLAGEM) */}
+      {/* ==================================================================== */}
+      <div className="py-4 bg-[#0D3A46]/70 border-t border-b border-[#4FD1C5]/30 overflow-hidden">
+        <Marquee pauseOnHover={true} speed={60}>
+          <span className="text-xl text-white font-semibold mx-16">
+            Nomeação de Todos
+          </span>
+          <span className="text-xl text-[#4FD1C5] font-bold mx-16">
+            Juntos somos mais fortes
+          </span>
+           <span className="text-xl text-white font-semibold mx-16">
+            PPDF
+          </span>
+          {/* Repetindo para dar fluidez */}
+           <span className="text-xl text-white font-semibold mx-16">
+            Nomeação de Todos
+          </span>
+          <span className="text-xl text-[#4FD1C5] font-bold mx-16">
+            Juntos somos mais fortes
+          </span>
+           <span className="text-xl text-white font-semibold mx-16">
+            PPDF
+          </span>
+        </Marquee>
+      </div>
+
 
       {/* ==================================================================== */}
       {/* SEÇÃO 1: VAGAS, NOMEAÇÕES E DISTRIBUIÇÃO OFICIAL (id="vagas") */}
