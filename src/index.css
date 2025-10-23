@@ -1,0 +1,38 @@
+/* index.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definindo variáveis CSS para cores - Nova Paleta */
+:root {
+  --background-dark: #F5F5F5; /* Branco muito suave / Cinza claro */
+  --background-light: #FFFFFF; /* Branco puro */
+  --text-primary: #333333; /* Cinza escuro */
+  --text-secondary: #555555; /* Cinza médio */
+  --accent-color: #007BFF; /* Azul profissional para destaques */
+  --border-color: #E0E0E0; /* Cinza claro para bordas */
+}
+
+/* Aplicando as variáveis no body e outros elementos */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--background-dark); /* Fundo geral claro */
+  color: var(--text-primary);
+}
+
+/* Remover quaisquer estilos de gradiente de fundo globais que conflitem */
+/* Se houver algum bg-gradient-to-r ou similar no body ou html no Tailwind, remova. */
+
+/* Exemplo de como redefinir botões para a nova paleta */
+.button-primary {
+  background-color: var(--accent-color);
+  color: var(--background-light);
+  border: none;
+}
+
+.button-outline {
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color);
+  background-color: transparent;
+}
