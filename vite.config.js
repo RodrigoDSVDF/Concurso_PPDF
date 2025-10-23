@@ -6,9 +6,12 @@ import path from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(),tailwindcss()],
-  // VVVV Mude esta linha DE VOLTA para './' VVVV
-  base: './', 
-  // ^^^^ Esta é a configuração mais robusta para GitHub Pages ^^^^
+  
+  // VVVV ESTA LINHA É CRÍTICA VVVV
+  // Deve ser o nome do seu repositório, com barras
+  base: '/Concurso_PPDF/', 
+  // ^^^^ GARANTA QUE ESTÁ ASSIM ^^^^
+  
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
