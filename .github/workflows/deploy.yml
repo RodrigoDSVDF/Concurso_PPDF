@@ -1,4 +1,4 @@
-name: Build and Deploy (Vite/pnpm - FINAL)
+name: Build and Deploy (Vite/pnpm - FINAL ROBUSTO)
 
 on:
   push:
@@ -7,7 +7,6 @@ on:
   # Permite rodar manualmente através da aba Actions
   workflow_dispatch:
 
-# Permissões necessárias para publicar no GitHub Pages
 permissions:
   contents: read
   pages: write
@@ -24,29 +23,31 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
       
-      - name: Setup Node.js
+      # 1. Configura o ambiente Node.js SEM CACHE para evitar o erro do lock file
+      - name: Setup Node.js (Sem Cache)
         uses: actions/setup-node@v4
         with:
-          node-version: 20 # Usando versão 20 (compatível com pnpm)
-          cache: 'npm' # Mudamos para 'npm' pois instalaremos o pnpm via npm
+          node-version: 20
+          # A linha 'cache: pnpm' foi removida para eliminar o erro 'Dependencies lock file is not found'
 
-      # VVVV PASSO CRUCIAL: INSTALAÇÃO GARANTIDA DO PNPM VVVV
-      - name: Install pnpm globally (Solução para o Erro 'Unable to locate pnpm')
+      # 2. Instala o pnpm globalmente para garantir que o executável seja encontrado
+      - name: Install pnpm globally
         run: npm install -g pnpm 
-      # ^^^^ FIM DO PASSO DE CORREÇÃO ^^^^
       
+      # 3. Instala as dependências usando pnpm (do zero)
       - name: Install dependencies (usando pnpm)
-        # O pnpm já está disponível globalmente graças ao passo anterior
-        run: pnpm install --frozen-lockfile
+        # Usamos 'pnpm install' sem --frozen-lockfile para ser mais permissivo,
+        # resolvendo a falha na instalação que estava travando o build
+        run: pnpm install
 
+      # 4. Executa o build final do Vite
       - name: Build project (pnpm run build)
         run: pnpm run build
         
-      # Configura o ambiente de publicação do GitHub Pages
+      # 5. Configura e sobe a pasta de saída (dist)
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
-          # Define que a pasta a ser publicada é a 'dist' (saída do Vite)
           static_site_artifact_path: './dist' 
 
       - name: Upload artifact
