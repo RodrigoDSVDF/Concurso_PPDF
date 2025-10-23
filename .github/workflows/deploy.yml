@@ -36,9 +36,9 @@ jobs:
       
       # 3. Instala as dependências usando pnpm (do zero)
       - name: Install dependencies (usando pnpm)
-        # Usamos 'pnpm install' sem --frozen-lockfile para ser mais permissivo,
-        # resolvendo a falha na instalação que estava travando o build
-        run: pnpm install
+        # Adicionado --no-frozen-lockfile para forçar o pnpm a usar
+        # o 'package.json' como fonte da verdade, resolvendo o erro OUTDATED_LOCKFILE
+        run: pnpm install --no-frozen-lockfile
 
       # 4. Executa o build final do Vite
       - name: Build project (pnpm run build)
