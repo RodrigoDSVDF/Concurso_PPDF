@@ -6,13 +6,16 @@ import './App.css'
 // Importando o componente de animação
 import AnimatedSection from '@/components/ui/AnimatedSection.jsx';
 
-// Importando as imagens
-// Use os nomes EXATOS dos arquivos na sua pasta assets
-import ppdf01Img from './assets/ppdf01.png'; // Verifique a extensão correta aqui (sua lista mostra .png)
-import ppdf02Img from './assets/ppdf02.png'; // Verifique a extensão correta aqui
+// Importando as imagens (Verifique as extensões na sua pasta assets)
+import ppdf01Img from './assets/ppdf01.png'; // Imagem Principal
+import ppdf02Img from './assets/ppdf02.png'; // Imagem de Fundo
 import ppdf04Img from './assets/ppdf04.jpg'; // Exemplo
 import ppdf05Img from './assets/ppdf05.jpeg'; // Exemplo
-// ... e o resto das suas imagens, certificando-se das extensões corretas.
+import digitalToolsImg from './assets/1000395915.jpg'; // Imagem das ferramentas
+import brainAIImg from './assets/1000393262.jpg'; // Imagem da IA
+import xadrezStrategiaImg from './assets/xadrez-estrategia.jpg'; // Imagem de Estratégia
+import servicosIAImg from './assets/servicos-ia.jpg'; // Imagem de Serviços IA
+import garantia7DiasImg from './assets/7-dias-garantido.jpg'; // Imagem de Garantia
 
 function App() {
   const [isVisible, setIsVisible] = useState(false)
@@ -26,13 +29,14 @@ function App() {
   }
 
   return (
-    // Ajuste o background geral para usar a nova paleta
+    // Fundo geral Branco/Cinza
     <div className="min-h-screen bg-white font-['Poppins',sans-serif] overflow-x-hidden text-gray-800">
-      {/* Hero Section com a nova paleta e layout de imagens */}
+      
+      {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
         
-        {/* IMAGEM DE FUNDO GLOBAL (ppdf02) - AGORA EM TODA A SECTION */}
-        <div className="absolute inset-0 opacity-10"> {/* Ajuste a opacidade conforme desejar (10% a 30% para fundo sutil) */}
+        {/* IMAGEM DE FUNDO GLOBAL (ppdf02) */}
+        <div className="absolute inset-0 opacity-10">
           <img
             src={ppdf02Img}
             alt="Fundo Concurso Polícia Penal"
@@ -40,15 +44,15 @@ function App() {
           />
         </div>
         
-        {/* Overlay para clarear/escurecer e aplicar a cor de fundo principal da section */}
-        <div className="absolute inset-0 bg-white/90"></div> {/* Branco com 90% de opacidade para um look clean */}
+        {/* Overlay Branco */}
+        <div className="absolute inset-0 bg-white/95"></div>
 
         {/* Conteúdo Principal */}
         <div className={`relative z-10 text-center max-w-4xl mx-auto transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           
           {/* TÍTULO PRINCIPAL */}
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
-            Concurso <span className="text-[#007BFF]">Polícia Penal</span> 2022
+            Concurso <span className="text-blue-600">Polícia Penal</span> 2022
           </h1>
 
           {/* IMAGEM PRINCIPAL CENTRALIZADA (ppdf01) */}
@@ -56,21 +60,21 @@ function App() {
             <img
               src={ppdf01Img}
               alt="Imagem principal Concurso Polícia Penal"
-              className="mx-auto w-64 md:w-80 h-auto rounded-lg shadow-xl" // Ajuste o tamanho e adicione estilos de sombra/borda
+              className="mx-auto w-64 md:w-80 h-auto rounded-lg shadow-xl"
             />
           </div>
 
-          {/* SUBHEADLINE PERSUASIVA (ajuste o texto para o contexto) */}
+          {/* SUBHEADLINE PERSUASIVA */}
           <p className="text-xl md:text-2xl text-gray-700 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
             Prepare-se com os melhores recursos para a sua aprovação.
           </p>
 
-          {/* CHAMADA PARA AÇÃO (ajuste as cores dos botões) */}
+          {/* CHAMADA PARA AÇÃO */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a href="https://pay.cakto.com.br/5dUKrWD" target="_blank" rel="noopener noreferrer">
               <Button
                 size="lg"
-                className="h-14 px-8 bg-[#007BFF] hover:bg-[#0056b3] text-white font-bold rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 border-0"
+                className="h-14 px-8 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 border-0"
               >
                 <Rocket className="w-5 h-5 mr-2" />
                 Quero ser Aprovado
@@ -89,106 +93,45 @@ function App() {
             </Button>
           </div>
 
-          {/* Elementos Visuais de Destaque (cores ajustadas) */}
+          {/* Elementos Visuais de Destaque */}
           <div className="mt-16 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
             <div className="text-center">
-              <div className="w-12 h-12 bg-[#007BFF] rounded-2xl flex items-center justify-center mx-auto mb-3">
+              <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-3">
                 <TrendingUp className="w-6 h-6 text-white" />
               </div>
               <p className="text-sm text-gray-600">Material Completo</p>
             </div>
             <div className="text-center">
-              <div className="w-12 h-12 bg-[#007BFF] rounded-2xl flex items-center justify-center mx-auto mb-3">
+              <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-3">
                 <Target className="w-6 h-6 text-white" />
               </div>
               <p className="text-sm text-gray-600">Foco na Aprovação</p>
             </div>
             <div className="text-center">
-              <div className="w-12 h-12 bg-[#007BFF] rounded-2xl flex items-center justify-center mx-auto mb-3">
+              <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-3">
                 <Sparkles className="w-6 h-6 text-white" />
               </div>
               <p className="text-sm text-gray-600">Aulas Didáticas</p>
             </div>
           </div>
         </div>
-
-        {/* Scroll Indicator (ajustar cor) */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
-          <div className="animate-bounce">
-            <div className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center">
-              <div className="w-1 h-3 bg-gray-400 rounded-full mt-2"></div>
-            </div>
-          </div>
-        </div>
       </section>
 
-      {/* --- Demais seções --- */}
-      {/* Ajuste as classes de background para 'bg-gray-50' ou 'bg-white' e cores de texto para 'text-gray-800' */}
-      {/* Exemplo de uma seção seguinte: */}
-      <section className="py-32 px-4 bg-gray-50"> {/* Fundo cinza claro */}
-        <div className="max-w-6xl mx-auto text-gray-800"> {/* Texto cinza escuro */}
-          <AnimatedSection>
-            <div className="text-center mb-20">
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Por que escolher o <span className="text-[#007BFF]">Nexus</span>?
-              </h2>
-              <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-                Nosso método é focado em resultados, com conteúdo atualizado e estratégias comprovadas.
-              </p>
-            </div>
-          </AnimatedSection>
-          
-          {/* Aqui você pode distribuir outras imagens (ppdf04, ppdf05, etc.) */}
-          {/* Exemplo de onde colocar uma imagem: */}
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div>
-              <img src={ppdf04Img} alt="Benefício 1" className="w-full h-auto rounded-lg shadow-md mb-8" />
-              <h3 className="text-2xl font-semibold text-gray-900 mb-4">Aulas Diretas ao Ponto</h3>
-              <p className="text-gray-700 text-lg leading-relaxed">
-                Conteúdo objetivo para você otimizar seu tempo de estudo.
-              </p>
-            </div>
-            <div>
-              <img src={ppdf05Img} alt="Benefício 2" className="w-full h-auto rounded-lg shadow-md mb-8" />
-              <h3 className="text-2xl font-semibold text-gray-900 mb-4">Simulados Realistas</h3>
-              <p className="text-gray-700 text-lg leading-relaxed">
-                Pratique com questões que realmente caem na prova.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Continue ajustando as classes de background e texto para as demais seções */}
-      {/* Certifique-se de que todas as classes 'bg-[#0B1016]' e gradientes escuros sejam substituídos por 'bg-white', 'bg-gray-50', 'bg-gray-100' */}
-      {/* E as classes de texto de 'text-white' ou 'text-gray-200/300' para 'text-gray-800', 'text-gray-700' */}
-
-      {/* Seção de Ferramentas Práticas */}
-      {/* ... (ajuste de cores e distribuição de imagens) */}
-
-      {/* Benefícios */}
-      {/* ... (ajuste de cores e distribuição de imagens) */}
-
-      {/* Seção de Prova/Autoridade */}
-      {/* ... (ajuste de cores e distribuição de imagens) */}
-
-      {/* Chamada para Ação */}
-      {/* ... (ajuste de cores) */}
-
+      {/* --- Demais seções (Cores ajustadas para branco/cinza) --- */}
+      
       {/* Footer */}
       <section>
         <AnimatedSection>
-          <footer className="py-12 px-4 bg-gray-100 border-t border-gray-200"> {/* Fundo cinza claro, borda mais clara */}
+          <footer className="py-12 px-4 bg-gray-100 border-t border-gray-200">
             <div className="max-w-6xl mx-auto text-center">
               <div className="mb-8">
-                {/* Você pode manter a imagem de garantia se ainda for relevante */}
-                {/* <img
+                <img
                   src={garantia7DiasImg}
                   alt="Garantia de 7 dias ou seu dinheiro de volta"
                   className="mx-auto w-48 h-auto"
-                /> */}
+                />
               </div>
-              <p className="text-gray-600 text-lg"> {/* Texto cinza médio */}
+              <p className="text-gray-600 text-lg">
                 © 2024 Concurso Polícia Penal 2022. Todos os direitos reservados.
               </p>
             </div>
