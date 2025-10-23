@@ -29,7 +29,7 @@ const DataCard = ({ icon: Icon, title, value, description, colorClass }) => {
 
   return (
     <div 
-      ref={ref} // 4. Atribui a referência ao 'IntersectionObserver' 
+      ref={ref} // 4. Atribui a referência ao 'IntersectionObserver'
       className={`p-6 bg-[#1C2A35]/60 border border-[#0D3A46]/50 rounded-xl transition-all duration-300 hover:border-[#4FD1C5] hover:shadow-lg ${colorClass}`}
     >
       <div className="flex items-center mb-4">
@@ -81,14 +81,14 @@ function App() {
         <div className="hidden md:block absolute bottom-20 right-20 w-96 h-96 bg-[#0D3A46]/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
         
         {/* === MODIFICAÇÃO DE VISIBILIDADE (IMAGEM) === */}
-        {/* A opacidade da imagem foi aumentada de 30 para 40 */}
         <div className="absolute inset-0 opacity-40"> 
           {/* Se a imagem ppdf02Img estiver disponível, ela será exibida */}
-          <img src={ppdf02Img} alt="Fundo" className="w-full h-full object-cover object-right"/>
+          {/* === MODIFICAÇÃO RESPONSIVA (POSIÇÃO) === */}
+          {/* object-center (para mobile) e md:object-right (para desktop) */}
+          <img src={ppdf02Img} alt="Fundo" className="w-full h-full object-cover object-center md:object-right"/>
         </div>
         
         {/* === MODIFICAÇÃO DE VISIBILIDADE (GRADIENTE) === */}
-        {/* A opacidade do gradiente foi reduzida de 90/80/90 para 70/60/70 */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#0B1016]/70 via-[#14222E]/60 to-[#0B1016]/70"></div>
         
         {/* Conteúdo Principal */}
