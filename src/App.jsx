@@ -81,15 +81,15 @@ function App() {
         <div className="hidden md:block absolute bottom-20 right-20 w-96 h-96 bg-[#0D3A46]/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
         
         {/* === MODIFICAÇÃO DE VISIBILIDADE (IMAGEM) === */}
-        {/* A opacidade da imagem foi aumentada de 20 para 30 */}
-        <div className="absolute inset-0 opacity-30">
+        {/* A opacidade da imagem foi aumentada de 30 para 40 */}
+        <div className="absolute inset-0 opacity-40"> 
           {/* Se a imagem ppdf02Img estiver disponível, ela será exibida */}
           <img src={ppdf02Img} alt="Fundo" className="w-full h-full object-cover object-right"/>
         </div>
         
         {/* === MODIFICAÇÃO DE VISIBILIDADE (GRADIENTE) === */}
-        {/* A opacidade do gradiente foi reduzida de 95/90/95 para 90/80/90 */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0B1016]/90 via-[#14222E]/80 to-[#0B1016]/90"></div>
+        {/* A opacidade do gradiente foi reduzida de 90/80/90 para 70/60/70 */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0B1016]/70 via-[#14222E]/60 to-[#0B1016]/70"></div>
         
         {/* Conteúdo Principal */}
         <div className={`relative z-10 text-center max-w-5xl mx-auto transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
@@ -144,7 +144,6 @@ function App() {
       {/* ==================================================================== */}
       {/* NOVA SEÇÃO: MARQUEE (FAIXA DE ROLAGEM) */}
       {/* ==================================================================== */}
-      {/* py-4 mudou para py-3, mx-16 mudou para mx-8, e 'uppercase' foi adicionado */}
       <div className="py-3 bg-[#0D3A46]/70 border-t border-b border-[#4FD1C5]/30 overflow-hidden">
         <Marquee pauseOnHover={true} speed={60}>
           <span className="text-xl text-white font-semibold mx-8 uppercase">
