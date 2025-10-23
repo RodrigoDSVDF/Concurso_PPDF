@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { ArrowRight, Zap, Target, Globe, Key, Rocket, BookOpen, Brain, TrendingUp, CheckCircle, Sparkles, User, Lightbulb, Search, Eye, Users, FileText, Calendar, Trophy, BarChart, Clock, Hash, Percent } from 'lucide-react';
 import './App.css';
 
-// Importando as bibliotecas novas
+// Importando as bibliotecas nova
 import Marquee from "react-fast-marquee";
 import CountUp from 'react-countup';
 import { useInView } from 'react-intersection-observer';
