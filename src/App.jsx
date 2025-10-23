@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { ArrowRight, Zap, Target, Globe, Key, Rocket, BookOpen, Brain, TrendingUp, CheckCircle, Sparkles, User, Lightbulb, Search, Eye, Users, FileText, Calendar, Trophy, BarChart, Clock, Hash, Percent } from 'lucide-react';
 import './App.css';
 
-// Importando as bibliotecas nova
+// Importando as bibliotecas novas
 import Marquee from "react-fast-marquee";
 import CountUp from 'react-countup';
 import { useInView } from 'react-intersection-observer';
@@ -85,7 +85,9 @@ function App() {
           <img src={ppdf02Img} alt="Fundo" className="w-full h-full object-cover object-right"/>
         </div>
         
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0B1016]/90 via-[#14222E]/80 to-[#0B1016]/85"></div>
+        {/* === MODIFICAÇÃO DE VISIBILIDADE FEITA AQUI === */}
+        {/* A opacidade do gradiente foi aumentada de 90/80/85 para 95/90/95 para melhor contraste */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0B1016]/95 via-[#14222E]/90 to-[#0B1016]/95"></div>
         
         {/* Conteúdo Principal */}
         <div className={`relative z-10 text-center max-w-5xl mx-auto transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
@@ -140,25 +142,27 @@ function App() {
       {/* ==================================================================== */}
       {/* NOVA SEÇÃO: MARQUEE (FAIXA DE ROLAGEM) */}
       {/* ==================================================================== */}
-      <div className="py-4 bg-[#0D3A46]/70 border-t border-b border-[#4FD1C5]/30 overflow-hidden">
+      {/* === MODIFICAÇÕES DE ESPAÇAMENTO E TEXTO FEITAS AQUI === */}
+      {/* py-4 mudou para py-3, mx-16 mudou para mx-8, e 'uppercase' foi adicionado */}
+      <div className="py-3 bg-[#0D3A46]/70 border-t border-b border-[#4FD1C5]/30 overflow-hidden">
         <Marquee pauseOnHover={true} speed={60}>
-          <span className="text-xl text-white font-semibold mx-16">
+          <span className="text-xl text-white font-semibold mx-8 uppercase">
             Nomeação de Todos
           </span>
-          <span className="text-xl text-[#4FD1C5] font-bold mx-16">
+          <span className="text-xl text-[#4FD1C5] font-bold mx-8 uppercase">
             Juntos somos mais fortes
           </span>
-           <span className="text-xl text-white font-semibold mx-16">
+           <span className="text-xl text-white font-semibold mx-8 uppercase">
             PPDF
           </span>
           {/* Repetindo para dar fluidez */}
-           <span className="text-xl text-white font-semibold mx-16">
+           <span className="text-xl text-white font-semibold mx-8 uppercase">
             Nomeação de Todos
           </span>
-          <span className="text-xl text-[#4FD1C5] font-bold mx-16">
+          <span className="text-xl text-[#4FD1C5] font-bold mx-8 uppercase">
             Juntos somos mais fortes
           </span>
-           <span className="text-xl text-white font-semibold mx-16">
+           <span className="text-xl text-white font-semibold mx-8 uppercase">
             PPDF
           </span>
         </Marquee>
