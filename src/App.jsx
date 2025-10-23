@@ -2,15 +2,14 @@ import { useState, useEffect } from 'react';
 import { ArrowRight, Zap, Target, Globe, Key, Rocket, BookOpen, Brain, TrendingUp, CheckCircle, Sparkles, User, Lightbulb, Search, Eye, Users, FileText, Calendar, Trophy, BarChart, Clock, Hash, Percent, Gavel, Award, ShieldCheck, TrendingDown, ClipboardCheck } from 'lucide-react';
 import './App.css';
 
-// Importando TODAS as imagens
-import ppdf01Img from './assets/ppdf01.png'; // Imagem Principal - mantida
-import ppdf02Img from './assets/ppdf02.png'; // Imagem de Fundo - mantida
-import ppdf04Img from './assets/ppdf04.jpg'; // Nova imagem
-import ppdf05Img from './assets/ppdf05.jpeg'; // Nova imagem
-import ppdf06Img from './assets/ppdf06.jpeg'; // Nova imagem
-import ppdf07Img from './assets/ppdf07.jpeg'; // Nova imagem
-import ppdf08Webp from './assets/ppdf08.webp'; // Nova imagem
-import ppdf09Webp from './assets/ppdf09.webp'; // Nova imagem
+// Importando APENAS as imagens .png, .jpg e .jpeg
+import ppdf01Img from './assets/ppdf01.png'; 
+import ppdf02Img from './assets/ppdf02.png'; 
+import ppdf04Img from './assets/ppdf04.jpg'; 
+import ppdf05Img from './assets/ppdf05.jpeg'; 
+import ppdf06Img from './assets/ppdf06.jpeg'; 
+import ppdf07Img from './assets/ppdf07.jpeg'; 
+// ppdf08.webp e ppdf09.webp foram desconsideradas.
 
 // Componente simples para as caixas de dados
 const DataCard = ({ icon: Icon, title, value, description, colorClass }) => (
@@ -84,7 +83,7 @@ function App() {
           {/* CHAMADA PARA AÇÃO: Navegação Informativa (Menus Maiores) */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <button
-              className="h-16 px-10 bg-gradient-to-r from-[#4FD1C5] to-[#38B2AC] text-black text-lg font-bold rounded-xl shadow-2xl transition-all duration-300 transform hover:scale-105 border-0 flex items-center justify-center" // Aumento de tamanho
+              className="h-16 px-10 bg-gradient-to-r from-[#4FD1C5] to-[#38B2AC] text-black text-lg font-bold rounded-xl shadow-2xl transition-all duration-300 transform hover:scale-105 border-0 flex items-center justify-center"
               onClick={() => scrollToSection('vagas')}
             >
               <FileText className="w-6 h-6 mr-3" />
@@ -92,7 +91,7 @@ function App() {
             </button>
             
             <button
-              className="h-16 px-10 border-2 border-[#8AB4B8] text-white text-lg font-bold rounded-xl transition-all duration-300 hover:bg-[#1C2A35] flex items-center justify-center" // Aumento de tamanho
+              className="h-16 px-10 border-2 border-[#8AB4B8] text-white text-lg font-bold rounded-xl transition-all duration-300 hover:bg-[#1C2A35] flex items-center justify-center"
               onClick={() => scrollToSection('estatisticas')}
             >
               <BarChart className="w-6 h-6 mr-3" />
@@ -114,7 +113,7 @@ function App() {
             Acompanhamento dos números oficiais, nomeações já realizadas e projeções futuras.
           </p>
 
-          <div className="grid md:grid-cols-4 gap-8 mb-12"> {/* Adicionado mb-12 para espaçamento */}
+          <div className="grid md:grid-cols-4 gap-8 mb-12">
             <DataCard
               icon={Users}
               title="Vagas Imediatas (Edital)"
@@ -148,7 +147,7 @@ function App() {
           {/* Imagem de Contexto para Vagas/Nomeações */}
           <div className="flex justify-center mb-12">
             <img 
-              src={ppdf04Img} // NOVA IMAGEM: Exemplo de imagem de posse ou grupo de aprovados
+              src={ppdf04Img}
               alt="Policiais Penais em formatura ou posse"
               className="w-full md:w-3/4 lg:w-2/3 h-auto rounded-xl shadow-lg border-2 border-[#0D3A46]"
             />
@@ -177,7 +176,7 @@ function App() {
             Dados relevantes sobre o ambiente de trabalho e a demanda por novos policiais penais no DF.
           </p>
 
-          <div className="grid md:grid-cols-3 gap-8 mb-12"> {/* Adicionado mb-12 para espaçamento */}
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
             <DataCard
                 icon={Hash}
                 title="População Carcerária (SEAPE)"
@@ -203,9 +202,9 @@ function App() {
 
           {/* Galeria de Imagens - Ilustrando a atuação da PPDF */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            <img src={ppdf05Img} alt="Policiais Penais em treinamento" className="rounded-lg shadow-md hover:scale-105 transition-transform duration-300 object-cover h-64 w-full"/> {/* NOVA IMAGEM */}
-            <img src={ppdf06Img} alt="Operação Policial Penal" className="rounded-lg shadow-md hover:scale-105 transition-transform duration-300 object-cover h-64 w-full"/> {/* NOVA IMAGEM */}
-            <img src={ppdf07Img} alt="Viaturas da Polícia Penal" className="rounded-lg shadow-md hover:scale-105 transition-transform duration-300 object-cover h-64 w-full"/> {/* NOVA IMAGEM */}
+            <img src={ppdf05Img} alt="Policiais Penais em treinamento" className="rounded-lg shadow-md hover:scale-105 transition-transform duration-300 object-cover h-64 w-full"/>
+            <img src={ppdf06Img} alt="Operação Policial Penal" className="rounded-lg shadow-md hover:scale-105 transition-transform duration-300 object-cover h-64 w-full"/>
+            <img src={ppdf07Img} alt="Viaturas da Polícia Penal" className="rounded-lg shadow-md hover:scale-105 transition-transform duration-300 object-cover h-64 w-full"/>
           </div>
 
           <div className="mt-12 text-center">
@@ -218,7 +217,7 @@ function App() {
 
       {/* ==================================================================== */}
       {/* SEÇÃO 3: ACOMPANHAMENTO DAS PRÓXIMAS NOMEAÇÕES (id="nomeacoes") */}
-      {==================================================================== */}
+      {/* ==================================================================== */}
       <section id="nomeacoes" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-white mb-4">
@@ -256,17 +255,17 @@ function App() {
               </ul>
               <button
                 className="mt-6 w-full h-12 border-2 border-[#FBBF24] text-[#FBBF24] font-bold rounded-lg transition-all duration-300 hover:bg-[#FBBF24]/10"
-                onClick={() => window.open("https://www.dodf.df.gov.br/", "_blank")} // Exemplo de link real
+                onClick={() => window.open("https://www.dodf.df.gov.br/", "_blank")}
               >
                 Acessar Diário Oficial do DF
               </button>
             </div>
           </div>
 
-          {/* Imagem de Contexto para Nomeações */}
+          {/* Imagem de Contexto para Nomeações (Reuso de imagem .jpeg) */}
           <div className="flex justify-center mt-12">
             <img 
-              src={ppdf08Webp} // NOVA IMAGEM: Exemplo de documento oficial ou publicação do DODF
+              src={ppdf05Img} // Reutilizando ppdf05Img no lugar da webp removida
               alt="Documento oficial de nomeação"
               className="w-full md:w-3/4 lg:w-2/3 h-auto rounded-xl shadow-lg border-2 border-[#0D3A46]"
             />
@@ -276,7 +275,7 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SEÇÃO 4: GALERIA ADICIONAL (Opcional - Usando as imagens restantes) */}
+      {/* SEÇÃO 4: GALERIA ADICIONAL (Opcional - Reuso da última imagem) */}
       {/* ==================================================================== */}
       <section id="galeria" className="py-20 px-4 bg-[#0B1016] border-t border-[#1C2A35]">
         <div className="max-w-6xl mx-auto">
@@ -287,7 +286,7 @@ function App() {
             Visão sobre o cotidiano e a importância do trabalho do Policial Penal do DF.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <img src={ppdf09Webp} alt="Ambiente prisional ou instalação" className="rounded-lg shadow-xl hover:scale-105 transition-transform duration-300 object-cover h-96 w-full"/> {/* NOVA IMAGEM */}
+            <img src={ppdf06Img} alt="Ambiente prisional ou instalação" className="rounded-lg shadow-xl hover:scale-105 transition-transform duration-300 object-cover h-96 w-full"/> {/* Reutilizando ppdf06Img */}
             <div className="p-8 bg-[#1C2A35]/60 border border-[#0D3A46]/50 rounded-xl flex flex-col justify-center">
                 <h3 className="text-3xl font-bold text-[#4FD1C5] mb-4">A Importância do Policial Penal</h3>
                 <p className="text-gray-300 text-lg">
