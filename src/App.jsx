@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { ArrowRight, Zap, Target, Globe, Key, Rocket, BookOpen, Brain, TrendingUp, CheckCircle, Sparkles, User, Lightbulb, Search, Eye, Users, FileText, Calendar, Trophy, BarChart, Clock } from 'lucide-react';
+import { ArrowRight, Zap, Target, Globe, Key, Rocket, BookOpen, Brain, TrendingUp, CheckCircle, Sparkles, User, Lightbulb, Search, Eye, Users, FileText, Calendar, Trophy, BarChart, Clock, Hash, Percent } from 'lucide-react';
 import './App.css';
 
-// Importando as imagens (Mantenha essas linhas)
+// Importando as imagens (Mantenha se estiver usando)
 import ppdf01Img from './assets/ppdf01.png'; // Imagem Principal
 import ppdf02Img from './assets/ppdf02.png'; // Imagem de Fundo (ou banner)
 
@@ -32,14 +32,17 @@ function App() {
   return (
     <div className="min-h-screen bg-[#0B1016] font-['Poppins',sans-serif] overflow-x-hidden">
 
-      {/* Hero Section */}
+      {/* ==================================================================== */}
+      {/* HERO SECTION */}
+      {/* ==================================================================== */}
       <section className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
         
-        {/* Elementos de fundo e overlay (mantidos para o visual escuro) */}
+        {/* Elementos de fundo e overlay */}
         <div className="hidden md:block absolute top-20 left-20 w-72 h-72 bg-[#0D3A46]/20 rounded-full blur-3xl animate-pulse"></div>
         <div className="hidden md:block absolute bottom-20 right-20 w-96 h-96 bg-[#0D3A46]/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
         
         <div className="absolute inset-0 opacity-20">
+          {/* Se a imagem ppdf02Img estiver disponível, ela será exibida */}
           <img src={ppdf02Img} alt="Fundo" className="w-full h-full object-cover object-right"/>
         </div>
         
@@ -51,16 +54,17 @@ function App() {
           {/* Badge Informativo */}
           <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#4FD1C5]/30 to-[#38B2AC]/40 border border-[#4FD1C5]/50 rounded-full text-[#4FD1C5] text-sm font-medium mb-8 backdrop-blur-sm">
             <BarChart className="w-4 h-4 mr-2" />
-            ANÁLISE DE DADOS E NOMEAÇÕES - CONCURSO PPDF 2022
+            INFORMATIVO E ACOMPANHAMENTO - CONCURSO PPDF 2022
           </div>
 
           {/* HEADLINE PRINCIPAL */}
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-            Situação Atual dos Aprovados <span className="bg-gradient-to-r from-[#4FD1C5] to-[#38B2AC] bg-clip-text text-transparent">Polícia Penal DF</span> 2022
+            Análise e Nomeações dos Aprovados <span className="bg-gradient-to-r from-[#4FD1C5] to-[#38B2AC] bg-clip-text text-transparent">Polícia Penal DF</span>
           </h1>
 
           {/* IMAGEM PRINCIPAL CENTRALIZADA */}
           <div className="mb-8">
+            {/* Se a imagem ppdf01Img estiver disponível, ela será exibida */}
             <img
               src={ppdf01Img}
               alt="Imagem Polícia Penal DF"
@@ -70,7 +74,7 @@ function App() {
 
           {/* SUBHEADLINE INFORMATIVA */}
           <p className="text-xl md:text-2xl text-gray-200 mb-12 max-w-3xl mx-auto font-light leading-relaxed">
-            Acompanhe em detalhes o quantitativo de vagas, a distribuição entre imediatas e Cadastro Reserva, e as informações mais recentes sobre as nomeações.
+            Dados consolidados sobre o certame PPDF 2022, status das convocações e estatísticas operacionais do sistema prisional do Distrito Federal.
           </p>
 
           {/* CHAMADA PARA AÇÃO: Navegação Informativa */}
@@ -80,109 +84,157 @@ function App() {
               onClick={() => scrollToSection('vagas')}
             >
               <FileText className="w-5 h-5 mr-2" />
-              Ver Detalhes das Vagas
+              Ver Detalhes do Concurso
             </button>
             
             <button
               className="h-14 px-8 border-2 border-[#8AB4B8] text-white font-bold rounded-xl transition-all duration-300 hover:bg-[#1C2A35]"
-              onClick={() => scrollToSection('nomeacoes')}
+              onClick={() => scrollToSection('estatisticas')}
             >
-              <Calendar className="w-5 h-5 mr-2" />
-              Acompanhar Nomeações
+              <BarChart className="w-5 h-5 mr-2" />
+              Ver Estatísticas PPDF
             </button>
           </div>
         </div>
-        {/* Fim do Conteúdo Hero */}
       </section>
 
       {/* ==================================================================== */}
-      {/* SEÇÃO 1: VAGAS E DISTRIBUIÇÃO OFICIAL (id="vagas") */}
+      {/* SEÇÃO 1: VAGAS, NOMEAÇÕES E DISTRIBUIÇÃO OFICIAL (id="vagas") */}
       {/* ==================================================================== */}
       <section id="vagas" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-white mb-4">
-            Quadro Oficial de Vagas (Edital PPDF 2022)
+            Análise do Concurso PPDF 2022 (Vagas e Nomeações)
           </h2>
           <p className="text-center text-gray-400 mb-12 max-w-3xl mx-auto">
-            Os números abaixo refletem a distribuição prevista no edital, separando as vagas de provimento imediato e o Cadastro Reserva.
+            Acompanhamento dos números oficiais, nomeações já realizadas e projeções futuras.
           </p>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-4 gap-8">
             <DataCard
               icon={Users}
-              title="Vagas Imediatas (Total)"
+              title="Vagas Imediatas (Edital)"
               value="400"
-              description="Vagas com provimento imediato previsto no edital para todos os cargos."
+              description="Total de vagas de provimento imediato previstas no Edital (preenchidas em diversas turmas)."
               colorClass="text-[#4FD1C5]"
             />
             <DataCard
               icon={Trophy}
-              title="Cadastro Reserva (Total)"
-              value="776"
-              description="Total de candidatos classificados no Cadastro Reserva (CR) com potencial de nomeação."
+              title="Cadastro Reserva (CR)"
+              value="779"
+              description="Candidatos classificados no CR com potencial de nomeação dentro da validade do concurso."
               colorClass="text-[#FBBF24]"
             />
-            <DataCard
-              icon={BarChart}
-              title="Total de Vagas Previstas"
-              value="1.176"
-              description="Soma de vagas imediatas mais o Cadastro Reserva para aproveitamento futuro."
+             <DataCard
+              icon={CheckCircle}
+              title="Nomeações Registradas"
+              value="~272" 
+              description="Conjunto de nomeações já publicadas no DODF (até Nov/2024 - Fonte: Artigos de Concursos)."
               colorClass="text-[#3B82F6]"
+            />
+            <DataCard
+              icon={TrendingUp}
+              title="Projeção LDO 2026"
+              value="990" 
+              description="Previsão orçamentária para nomeações de Policiais Penais do DF na Lei de Diretrizes Orçamentárias 2026."
+              colorClass="text-[#EF4444]"
+            />
+          </div>
+          
+          <div className="mt-10 p-6 bg-[#0D3A46]/70 rounded-lg border-l-4 border-[#4FD1C5] text-white">
+              <p className="font-semibold text-lg flex items-center">
+                  <Clock className="w-5 h-5 mr-2" /> Validade do Concurso
+              </p>
+              <p className="text-gray-300 mt-1">
+                  A validade do concurso de 2022 foi **prorrogada até agosto de 2027**, garantindo mais tempo para o chamamento dos candidatos do Cadastro Reserva.
+              </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ==================================================================== */}
+      {/* SEÇÃO 2: ESTATÍSTICAS OPERACIONAIS DA PPDF (id="estatisticas") */}
+      {/* ==================================================================== */}
+      <section id="estatisticas" className="py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-bold text-center text-white mb-4">
+            Estatísticas Operacionais da Polícia Penal do DF
+          </h2>
+          <p className="text-center text-gray-400 mb-12 max-w-3xl mx-auto">
+            Dados relevantes sobre o ambiente de trabalho e a demanda por novos policiais penais no DF.
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <DataCard
+                icon={Hash}
+                title="População Carcerária (SEAPE)"
+                value="~16.200"
+                description="Número total de internos (dado de 2021, mas o mais consistente para estimativa da demanda)."
+                colorClass="text-[#F97316]"
+            />
+            <DataCard
+                icon={Percent}
+                title="Déficit de Cargos"
+                value="~1.286 Vagos" 
+                description="Total de cargos vagos (julho/2023), justificando a necessidade de nomeação do CR."
+                colorClass="text-[#8B5CF6]"
+            />
+            <DataCard
+                icon={Search}
+                title="Proporção Policial/Preso"
+                value="Aprox. 1 para 9" 
+                description="Relação estimada entre o efetivo atual de policiais penais e a população carcerária do DF."
+                colorClass="text-[#EF4444]"
             />
           </div>
         </div>
       </section>
 
       {/* ==================================================================== */}
-      {/* SEÇÃO 2: ACOMPANHAMENTO DE NOMEAÇÕES (id="nomeacoes") */}
+      {/* SEÇÃO 3: ACOMPANHAMENTO DE NOMEAÇÕES (id="nomeacoes") */}
       {/* ==================================================================== */}
-      <section id="nomeacoes" className="py-20 px-4">
+      <section id="nomeacoes" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-white mb-4">
-            Acompanhamento e Status das Nomeações
+            Acompanhamento das Próximas Nomeações
           </h2>
           <p className="text-center text-gray-400 mb-12 max-w-3xl mx-auto">
-            Informações essenciais sobre os atos de nomeação, posse e o andamento do curso de formação.
+            Informações essenciais sobre os atos de nomeação, posse e o andamento dos trâmites burocráticos.
           </p>
 
           <div className="grid md:grid-cols-2 gap-8">
             
-            {/* Box 1: Última Nomeação */}
-            <div className="p-8 bg-[#1C2A35]/60 border border-[#0D3A46]/50 rounded-xl">
-              <Clock className="w-8 h-8 text-[#FBBF24] mb-4" />
+            {/* Box 1: Previsão de Chamamento */}
+            <div className="p-8 bg-[#0B1016]/80 border border-[#0D3A46]/50 rounded-xl">
+              <Clock className="w-8 h-8 text-[#4FD1C5] mb-4" />
               <h3 className="text-2xl font-semibold text-white mb-2">
-                Último Ato de Nomeação
-              </h3>
-              <p className="text-gray-300 mb-4">
-                **Última Atualização de Dados:** 22/10/2025
-              </p>
-              <p className="text-3xl font-bold text-[#FBBF24] mb-4">
-                0 Candidatos Nomeados (Última Publicação)
-              </p>
-              <p className="text-gray-400">
-                Acompanhe o Diário Oficial do Distrito Federal (DODF) para novas publicações. Geralmente, as nomeações ocorrem em lotes conforme a necessidade da SEAPE/DF e a disponibilidade orçamentária.
-              </p>
-            </div>
-
-            {/* Box 2: Próximos Passos */}
-            <div className="p-8 bg-[#1C2A35]/60 border border-[#0D3A46]/50 rounded-xl">
-              <Rocket className="w-8 h-8 text-[#4FD1C5] mb-4" />
-              <h3 className="text-2xl font-semibold text-white mb-2">
-                Próximos Marcos no Cronograma
+                Próximas Convocatórias (2025/2026)
               </h3>
               <ul className="text-gray-300 space-y-3 list-disc list-inside">
-                <li><strong className="text-white">Fase de Ingresso:</strong> Monitoramento dos trâmites administrativos pós-resultado final.</li>
-                <li><strong className="text-white">Publicação de Cronograma:</strong> Aguardando o cronograma oficial da SEAPE para o próximo Curso de Formação (se aplicável ao CR).</li>
-                <li><strong className="text-white">Validade do Concurso:</strong> Informações sobre a prorrogação da validade do certame.</li>
+                <li><strong className="text-white">LDO 2026:</strong> Previsão orçamentária para nomear até **990** novos servidores.</li>
+                <li><strong className="text-white">Despacho de Crédito:</strong> Solicitação para custear a nomeação de um novo grupo de **150** aprovados em 2025.</li>
+                <li><strong className="text-white">Decisão do TCDF:</strong> Determinação para que o GDF apresente um cronograma de nomeações em 2025.</li>
               </ul>
-              <button
-                className="mt-6 w-full h-12 border-2 border-[#4FD1C5] text-[#4FD1C5] font-bold rounded-lg transition-all duration-300 hover:bg-[#4FD1C5]/10"
-                onClick={() => alert("Simule aqui o andamento")}
-              >
-                Simulador de Posse (A Desenvolver)
-              </button>
             </div>
 
+            {/* Box 2: Links e Documentos */}
+            <div className="p-8 bg-[#0B1016]/80 border border-[#0D3A46]/50 rounded-xl">
+              <Rocket className="w-8 h-8 text-[#FBBF24] mb-4" />
+              <h3 className="text-2xl font-semibold text-white mb-2">
+                Links e Documentos Oficiais
+              </h3>
+              <ul className="text-gray-300 space-y-3 list-disc list-inside">
+                <li><strong className="text-white">DODF:</strong> Diário Oficial do Distrito Federal (fonte primária para atos de nomeação).</li>
+                <li><strong className="text-white">SEAPE/DF:</strong> Secretaria de Estado de Administração Penitenciária (acompanhamento institucional).</li>
+                <li><strong className="text-white">Instituto AOCP:</strong> Resultado final e homologação do certame.</li>
+              </ul>
+              <button
+                className="mt-6 w-full h-12 border-2 border-[#FBBF24] text-[#FBBF24] font-bold rounded-lg transition-all duration-300 hover:bg-[#FBBF24]/10"
+                onClick={() => alert("Link para o DODF será inserido aqui.")}
+              >
+                Acessar Diário Oficial
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -194,10 +246,10 @@ function App() {
         <div className="py-12 px-4 bg-[#0B1016] border-t border-[#1C2A35]">
             <div className="max-w-6xl mx-auto text-center">
               <p className="text-gray-400 text-lg">
-                © 2024 CONCURSO PPDF | Site informativo e não oficial.
+                © 2024 INFORMATIVO CONCURSO PPDF | Dados do concurso 2022.
               </p>
               <p className="text-gray-500 text-sm mt-1">
-                Acompanhamento baseado em publicações do DODF e informações públicas.
+                Site de acompanhamento baseado em publicações do DODF e relatórios públicos.
               </p>
             </div>
         </div>
