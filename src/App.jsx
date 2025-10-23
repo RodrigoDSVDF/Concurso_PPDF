@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 
-// Ícones (Lucide) - Lista completa para todas as secções
+// Ícones (Lucide) - Adicionei ChevronLeft/Right e removi X
 import { 
-  Home, Link, ChartPie, GalleryHorizontal, X, // Para Navbar e Modal
+  Home, Link, ChartPie, GalleryHorizontal, ChevronLeft, ChevronRight, // Para Navbar e Galeria
   ArrowRight, Zap, Target, Globe, Key, Rocket, BookOpen, Brain, TrendingUp, CheckCircle, Sparkles, User, Lightbulb, Search, Eye, Users, FileText, Calendar, Trophy, BarChart, Clock, Hash, Percent, AlertTriangle, LayoutGrid 
 } from 'lucide-react';
 import './App.css';
@@ -11,28 +11,27 @@ import './App.css';
 import Marquee from "react-fast-marquee";
 import CountUp from 'react-countup';
 import { useInView } from 'react-intersection-observer';
-import { motion } from 'framer-motion'; // Para animações de entrada
+import { motion } from 'framer-motion'; 
 import { 
-  BarChart as ReBarChart, // Renomeado para evitar conflito com o ícone BarChart
-  Bar, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  Legend, 
-  ResponsiveContainer, 
-  PieChart, 
-  Pie, 
-  Cell 
-} from 'recharts'; // Para os gráficos
+  BarChart as ReBarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell 
+} from 'recharts'; 
 
-// Importando as imagens
+// ====================================================================
+// IMPORTANDO TODAS AS IMAGENS DA GALERIA
+// ====================================================================
 import ppdf01Img from './assets/ppdf01.png';
 import ppdf02Img from './assets/ppdf02.png';
+// Novas imagens da sua pasta assets
+import ppdf04Img from './assets/ppdf04.jpg';
+import ppdf05Img from './assets/ppdf05.jpeg';
+import ppdf06Img from './assets/ppdf06.jpeg';
+import ppdf07Img from './assets/ppdf07.jpeg';
+import ppdf08Img from './assets/ppdf08.webp';
+import ppdf09Img from './assets/ppdf09.webp';
 
 // ====================================================================
 // COMPONENTE AUXILIAR: DataCard
-// (Reutilizado em várias secções)
+// (O mesmo que já tínhamos)
 // ====================================================================
 const DataCard = ({ icon: Icon, title, value, description, colorClass }) => {
   const { ref, inView } = useInView({
@@ -77,18 +76,44 @@ const DataCard = ({ icon: Icon, title, value, description, colorClass }) => {
 // ====================================================================
 function App() {
   const [isVisible, setIsVisible] = useState(false);
-  const [modalImage, setModalImage] = useState(null); // Estado para a galeria modal
+
+  // ====================================================================
+  // LÓGICA DA NOVA GALERIA
+  // ====================================================================
+  // 1. Array com todas as imagens importadas
+  const galleryImages = [
+    ppdf01Img, 
+    ppdf02Img, 
+    ppdf04Img, 
+    ppdf05Img, 
+    ppdf06Img, 
+    ppdf07Img, 
+    ppdf08Img, 
+    ppdf09Img
+  ];
+
+  // 2. Estado para controlar o índice da imagem atual
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // 3. Funções para navegar na galeria
+  const nextImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % galleryImages.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + galleryImages.length) % galleryImages.length);
+  };
+  // ====================================================================
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
-  // Função de Scroll Suave (agora usada pelo Navbar)
+  // Função de Scroll Suave
   const scrollToSection = (sectionId) => {
-    // Adiciona um offset de -64px (altura do navbar) para não tapar o título
     const element = document.getElementById(sectionId);
     if (element) {
-      const yOffset = -64; 
+      const yOffset = -64; // Altura do navbar
       const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({top: y, behavior: 'smooth'});
     }
@@ -99,14 +124,14 @@ function App() {
     <div className="min-h-screen bg-[#0B1016] font['Poppins',sans-serif] overflow-x-hidden">
       
       {/* ==================================================================== */}
-      {/* NAVBAR (Menu Fixo com Scroll)
+      {/* NAVBAR (Menu Fixo com Scroll) - "Gráficos" REMOVIDO
       {/* ==================================================================== */}
       <nav className="sticky top-0 z-50 w-full bg-[#0B1016]/80 backdrop-blur-md border-b border-[#1C2A35]">
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             <span 
               className="text-2xl font-bold text-white cursor-pointer" 
-              onClick={() => scrollToSection('hero')} // Leva para o topo (secção 'hero')
+              onClick={() => scrollToSection('hero')} 
             >
               PPDF<span className="text-[#4FD1C5]">.info</span>
             </span>
@@ -119,13 +144,7 @@ function App() {
                 <Home className="w-4 h-4 mr-2" />
                 Início
               </button>
-              <button 
-                onClick={() => scrollToSection('graficos')} 
-                className="flex items-center text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer"
-              >
-                <ChartPie className="w-4 h-4 mr-2" />
-                Gráficos
-              </button>
+              {/* Botão de Gráficos foi REMOVIDO daqui */}
               <button 
                 onClick={() => scrollToSection('links')} 
                 className="flex items-center text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer"
@@ -149,6 +168,7 @@ function App() {
       {/* SECÇÃO 1: HERO (ID="hero")
       {/* ==================================================================== */}
       <section id="hero" className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
+        {/* ... (Conteúdo da Hero Section sem alterações) ... */}
         <div className="hidden md:block absolute top-20 left-20 w-72 h-72 bg-[#0D3A46]/20 rounded-full blur-3xl animate-pulse"></div>
         <div className="hidden md:block absolute bottom-20 right-20 w-96 h-96 bg-[#0D3A46]/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
         <div className="absolute inset-0 opacity-40"> 
@@ -196,6 +216,7 @@ function App() {
       {/* SECÇÃO 2: MARQUEE
       {/* ==================================================================== */}
       <div className="py-3 bg-[#0D3A46]/70 border-t border-b border-[#4FD1C5]/30 overflow-hidden">
+        {/* ... (Conteúdo do Marquee sem alterações) ... */}
         <Marquee pauseOnHover={true} speed={60}>
           <span className="text-xl text-white font-semibold mx-8 uppercase">Nomeação de Todos</span>
           <span className="text-xl text-[#4FD1C5] font-bold mx-8 uppercase">Juntos somos mais fortes</span>
@@ -210,10 +231,12 @@ function App() {
       {/* SECÇÃO 3: VAGAS (ID="vagas")
       {/* ==================================================================== */}
       <section id="vagas" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
+        {/* ... (Conteúdo da Seção Vagas sem alterações) ... */}
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-white mb-4">
             Análise do Concurso PPDF 2022 (Vagas e Nomeações)
           </h2>
+          {/* ... (Resto do conteúdo da secção 'vagas') ... */}
           <p className="text-center text-gray-400 mb-12 max-w-3xl mx-auto">
             Acompanhamento dos números oficiais, nomeações já realizadas e projeções futuras.
           </p>
@@ -234,17 +257,19 @@ function App() {
       {/* SECÇÃO 4: ESTATÍSTICAS (ID="estatisticas")
       {/* ==================================================================== */}
       <section id="estatisticas" className="py-20 px-4">
+        {/* ... (Conteúdo da Seção Estatísticas sem alterações) ... */}
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-white mb-4">
             Estatísticas Operacionais da Polícia Penal do DF
           </h2>
+          {/* ... (Resto do conteúdo da secção 'estatisticas') ... */}
           <p className="text-center text-gray-400 mb-12 max-w-3xl mx-auto">
             Dados relevantes sobre o ambiente de trabalho e a demanda por novos policiais penais no DF.
           </p>
           <div className="grid md:grid-cols-3 gap-8">
             <DataCard icon={Hash} title="População Carcerária (SEAPE)" value="~16.200" description="Número total de internos (dado de 2021, mas o mais consistente para estimativa da demanda)." colorClass="text-[#F97316]" />
             <DataCard icon={Percent} title="Déficit de Cargos" value="~1.286 Vagos" description="Total de cargos vagos (julho/2023), justificando a necessidade de nomeação do CR." colorClass="text-[#8B5CF6]" />
-            <DataCard icon={Search} title="Proporção Policial/Preso" value="Aprox. 1 para 9" description="Relação estimada entre o efetivo atual de policiais penais e a população carcerária do DF." colorClass="text-[#EF4444]" />
+            <DataCard icon={Search} title="Proporção Policial/Presso" value="Aprox. 1 para 9" description="Relação estimada entre o efetivo atual de policiais penais e a população carcerária do DF." colorClass="text-[#EF4444]" />
           </div>
         </div>
       </section>
@@ -253,10 +278,12 @@ function App() {
       {/* SECÇÃO 5: NOMEAÇÕES (ID="nomeacoes")
       {/* ==================================================================== */}
       <section id="nomeacoes" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
+        {/* ... (Conteúdo da Seção Nomeações sem alterações) ... */}
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-white mb-4">
             Acompanhamento das Próximas Nomeações
           </h2>
+          {/* ... (Resto do conteúdo da secção 'nomeacoes') ... */}
           <p className="text-center text-gray-400 mb-12 max-w-3xl mx-auto">
             Informações essenciais sobre os atos de nomeação, posse e o andamento dos trâmites burocráticos.
           </p>
@@ -293,19 +320,20 @@ function App() {
       {/* SECÇÃO 6: ANÁLISE CRÍTICA (ID="analise-critica")
       {/* ==================================================================== */}
       <section id="analise-critica" className="py-20 px-4">
+        {/* ... (Conteúdo da Seção Análise Crítica sem alterações) ... */}
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
+            {/* ... (Resto do conteúdo da secção 'analise-critica') ... */}
             <h2 className="text-4xl font-bold text-center text-white mb-4">
               Análise Crítica: O Risco da Inércia
             </h2>
             <p className="text-center text-gray-400 mb-12 max-w-3xl mx-auto">
               Uma síntese do cenário atual, combinando dados, obrigações legais e o risco ético da paralisação do GDF.
             </p>
-
             <div className="p-8 bg-[#1C2A35]/60 border-t-4 border-[#EF4444] rounded-xl shadow-2xl space-y-6">
               <div className="flex items-center">
                 <AlertTriangle className="w-10 h-10 text-[#EF4444] mr-4" />
@@ -313,15 +341,12 @@ function App() {
                   O Ponto de Inflexão: Dois Pesos e Duas Medidas
                 </h3>
               </div>
-              
               <p className="text-lg text-gray-300 leading-relaxed">
                 A segurança do DF vive um paradoxo. Enquanto o Estado tem o dever <strong className="text-white">inalienável (Art. 5º da CF)</strong> de zelar pela integridade do preso, o mesmo Estado ignora os profissionais essenciais para essa tarefa. Com um défice de <strong className="text-white">1.262 cargos vagos</strong> (Jul/2023) e um orçamento já previsto na LDO 2026 para <strong className="text-white">753 nomeações</strong>, a inércia do GDF é injustificável.
               </p>
-              
               <p className="text-lg text-gray-300 leading-relaxed">
                 Esta paralisia, que se arrasta há mais de dois anos, forçou o <strong className="text-white">Tribunal de Contas (TCDF)</strong> a exigir um cronograma. Isso prova que o GDF só age sob pressão, não por planejamento. Manter o défice não é uma "economia", é uma <strong className="text-white">sabotagem da Inteligência Prisional</strong> e um convite ao colapso do sistema, como indica o aumento de <strong className="text-white">21% em mortes</strong> evitáveis nas unidades (2019-2024).
               </p>
-
               <p className="text-lg text-gray-300 leading-relaxed">
                 O mais grave é a <strong className="text-white">quebra da Boa-Fé Administrativa</strong>: o Estado treina centenas de candidatos, expondo-os a informações sensíveis e a um ambiente de risco, e depois os abandona no limbo, sem nomeação. Esta é uma <strong className="text-white">contradição ética e moral</strong>. A nomeação não é um favor; é um dever legal e um imperativo de segurança pública.
               </p>
@@ -331,9 +356,10 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 7: GRÁFICOS (ID="graficos")
+      {/* SECÇÃO 7: GRÁFICOS (ID="graficos") - MANTIDA NA PÁGINA
       {/* ==================================================================== */}
       <section id="graficos" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
+        {/* ... (Conteúdo da Seção Gráficos sem alterações) ... */}
         <div className="max-w-6xl mx-auto">
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
@@ -343,8 +369,7 @@ function App() {
           >
             Análise Gráfica do <span className="text-[#4FD1C5]">Concurso</span>
           </motion.h1>
-
-          {/* Tooltip Personalizado para Gráficos */}
+          {/* ... (Resto do conteúdo da secção 'graficos') ... */}
           {(() => {
             const CustomTooltip = ({ active, payload, label }) => {
               if (active && payload && payload.length) {
@@ -427,14 +452,15 @@ function App() {
       {/* SECÇÃO 8: LINKS ÚTEIS (ID="links")
       {/* ==================================================================== */}
       <section id="links" className="py-20 px-4">
+        {/* ... (Conteúdo da Seção Links sem alterações) ... */}
         <div className="max-w-4xl mx-auto">
           <h2 className="text-5xl font-bold text-center text-white mb-4">
             Links Úteis e Documentos
           </h2>
+          {/* ... (Resto do conteúdo da secção 'links') ... */}
           <p className="text-center text-gray-400 text-lg mb-12 max-w-2xl mx-auto">
             Acesso rápido aos documentos oficiais e portais de acompanhamento do concurso PPDF 2022.
           </p>
-
           {(() => {
             const LinkCard = ({ href, icon: Icon, title, description, iconColor }) => (
               <a 
@@ -461,44 +487,48 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 9: GALERIA (ID="galeria") - NOVA
+      {/* SECÇÃO 9: GALERIA (ID="galeria") - NOVO FORMATO
       {/* ==================================================================== */}
       <section id="galeria" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-white mb-12">
             Galeria de Imagens
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Imagem 1 */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
+          
+          <div className="relative w-full max-w-3xl mx-auto">
+            {/* Imagem Principal */}
+            <motion.img
+              key={currentImageIndex} // Força a re-renderização com animação
+              src={galleryImages[currentImageIndex]} 
+              alt={`Galeria Imagem ${currentImageIndex + 1}`} 
+              className="w-full h-auto max-h-[70vh] object-contain rounded-lg shadow-xl"
+              initial={{ opacity: 0.5, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3 }}
+            />
+
+            {/* Botão Anterior */}
+            <button
+              onClick={prevImage}
+              className="absolute top-1/2 left-0 md:-left-12 transform -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white rounded-full p-3 transition-all"
+              aria-label="Imagem Anterior"
             >
-              <img 
-                src={ppdf01Img} 
-                alt="Galeria Imagem 1" 
-                className="w-full h-auto object-cover rounded-lg shadow-lg cursor-pointer transition-all duration-300 hover:scale-105"
-                onClick={() => setModalImage(ppdf01Img)}
-              />
-            </motion.div>
-            
-            {/* Imagem 2 */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              viewport={{ once: true }}
+              <ChevronLeft size={24} />
+            </button>
+
+            {/* Botão Próximo */}
+            <button
+              onClick={nextImage}
+              className="absolute top-1/2 right-0 md:-right-12 transform -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white rounded-full p-3 transition-all"
+              aria-label="Próxima Imagem"
             >
-              <img 
-                src={ppdf02Img} 
-                alt="Galeria Imagem 2" 
-                className="w-full h-auto object-cover rounded-lg shadow-lg cursor-pointer transition-all duration-300 hover:scale-105"
-                onClick={() => setModalImage(ppdf02Img)}
-              />
-            </motion.div>
-            {/* Adicione mais imagens aqui, copiando a estrutura de motion.div */}
+              <ChevronRight size={24} />
+            </button>
+
+            {/* Contador */}
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/70 text-white text-sm px-3 py-1 rounded-full">
+              {currentImageIndex + 1} / {galleryImages.length}
+            </div>
           </div>
         </div>
       </section>
@@ -507,6 +537,7 @@ function App() {
       {/* SECÇÃO 10: FOOTER
       {/* ==================================================================== */}
       <section>
+        {/* ... (Conteúdo do Footer sem alterações) ... */}
         <div className="py-12 px-4 bg-[#0B1016] border-t border-[#1C2A35]">
             <div className="max-w-6xl mx-auto text-center">
               <p className="text-gray-400 text-lg">
@@ -519,34 +550,7 @@ function App() {
         </div>
       </section>
 
-      {/* ==================================================================== */}
-      {/* MODAL DA GALERIA (Componente flutuante)
-      {/* ==================================================================== */}
-      {modalImage && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4"
-          onClick={() => setModalImage(null)} // Fecha ao clicar no fundo
-        >
-          <button 
-            className="absolute top-4 right-4 text-white hover:text-gray-300 z-[110]"
-            onClick={() => setModalImage(null)}
-          >
-            <X size={32} />
-          </button>
-          <motion.img
-            initial={{ scale: 0.8 }}
-            animate={{ scale: 1 }}
-            src={modalImage} 
-            alt="Imagem em ecrã-cheio" 
-            className="max-w-full max-h-[90vh] rounded-lg shadow-2xl"
-            onClick={(e) => e.stopPropagation()} // Impede de fechar ao clicar na imagem
-          />
-        </motion.div>
-      )}
-
+      {/* O Modal foi REMOVIDO pois a nova galeria não o utiliza */}
     </div>
   );
 }
