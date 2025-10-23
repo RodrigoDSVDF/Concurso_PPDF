@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 
-// Ícones (Lucide) - Adicionei ChevronLeft/Right e removi X
+// Ícones (Lucide)
 import { 
-  Home, Link, ChartPie, GalleryHorizontal, ChevronLeft, ChevronRight, // Para Navbar e Galeria
+  Home, Link, ChartPie, GalleryHorizontal, ChevronLeft, ChevronRight, 
   ArrowRight, Zap, Target, Globe, Key, Rocket, BookOpen, Brain, TrendingUp, CheckCircle, Sparkles, User, Lightbulb, Search, Eye, Users, FileText, Calendar, Trophy, BarChart, Clock, Hash, Percent, AlertTriangle, LayoutGrid 
 } from 'lucide-react';
 import './App.css';
@@ -21,7 +21,6 @@ import {
 // ====================================================================
 import ppdf01Img from './assets/ppdf01.png';
 import ppdf02Img from './assets/ppdf02.png';
-// Novas imagens da sua pasta assets
 import ppdf04Img from './assets/ppdf04.jpg';
 import ppdf05Img from './assets/ppdf05.jpeg';
 import ppdf06Img from './assets/ppdf06.jpeg';
@@ -80,26 +79,14 @@ function App() {
   // ====================================================================
   // LÓGICA DA NOVA GALERIA
   // ====================================================================
-  // 1. Array com todas as imagens importadas
   const galleryImages = [
-    ppdf01Img, 
-    ppdf02Img, 
-    ppdf04Img, 
-    ppdf05Img, 
-    ppdf06Img, 
-    ppdf07Img, 
-    ppdf08Img, 
-    ppdf09Img
+    ppdf01Img, ppdf02Img, ppdf04Img, ppdf05Img, ppdf06Img, ppdf07Img, ppdf08Img, ppdf09Img
   ];
-
-  // 2. Estado para controlar o índice da imagem atual
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // 3. Funções para navegar na galeria
   const nextImage = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % galleryImages.length);
   };
-
   const prevImage = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex - 1 + galleryImages.length) % galleryImages.length);
   };
@@ -108,6 +95,28 @@ function App() {
   useEffect(() => {
     setIsVisible(true);
   }, []);
+
+  // ====================================================================
+  // NOVO: EFEITO PARA O SLIDESHOW AUTOMÁTICO
+  // ====================================================================
+  useEffect(() => {
+    // Define um temporizador que executa a cada 4 segundos
+    const timerId = setInterval(() => {
+      // Usa a forma de 'callback' do setState para avançar para a próxima imagem
+      // Isto evita a necessidade de listar 'nextImage' ou 'currentImageIndex' como dependências
+      setCurrentImageIndex((prevIndex) => 
+        (prevIndex + 1) % galleryImages.length
+      );
+    }, 4000); // 4000ms = 4 segundos
+
+    // A função de 'cleanup' (limpeza) é essencial
+    // Ela será chamada quando o componente for desmontado, parando o temporizador
+    return () => {
+      clearInterval(timerId);
+    };
+  }, [galleryImages.length]); // A única dependência é o tamanho da galeria
+  // ====================================================================
+
 
   // Função de Scroll Suave
   const scrollToSection = (sectionId) => {
@@ -123,10 +132,9 @@ function App() {
   return (
     <div className="min-h-screen bg-[#0B1016] font['Poppins',sans-serif] overflow-x-hidden">
       
-      {/* ==================================================================== */}
-      {/* NAVBAR (Menu Fixo com Scroll) - "Gráficos" REMOVIDO
-      {/* ==================================================================== */}
+      {/* NAVBAR (Menu Fixo com Scroll) - "Gráficos" REMOVIDO */}
       <nav className="sticky top-0 z-50 w-full bg-[#0B1016]/80 backdrop-blur-md border-b border-[#1C2A35]">
+        {/* ... (Conteúdo do Navbar sem alterações) ... */}
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             <span 
@@ -135,7 +143,6 @@ function App() {
             >
               PPDF<span className="text-[#4FD1C5]">.info</span>
             </span>
-            
             <div className="flex space-x-2">
               <button 
                 onClick={() => scrollToSection('hero')} 
@@ -144,7 +151,6 @@ function App() {
                 <Home className="w-4 h-4 mr-2" />
                 Início
               </button>
-              {/* Botão de Gráficos foi REMOVIDO daqui */}
               <button 
                 onClick={() => scrollToSection('links')} 
                 className="flex items-center text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer"
@@ -164,9 +170,7 @@ function App() {
         </div>
       </nav>
 
-      {/* ==================================================================== */}
-      {/* SECÇÃO 1: HERO (ID="hero")
-      {/* ==================================================================== */}
+      {/* SECÇÃO 1: HERO (ID="hero") */}
       <section id="hero" className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
         {/* ... (Conteúdo da Hero Section sem alterações) ... */}
         <div className="hidden md:block absolute top-20 left-20 w-72 h-72 bg-[#0D3A46]/20 rounded-full blur-3xl animate-pulse"></div>
@@ -212,9 +216,7 @@ function App() {
         </div>
       </section>
 
-      {/* ==================================================================== */}
-      {/* SECÇÃO 2: MARQUEE
-      {/* ==================================================================== */}
+      {/* SECÇÃO 2: MARQUEE */}
       <div className="py-3 bg-[#0D3A46]/70 border-t border-b border-[#4FD1C5]/30 overflow-hidden">
         {/* ... (Conteúdo do Marquee sem alterações) ... */}
         <Marquee pauseOnHover={true} speed={60}>
@@ -227,16 +229,13 @@ function App() {
         </Marquee>
       </div>
 
-      {/* ==================================================================== */}
-      {/* SECÇÃO 3: VAGAS (ID="vagas")
-      {/* ==================================================================== */}
+      {/* SECÇÃO 3: VAGAS (ID="vagas") */}
       <section id="vagas" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
         {/* ... (Conteúdo da Seção Vagas sem alterações) ... */}
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-white mb-4">
             Análise do Concurso PPDF 2022 (Vagas e Nomeações)
           </h2>
-          {/* ... (Resto do conteúdo da secção 'vagas') ... */}
           <p className="text-center text-gray-400 mb-12 max-w-3xl mx-auto">
             Acompanhamento dos números oficiais, nomeações já realizadas e projeções futuras.
           </p>
@@ -253,16 +252,13 @@ function App() {
         </div>
       </section>
 
-      {/* ==================================================================== */}
-      {/* SECÇÃO 4: ESTATÍSTICAS (ID="estatisticas")
-      {/* ==================================================================== */}
+      {/* SECÇÃO 4: ESTATÍSTICAS (ID="estatisticas") */}
       <section id="estatisticas" className="py-20 px-4">
         {/* ... (Conteúdo da Seção Estatísticas sem alterações) ... */}
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-white mb-4">
             Estatísticas Operacionais da Polícia Penal do DF
           </h2>
-          {/* ... (Resto do conteúdo da secção 'estatisticas') ... */}
           <p className="text-center text-gray-400 mb-12 max-w-3xl mx-auto">
             Dados relevantes sobre o ambiente de trabalho e a demanda por novos policiais penais no DF.
           </p>
@@ -274,16 +270,13 @@ function App() {
         </div>
       </section>
 
-      {/* ==================================================================== */}
-      {/* SECÇÃO 5: NOMEAÇÕES (ID="nomeacoes")
-      {/* ==================================================================== */}
+      {/* SECÇÃO 5: NOMEAÇÕES (ID="nomeacoes") */}
       <section id="nomeacoes" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
         {/* ... (Conteúdo da Seção Nomeações sem alterações) ... */}
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-white mb-4">
             Acompanhamento das Próximas Nomeações
           </h2>
-          {/* ... (Resto do conteúdo da secção 'nomeacoes') ... */}
           <p className="text-center text-gray-400 mb-12 max-w-3xl mx-auto">
             Informações essenciais sobre os atos de nomeação, posse e o andamento dos trâmites burocráticos.
           </p>
@@ -316,9 +309,7 @@ function App() {
         </div>
       </section>
 
-      {/* ==================================================================== */}
-      {/* SECÇÃO 6: ANÁLISE CRÍTICA (ID="analise-critica")
-      {/* ==================================================================== */}
+      {/* SECÇÃO 6: ANÁLISE CRÍTICA (ID="analise-critica") */}
       <section id="analise-critica" className="py-20 px-4">
         {/* ... (Conteúdo da Seção Análise Crítica sem alterações) ... */}
         <div className="max-w-4xl mx-auto">
@@ -327,7 +318,6 @@ function App() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            {/* ... (Resto do conteúdo da secção 'analise-critica') ... */}
             <h2 className="text-4xl font-bold text-center text-white mb-4">
               Análise Crítica: O Risco da Inércia
             </h2>
@@ -355,9 +345,7 @@ function App() {
         </div>
       </section>
 
-      {/* ==================================================================== */}
-      {/* SECÇÃO 7: GRÁFICOS (ID="graficos") - MANTIDA NA PÁGINA
-      {/* ==================================================================== */}
+      {/* SECÇÃO 7: GRÁFICOS (ID="graficos") */}
       <section id="graficos" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
         {/* ... (Conteúdo da Seção Gráficos sem alterações) ... */}
         <div className="max-w-6xl mx-auto">
@@ -369,7 +357,6 @@ function App() {
           >
             Análise Gráfica do <span className="text-[#4FD1C5]">Concurso</span>
           </motion.h1>
-          {/* ... (Resto do conteúdo da secção 'graficos') ... */}
           {(() => {
             const CustomTooltip = ({ active, payload, label }) => {
               if (active && payload && payload.length) {
@@ -432,7 +419,6 @@ function App() {
                     </ResponsiveContainer>
                   </motion.div>
                 </div>
-
                 <motion.div
                   initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
                   className="grid md:grid-cols-4 gap-6"
@@ -448,16 +434,13 @@ function App() {
         </div>
       </section>
 
-      {/* ==================================================================== */}
-      {/* SECÇÃO 8: LINKS ÚTEIS (ID="links")
-      {/* ==================================================================== */}
+      {/* SECÇÃO 8: LINKS ÚTEIS (ID="links") */}
       <section id="links" className="py-20 px-4">
         {/* ... (Conteúdo da Seção Links sem alterações) ... */}
         <div className="max-w-4xl mx-auto">
           <h2 className="text-5xl font-bold text-center text-white mb-4">
             Links Úteis e Documentos
           </h2>
-          {/* ... (Resto do conteúdo da secção 'links') ... */}
           <p className="text-center text-gray-400 text-lg mb-12 max-w-2xl mx-auto">
             Acesso rápido aos documentos oficiais e portais de acompanhamento do concurso PPDF 2022.
           </p>
@@ -487,7 +470,7 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 9: GALERIA (ID="galeria") - NOVO FORMATO
+      {/* SECÇÃO 9: GALERIA (ID="galeria") - NOVO FORMATO AUTOMÁTICO
       {/* ==================================================================== */}
       <section id="galeria" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
         <div className="max-w-4xl mx-auto">
@@ -533,9 +516,7 @@ function App() {
         </div>
       </section>
 
-      {/* ==================================================================== */}
-      {/* SECÇÃO 10: FOOTER
-      {/* ==================================================================== */}
+      {/* SECÇÃO 10: FOOTER */}
       <section>
         {/* ... (Conteúdo do Footer sem alterações) ... */}
         <div className="py-12 px-4 bg-[#0B1016] border-t border-[#1C2A35]">
@@ -550,7 +531,6 @@ function App() {
         </div>
       </section>
 
-      {/* O Modal foi REMOVIDO pois a nova galeria não o utiliza */}
     </div>
   );
 }
