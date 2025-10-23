@@ -29,7 +29,7 @@ const DataCard = ({ icon: Icon, title, value, description, colorClass }) => {
 
   return (
     <div 
-      ref={ref} // 4. Atribui a referência ao 'IntersectionObserver'
+      ref={ref} // 4. Atribui a referência ao 'IntersectionObserver' 
       className={`p-6 bg-[#1C2A35]/60 border border-[#0D3A46]/50 rounded-xl transition-all duration-300 hover:border-[#4FD1C5] hover:shadow-lg ${colorClass}`}
     >
       <div className="flex items-center mb-4">
