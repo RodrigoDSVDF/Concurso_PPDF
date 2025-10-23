@@ -1,33 +1,33 @@
-/* index.css */
+/* src/index.css */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definindo variáveis CSS para cores - Nova Paleta */
+/* Manter apenas o CSS global essencial e redefinir o body para o fundo escuro (se necessário) */
+
+/* Definindo variáveis CSS para CORES ESCURAS - Opcional, mas útil para consistência */
 :root {
-  --background-dark: #F5F5F5; /* Branco muito suave / Cinza claro */
-  --background-light: #FFFFFF; /* Branco puro */
-  --text-primary: #333333; /* Cinza escuro */
-  --text-secondary: #555555; /* Cinza médio */
-  --accent-color: #007BFF; /* Azul profissional para destaques */
-  --border-color: #E0E0E0; /* Cinza claro para bordas */
+  --background-dark: #0B1016; /* O fundo escuro do seu App.jsx */
+  --text-primary: #FFFFFF;    /* Texto principal branco */
+  --accent-color: #4FD1C5;    /* Cor de destaque principal (ciano) */
 }
 
-/* Aplicando as variáveis no body e outros elementos */
+/* Aplicando fontes e cores de fundo de fallback (garantindo que seja escuro) */
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: var(--background-dark); /* Fundo geral claro */
+  /* Garante que o fundo do corpo seja escuro como fallback,
+     mas o div em App.jsx com 'bg-[#0B1016]' ainda prevalece */
+  background-color: var(--background-dark);
   color: var(--text-primary);
 }
 
-/* Remover quaisquer estilos de gradiente de fundo globais que conflitem */
-/* Se houver algum bg-gradient-to-r ou similar no body ou html no Tailwind, remova. */
-
-/* Exemplo de como redefinir botões para a nova paleta */
+/* As classes button-primary e button-outline não são usadas no App.jsx,
+   mas podem ser mantidas se forem usadas em componentes futuros.
+   Vou ajustá-las para cores escuras: */
 .button-primary {
-  background-color: var(--accent-color);
-  color: var(--background-light);
+  background-color: var(--accent-color); /* Ciano */
+  color: var(--background-dark); /* Texto escuro */
   border: none;
 }
 
