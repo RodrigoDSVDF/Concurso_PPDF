@@ -1,12 +1,10 @@
-# Arquivo: .github/workflows/deploy.yml
-
 name: Build and Deploy (Vite/pnpm)
 
 on:
   push:
     branches: ["main"]
 
-  # Permite rodar manualmente
+  # Permite rodar manualmente através da aba Actions
   workflow_dispatch:
 
 # Permissões necessárias para publicar no GitHub Pages
@@ -15,6 +13,7 @@ permissions:
   pages: write
   id-token: write
 
+# Garante que apenas um deploy esteja rodando por vez
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -23,30 +22,33 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Code
         uses: actions/checkout@v4
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20 # Versão estável
-          cache: 'pnpm' # Cache para acelerar a instalação
+          cache: 'pnpm' # Configura o cache para pnpm
 
+      # PASSO CRUCIAL: Instala e configura o executável 'pnpm'
       - name: Setup pnpm
         uses: pnpm/action-setup@v3
         with:
           version: 8 # Versão do pnpm
       
-      - name: Install dependencies
+      - name: Install dependencies (usando pnpm)
+        # O --frozen-lockfile garante builds mais estáveis
         run: pnpm install --frozen-lockfile
 
       - name: Build project (pnpm run build)
         run: pnpm run build
-      
+        
+      # Configura o ambiente de publicação do GitHub Pages
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
-          # Define o diretório de artefato para a pasta 'dist' gerada pelo Vite
+          # Define que a pasta a ser publicada é a 'dist' (saída do Vite)
           static_site_artifact_path: './dist' 
 
       - name: Upload artifact
