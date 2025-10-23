@@ -1,4 +1,4 @@
-name: Build and Deploy (Vite/pnpm)
+name: Build and Deploy (Vite/pnpm - FINAL)
 
 on:
   push:
@@ -13,7 +13,6 @@ permissions:
   pages: write
   id-token: write
 
-# Garante que apenas um deploy esteja rodando por vez
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -28,17 +27,16 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20 # Versão estável
-          cache: 'pnpm' # Configura o cache para pnpm
+          node-version: 20 # Usando versão 20 (compatível com pnpm)
+          cache: 'npm' # Mudamos para 'npm' pois instalaremos o pnpm via npm
 
-      # PASSO CRUCIAL: Instala e configura o executável 'pnpm'
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 8 # Versão do pnpm
+      # VVVV PASSO CRUCIAL: INSTALAÇÃO GARANTIDA DO PNPM VVVV
+      - name: Install pnpm globally (Solução para o Erro 'Unable to locate pnpm')
+        run: npm install -g pnpm 
+      # ^^^^ FIM DO PASSO DE CORREÇÃO ^^^^
       
       - name: Install dependencies (usando pnpm)
-        # O --frozen-lockfile garante builds mais estáveis
+        # O pnpm já está disponível globalmente graças ao passo anterior
         run: pnpm install --frozen-lockfile
 
       - name: Build project (pnpm run build)
