@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-// Ícones (Lucide) - APENAS ícones seguros e já testados
+// Ícones (Lucide)
 import { 
   Home, Link, ChartPie, GalleryHorizontal, ChevronLeft, ChevronRight, ShieldCheck, Building, Repeat, // Para Navbar e nova secção
   ArrowRight, Zap, Target, Globe, Key, Rocket, BookOpen, Brain, TrendingUp, CheckCircle, Sparkles, User, Lightbulb, Search, Eye, Users, FileText, Calendar, Trophy, BarChart, Clock, Hash, Percent, AlertTriangle, LayoutGrid 
@@ -155,7 +155,6 @@ function App() {
                 <Home className="w-4 h-4 mr-2" />
                 Início
               </button>
-              {/* ÍCONE CORRIGIDO: ShieldCheck -> BarChart (ícone seguro) */}
               <button 
                 onClick={() => scrollToSection('sistema-prisional')} 
                 className="flex items-center text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer"
@@ -231,20 +230,19 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 2: MARQUEE
+      {/* SECÇÃO 2: MARQUEE - NÚMEROS ATUALIZADOS
       {/* ==================================================================== */}
       <div className="py-3 bg-[#0D3A46]/70 border-t border-b border-[#4FD1C5]/30 overflow-hidden">
-        {/* ... (Conteúdo do Marquee - com novos números) ... */}
         <Marquee pauseOnHover={true} speed={60}>
           <span className="text-xl text-white font-semibold mx-8 uppercase">1.541 Policiais Penais Formados</span>
-          <span className="text-xl text-[#4FD1C5] font-bold mx-8 uppercase">1.004 Aguardam Nomeação</span>
+          <span className="text-xl text-[#4FD1C5] font-bold mx-8 uppercase">904 Aguardam Nomeação</span>
           <span className="text-xl text-white font-semibold mx-8 uppercase">O GDF investiu e agora desperdiça</span>
           <span className="text-xl text-[#4FD1C5] font-bold mx-8 uppercase">Nomeação Já!</span>
         </Marquee>
       </div>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 3: FORMADOS vs. NOMEADOS (ID="vagas-formados") - ÍCONES CORRIGIDOS
+      {/* SECÇÃO 3: FORMADOS vs. NOMEADOS (ID="vagas-formados") - NÚMEROS ATUALIZADOS
       {/* ==================================================================== */}
       <section id="vagas-formados" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
         <div className="max-w-6xl mx-auto">
@@ -257,28 +255,28 @@ function App() {
           
           <div className="grid md:grid-cols-4 gap-8">
             <DataCard 
-              icon={Users} // Ícone seguro
+              icon={Users} 
               title="Total de Formados" 
               value="1.541" 
               description="Total de candidatos que concluíram o Curso de Formação Profissional." 
               colorClass="text-[#4FD1C5]" 
             />
             <DataCard 
-              icon={CheckCircle} // Ícone seguro (em vez de UserCheck)
+              icon={CheckCircle} 
               title="Nomeações Realizadas" 
-              value="537" 
+              value="637" 
               description="Servidores nomeados e já empossados (até a data)." 
               colorClass="text-[#3B82F6]" 
             />
             <DataCard 
-              icon={Users} // Ícone seguro (em vez de UserX)
+              icon={Users} 
               title="Formados Aguardando" 
-              value="1.004" 
-              description="Profissionais treinados pelo GDF aguardando nomeação (1541 - 537)." 
+              value="904" 
+              description="Profissionais treinados pelo GDF aguardando nomeação (1541 - 637)." 
               colorClass="text-[#FBBF24]" 
             />
             <DataCard 
-              icon={TrendingUp} // Ícone seguro
+              icon={TrendingUp} 
               title="Finais de Fila (Ampla)" 
               value="45" 
               description="Número de candidatos restantes no final da fila de ampla concorrência." 
@@ -314,11 +312,11 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 5: SISTEMA PRISIONAL (ID="sistema-prisional") - ÍCONES CORRIGIDOS
+      {/* SECÇÃO 5: SISTEMA PRISIONAL (ID="sistema-prisional")
       {/* ==================================================================== */}
       <section id="sistema-prisional" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
+        {/* ... (Conteúdo da Seção Sistema Prisional sem alterações) ... */}
         {(() => {
-          // --- (Dados da secção) ---
           const evolucaoPopulacao = [
             { ano: '2022', presos: 15181 }, { ano: '2023', presos: 15800 },
             { ano: '2024', presos: 16168 }, { ano: '2025', presos: 16384 },
@@ -348,8 +346,6 @@ function App() {
               >
                 Sistema Prisional <span className="text-[#4FD1C5]">DF</span>
               </motion.h1>
-
-              {/* Seção de Imagens e Texto */}
               <div className="grid md:grid-cols-2 gap-12 mb-16 items-center">
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
@@ -373,8 +369,6 @@ function App() {
                   </p>
                 </motion.div>
               </div>
-
-              {/* Estatísticas Principais (com DataCard) - ÍCONES CORRIGIDOS */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -382,14 +376,12 @@ function App() {
                 className="grid md:grid-cols-4 gap-6 mb-16"
               >
                 <DataCard icon={Users} title="População Carcerária" value="16.384" description="Número de internos (2025)." colorClass="text-[#F97316]" />
-                <DataCard icon={Globe} // Ícone seguro (em vez de Building)
+                <DataCard icon={Globe}
                   title="Unidades Prisionais" value="6" description="Principais complexos penitenciários." colorClass="text-[#3B82F6]" />
                 <DataCard icon={ChartPie} title="Taxa de Ocupação" value="248%" description="Superlotação do sistema." colorClass="text-[#EF4444]" />
-                <DataCard icon={AlertTriangle} // Ícone seguro (em vez de Repeat)
+                <DataCard icon={AlertTriangle}
                   title="Reincidentes" value="31,1%" description="Percentual de reincidência (2024)." colorClass="text-[#FBBF24]" />
               </motion.div>
-
-              {/* Gráfico 1: Evolução da População */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.4 }}
                 className="bg-[#1C2A35]/60 p-8 rounded-xl border border-[#0D3A46]/50 mb-12"
@@ -406,8 +398,6 @@ function App() {
                   </LineChart>
                 </ResponsiveContainer>
               </motion.div>
-
-              {/* Gráficos 2 e 3: Crimes e Reincidência */}
               <div className="grid md:grid-cols-2 gap-12 mb-16">
                 <motion.div
                   initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.5 }}
@@ -427,7 +417,6 @@ function App() {
                     </ReBarChart>
                   </ResponsiveContainer>
                 </motion.div>
-
                 <motion.div
                   initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.5 }}
                   className="bg-[#1C2A35]/60 p-8 rounded-xl border border-[#0D3A46]/50"
@@ -450,8 +439,6 @@ function App() {
                   </ResponsiveContainer>
                 </motion.div>
               </div>
-
-              {/* Gráfico 4: Capacidade vs População */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.6 }}
                 className="bg-[#1C2A35]/60 p-8 rounded-xl border border-[#0D3A46]/50 mb-12"
@@ -477,7 +464,7 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 6: NOMEAÇÕES (ID="nomeacoes") - TEXTO ATUALIZADO
+      {/* SECÇÃO 6: NOMEAÇÕES (ID="nomeacoes") - NÚMEROS ATUALIZADOS
       {/* ==================================================================== */}
       <section id="nomeacoes" className="py-20 px-4 bg-[#0B1016]">
         {/* ... (Conteúdo da Seção Nomeações - ATUALIZADO) ... */}
@@ -494,7 +481,7 @@ function App() {
               <h3 className="text-2xl font-semibold text-white mb-2">Próximas Convocatórias (2025/2026)</h3>
               <ul className="text-gray-300 space-y-3 list-disc list-inside">
                 <li><strong className="text-white">LDO 2026:</strong> Previsão orçamentária para nomear **990** novos servidores.</li>
-                <li><strong className="text-white">Profissionais Prontos:</strong> O número da LDO ainda é inferior ao total de <strong className="text-amber-400">1.004</strong> profissionais já formados que aguardam.</li>
+                <li><strong className="text-white">Profissionais Prontos:</strong> O número da LDO é próximo do total de <strong className="text-amber-400">904</strong> profissionais já formados que aguardam.</li>
                 <li><strong className="text-white">Decisão do TCDF:</strong> Determinação para que o GDF apresente um cronograma de nomeações em 2025.</li>
               </ul>
             </div>
@@ -518,7 +505,7 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 7: ANÁLISE CRÍTICA (ID="analise-critica") - TEXTO ATUALIZADO
+      {/* SECÇÃO 7: ANÁLISE CRÍTICA (ID="analise-critica") - NÚMEROS ATUALIZADOS
       {/* ==================================================================== */}
       <section id="analise-critica" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
         {/* ... (Conteúdo da Seção Análise Crítica - ATUALIZADO) ... */}
@@ -542,7 +529,7 @@ function App() {
                 </h3>
               </div>
               <p className="text-lg text-gray-300 leading-relaxed">
-                A segurança do DF vive um paradoxo. O GDF investiu milhões na formação de <strong className="text-white">1.541 Policiais Penais</strong>, mas hoje, <strong className="text-white">1.004</strong> desses profissionais (1.541 formados - 537 nomeados) estão parados, aguardando nomeação.
+                A segurança do DF vive um paradoxo. O GDF investiu milhões na formação de <strong className="text-white">1.541 Policiais Penais</strong>, mas hoje, <strong className="text-white">904</strong> desses profissionais (1.541 formados - 637 nomeados) estão parados, aguardando nomeação.
               </p>
               <p className="text-lg text-gray-300 leading-relaxed">
                 Esta inércia, que se arrasta há mais de dois anos, forçou o <strong className="text-white">Tribunal de Contas (TCDF)</strong> a exigir um cronograma. Isso prova que o GDF só age sob pressão, não por planejamento. Manter o défice de <strong className="text-white">~1.286 cargos</strong> não é "economia", é uma <strong className="text-white">sabotagem da Inteligência Prisional</strong> e um convite ao colapso.
@@ -556,7 +543,7 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 8: GRÁFICOS (ID="graficos") - DADOS ATUALIZADOS
+      {/* SECÇÃO 8: GRÁFICOS (ID="graficos") - NÚMEROS ATUALIZADOS
       {/* ==================================================================== */}
       <section id="graficos" className="py-20 px-4">
         {/* ... (Conteúdo da Seção Gráficos - ATUALIZADO) ... */}
@@ -571,12 +558,12 @@ function App() {
           </motion.h1>
           {(() => {
             const dataDistribuicao = [
-              { name: 'Nomeados', value: 537, fill: '#4FD1C5' },
-              { name: 'Formados Aguardando', value: 1004, fill: '#FBBF24' },
+              { name: 'Nomeados', value: 637, fill: '#4FD1C5' },
+              { name: 'Formados Aguardando', value: 904, fill: '#FBBF24' },
             ];
             const dataDemanda = [
               { name: 'Déficit de Cargos', Demanda: 1286, fill: '#EF4444' },
-              { name: 'Formados para Nomear', Demanda: 1004, fill: '#8B5CF6' },
+              { name: 'Formados para Nomear', Demanda: 904, fill: '#8B5CF6' },
               { name: 'Vagas LDO 2026', Demanda: 990, fill: '#F97316' },
             ];
 
@@ -625,10 +612,10 @@ function App() {
                   className="grid md:grid-cols-4 gap-6"
                 >
                   <DataCard icon={Users} title="Total de Formados" value="1.541" description="Profissionais que concluíram o CFP." colorClass="text-[#4FD1C5]" />
-                  <DataCard icon={CheckCircle} // Ícone seguro
-                    title="Nomeações Realizadas" value="537" description="Servidores já nomeados (até Nov/2024)." colorClass="text-[#3B82F6]" />
-                  <DataCard icon={Users} // Ícone seguro
-                    title="Formados Aguardando" value="1.004" description="Profissionais prontos aguardando nomeação." colorClass="text-[#FBBF24]" />
+                  <DataCard icon={CheckCircle}
+                    title="Nomeações Realizadas" value="637" description="Servidores já nomeados (até Nov/2024)." colorClass="text-[#3B82F6]" />
+                  <DataCard icon={Users}
+                    title="Formados Aguardando" value="904" description="Profissionais prontos aguardando nomeação." colorClass="text-[#FBBF24]" />
                   <DataCard icon={LayoutGrid} title="Déficit de Cargos" value="~1.286" description="Cargos vagos no sistema (Julho/2023)." colorClass="text-[#EF4444]" />
                 </motion.div>
               </>
