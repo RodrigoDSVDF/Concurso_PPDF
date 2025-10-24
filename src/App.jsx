@@ -27,6 +27,8 @@ import ppdf06Img from './assets/ppdf06.jpeg';
 import ppdf07Img from './assets/ppdf07.jpeg';
 import ppdf08Img from './assets/ppdf08.webp';
 import ppdf09Img from './assets/ppdf09.webp';
+// NOVA IMAGEM ADICIONADA:
+import ppdf12Img from './assets/ppdf12.png'; 
 
 // ====================================================================
 // COMPONENTES AUXILIARES
@@ -501,9 +503,24 @@ function App() {
           >
             O Papel Estratégico da Polícia Penal do DF
           </motion.h2>
-          <p className="text-center text-gray-400 mb-12 max-w-3xl mx-auto">
+          <p className="text-center text-gray-400 mb-8 max-w-3xl mx-auto">
             A PPDF vai além dos muros, atuando diretamente na ressocialização, inteligência criminal e diminuição da criminalidade urbana.
           </p>
+
+          {/* IMAGEM ADICIONADA AQUI */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true }}
+            className="mb-12 flex justify-center"
+          >
+            <img 
+              src={ppdf12Img} 
+              alt="Policiais Penais em Ação" 
+              className="rounded-lg shadow-xl border border-[#0D3A46]/50 max-w-full md:max-w-2xl h-auto" 
+            />
+          </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {/* Cartão 1: Agentes de Ressocialização e Cidadania */}
@@ -739,9 +756,9 @@ function App() {
             return (
               <div className="grid md:grid-cols-2 gap-6">
                 <LinkCard href="https://www.dodf.df.gov.br/" icon={FileText} title="Diário Oficial (DODF)" description="Fonte primária para todos os atos de nomeação e convocações oficiais." iconColor="text-[#3B82F6]" />
-                <LinkCard href="https://www.seape.df.gov.br/" icon={Globe} title="Portal SEAPE/DF" description="Secretaria de Estado de Administração Penitenciária do DF." colorClass="text-[#4FD1C5]" />
-                <LinkCard href="https://www.institutoaocp.org.br/" icon={BookOpen} title="Instituto AOCP" description="Página da banca organizadora com resultados e homologação." colorClass="text-[#FBBF24]" />
-                <LinkCard href="#" icon={Key} title="Assinatura Digital" description="Informações sobre como obter e usar o certificado digital para a posse." colorClass="text-[#EF4444]" />
+                <LinkCard href="https://www.seape.df.gov.br/" icon={Globe} title="Portal SEAPE/DF" description="Secretaria de Estado de Administração Penitenciária do DF." iconColor="text-[#4FD1C5]" />
+                <LinkCard href="https://www.institutoaocp.org.br/" icon={BookOpen} title="Instituto AOCP" description="Página da banca organizadora com resultados e homologação." iconColor="text-[#FBBF24]" />
+                <LinkCard href="#" icon={Key} title="Assinatura Digital" description="Informações sobre como obter e usar o certificado digital para a posse." iconColor="text-[#EF4444]" />
               </div>
             );
           })()}
