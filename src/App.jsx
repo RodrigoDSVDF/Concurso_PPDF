@@ -294,9 +294,9 @@ function App() {
             />
             <DataCard 
               icon={TrendingUp} 
-              title="Finais de Fila (Ampla)" 
-              value="45" 
-              description="Número de candidatos restantes no final da fila de ampla concorrência." 
+              title="Finais de Fila (Ampla/Cotas)" 
+              value="43" 
+              description="Número de candidatos  que possivelmente pedirão final de fila na nomeação de 600." 
               colorClass="text-[#EF4444]" 
             />
           </div>
