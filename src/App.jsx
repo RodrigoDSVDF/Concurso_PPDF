@@ -1,19 +1,19 @@
 import { useState, useEffect } from 'react';
 
-// Ícones (Lucide)
+// Ícones (Lucide) - Adicionei Building, Repeat, e ShieldCheck
 import { 
-  Home, Link, ChartPie, GalleryHorizontal, ChevronLeft, ChevronRight, 
+  Home, Link, ChartPie, GalleryHorizontal, ChevronLeft, ChevronRight, ShieldCheck, Building, Repeat, // Para Navbar e nova secção
   ArrowRight, Zap, Target, Globe, Key, Rocket, BookOpen, Brain, TrendingUp, CheckCircle, Sparkles, User, Lightbulb, Search, Eye, Users, FileText, Calendar, Trophy, BarChart, Clock, Hash, Percent, AlertTriangle, LayoutGrid 
 } from 'lucide-react';
 import './App.css';
 
-// Bibliotecas de Animação e Gráficos
+// Bibliotecas de Animação e Gráficos - Adicionei LineChart e Line
 import Marquee from "react-fast-marquee";
 import CountUp from 'react-countup';
 import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion'; 
 import { 
-  BarChart as ReBarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell 
+  BarChart as ReBarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line 
 } from 'recharts'; 
 
 // ====================================================================
@@ -29,9 +29,10 @@ import ppdf08Img from './assets/ppdf08.webp';
 import ppdf09Img from './assets/ppdf09.webp';
 
 // ====================================================================
-// COMPONENTE AUXILIAR: DataCard
-// (O mesmo que já tínhamos)
+// COMPONENTES AUXILIARES
 // ====================================================================
+
+// --- DataCard (O mesmo que já tínhamos) ---
 const DataCard = ({ icon: Icon, title, value, description, colorClass }) => {
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -69,6 +70,22 @@ const DataCard = ({ icon: Icon, title, value, description, colorClass }) => {
   );
 };
 
+// --- Tooltip Personalizado para Gráficos (Reutilizável) ---
+const CustomTooltip = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-[#0B1016] p-4 border border-[#0D3A46] rounded-lg shadow-lg">
+        <p className="label text-white font-bold">{`${label || payload[0].name}`}</p>
+        <p className="intro text-gray-300">{`${payload[0].name} : ${payload[0].value}`}</p>
+        {/* Adiciona mais linhas se o gráfico de barras tiver múltiplos valores */}
+        {payload[1] && <p className="intro text-gray-300">{`${payload[1].name} : ${payload[1].value}`}</p>}
+        {payload[2] && <p className="intro text-gray-300">{`${payload[2].name} : ${payload[2].value}`}</p>}
+      </div>
+    );
+  }
+  return null;
+};
+
 
 // ====================================================================
 // COMPONENTE PRINCIPAL: App (Página Única)
@@ -76,49 +93,35 @@ const DataCard = ({ icon: Icon, title, value, description, colorClass }) => {
 function App() {
   const [isVisible, setIsVisible] = useState(false);
 
-  // ====================================================================
-  // LÓGICA DA NOVA GALERIA
-  // ====================================================================
+  // --- Lógica da Galeria ---
   const galleryImages = [
     ppdf01Img, ppdf02Img, ppdf04Img, ppdf05Img, ppdf06Img, ppdf07Img, ppdf08Img, ppdf09Img
   ];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
   const nextImage = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % galleryImages.length);
   };
   const prevImage = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex - 1 + galleryImages.length) % galleryImages.length);
   };
-  // ====================================================================
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
-  // ====================================================================
-  // NOVO: EFEITO PARA O SLIDESHOW AUTOMÁTICO
-  // ====================================================================
+  // --- Efeito para Slideshow Automático ---
   useEffect(() => {
-    // Define um temporizador que executa a cada 4 segundos
     const timerId = setInterval(() => {
-      // Usa a forma de 'callback' do setState para avançar para a próxima imagem
-      // Isto evita a necessidade de listar 'nextImage' ou 'currentImageIndex' como dependências
       setCurrentImageIndex((prevIndex) => 
         (prevIndex + 1) % galleryImages.length
       );
-    }, 4000); // 4000ms = 4 segundos
-
-    // A função de 'cleanup' (limpeza) é essencial
-    // Ela será chamada quando o componente for desmontado, parando o temporizador
+    }, 4000); // 4 segundos
     return () => {
       clearInterval(timerId);
     };
-  }, [galleryImages.length]); // A única dependência é o tamanho da galeria
-  // ====================================================================
+  }, [galleryImages.length]); 
 
-
-  // Função de Scroll Suave
+  // --- Função de Scroll Suave ---
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -132,9 +135,10 @@ function App() {
   return (
     <div className="min-h-screen bg-[#0B1016] font['Poppins',sans-serif] overflow-x-hidden">
       
-      {/* NAVBAR (Menu Fixo com Scroll) - "Gráficos" REMOVIDO */}
+      {/* ==================================================================== */}
+      {/* NAVBAR (Menu Fixo com Scroll) - "Sistema" ADICIONADO
+      {/* ==================================================================== */}
       <nav className="sticky top-0 z-50 w-full bg-[#0B1016]/80 backdrop-blur-md border-b border-[#1C2A35]">
-        {/* ... (Conteúdo do Navbar sem alterações) ... */}
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             <span 
@@ -143,6 +147,7 @@ function App() {
             >
               PPDF<span className="text-[#4FD1C5]">.info</span>
             </span>
+            
             <div className="flex space-x-2">
               <button 
                 onClick={() => scrollToSection('hero')} 
@@ -150,6 +155,14 @@ function App() {
               >
                 <Home className="w-4 h-4 mr-2" />
                 Início
+              </button>
+              {/* NOVO BOTÃO "SISTEMA" */}
+              <button 
+                onClick={() => scrollToSection('sistema-prisional')} 
+                className="flex items-center text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer"
+              >
+                <ShieldCheck className="w-4 h-4 mr-2" />
+                Sistema
               </button>
               <button 
                 onClick={() => scrollToSection('links')} 
@@ -170,7 +183,9 @@ function App() {
         </div>
       </nav>
 
-      {/* SECÇÃO 1: HERO (ID="hero") */}
+      {/* ==================================================================== */}
+      {/* SECÇÃO 1: HERO (ID="hero")
+      {/* ==================================================================== */}
       <section id="hero" className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
         {/* ... (Conteúdo da Hero Section sem alterações) ... */}
         <div className="hidden md:block absolute top-20 left-20 w-72 h-72 bg-[#0D3A46]/20 rounded-full blur-3xl animate-pulse"></div>
@@ -216,7 +231,9 @@ function App() {
         </div>
       </section>
 
-      {/* SECÇÃO 2: MARQUEE */}
+      {/* ==================================================================== */}
+      {/* SECÇÃO 2: MARQUEE
+      {/* ==================================================================== */}
       <div className="py-3 bg-[#0D3A46]/70 border-t border-b border-[#4FD1C5]/30 overflow-hidden">
         {/* ... (Conteúdo do Marquee sem alterações) ... */}
         <Marquee pauseOnHover={true} speed={60}>
@@ -229,7 +246,9 @@ function App() {
         </Marquee>
       </div>
 
-      {/* SECÇÃO 3: VAGAS (ID="vagas") */}
+      {/* ==================================================================== */}
+      {/* SECÇÃO 3: VAGAS (ID="vagas")
+      {/* ==================================================================== */}
       <section id="vagas" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
         {/* ... (Conteúdo da Seção Vagas sem alterações) ... */}
         <div className="max-w-6xl mx-auto">
@@ -252,7 +271,9 @@ function App() {
         </div>
       </section>
 
-      {/* SECÇÃO 4: ESTATÍSTICAS (ID="estatisticas") */}
+      {/* ==================================================================== */}
+      {/* SECÇÃO 4: ESTATÍSTICAS (ID="estatisticas")
+      {/* ==================================================================== */}
       <section id="estatisticas" className="py-20 px-4">
         {/* ... (Conteúdo da Seção Estatísticas sem alterações) ... */}
         <div className="max-w-6xl mx-auto">
@@ -270,8 +291,171 @@ function App() {
         </div>
       </section>
 
-      {/* SECÇÃO 5: NOMEAÇÕES (ID="nomeacoes") */}
-      <section id="nomeacoes" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
+      {/* ==================================================================== */}
+      {/* NOVA SECÇÃO 5: SISTEMA PRISIONAL (ID="sistema-prisional")
+      {/* ==================================================================== */}
+      <section id="sistema-prisional" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
+        {(() => {
+          // --- Dados para a nova secção ---
+          const evolucaoPopulacao = [
+            { ano: '2022', presos: 15181 }, { ano: '2023', presos: 15800 },
+            { ano: '2024', presos: 16168 }, { ano: '2025', presos: 16384 },
+          ];
+          const crimesComuns = [
+            { crime: 'Roubo', '2022': 8457, '2023': 10155, '2024': 11806 },
+            { crime: 'Tráfico', '2022': 5183, '2023': 6346, '2024': 6972 },
+            { crime: 'Homicídio', '2022': 3316, '2023': 4198, '2024': 5097 },
+          ];
+          const reincidenciaData = [
+            { name: 'Primários', value: 11361, fill: '#4FD1C5' },
+            { name: 'Reincidentes', value: 5023, fill: '#FBBF24' },
+          ];
+          const capacidadeData = [
+            { categoria: 'Vagas Disponíveis', quantidade: 6605 },
+            { categoria: 'População Atual', quantidade: 16384 },
+            { categoria: 'Déficit de Vagas', quantidade: 9779 },
+          ];
+          
+          return (
+            <div className="max-w-6xl mx-auto">
+              <motion.h1
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="text-5xl font-bold text-white mb-12 text-center"
+              >
+                Sistema Prisional <span className="text-[#4FD1C5]">DF</span>
+              </motion.h1>
+
+              {/* Seção de Imagens e Texto */}
+              <div className="grid md:grid-cols-2 gap-12 mb-16 items-center">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                  <img src={ppdf08Img} alt="Sistema Prisional" className="rounded-lg border border-[#0D3A46]/50 shadow-lg" />
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="flex flex-col justify-center"
+                >
+                  <h2 className="text-3xl font-bold text-white mb-6">Estrutura e Funcionamento</h2>
+                  <p className="text-gray-300 mb-4 leading-relaxed">
+                    O sistema prisional do Distrito Federal é responsável pela custódia, segurança e ressocialização de pessoas privadas de liberdade. A Polícia Penal é fundamental para manter a ordem e a segurança dentro das unidades prisionais.
+                  </p>
+                  <p className="text-gray-300 leading-relaxed">
+                    Os profissionais trabalham em turnos, garantindo vigilância contínua e cumprimento das normas de segurança estabelecidas pela legislação penitenciária.
+                  </p>
+                </motion.div>
+              </div>
+
+              {/* Estatísticas Principais (com DataCard) */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="grid md:grid-cols-4 gap-6 mb-16"
+              >
+                <DataCard icon={Users} title="População Carcerária" value="16.384" description="Número de internos (2025)." colorClass="text-[#F97316]" />
+                <DataCard icon={Building} title="Unidades Prisionais" value="6" description="Principais complexos penitenciários." colorClass="text-[#3B82F6]" />
+                <DataCard icon={ChartPie} title="Taxa de Ocupação" value="248%" description="Superlotação do sistema." colorClass="text-[#EF4444]" />
+                <DataCard icon={Repeat} title="Reincidentes" value="31,1%" description="Percentual de reincidência (2024)." colorClass="text-[#FBBF24]" />
+              </motion.div>
+
+              {/* Gráfico 1: Evolução da População */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.4 }}
+                className="bg-[#1C2A35]/60 p-8 rounded-xl border border-[#0D3A46]/50 mb-12"
+              >
+                <h2 className="text-2xl font-bold text-white mb-6 text-center">Evolução da População Carcerária (2022-2025)</h2>
+                <ResponsiveContainer width="100%" height={300}>
+                  <LineChart data={evolucaoPopulacao}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#0D3A46" />
+                    <XAxis dataKey="ano" stroke="#8AB4B8" />
+                    <YAxis stroke="#8AB4B8" />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Legend wrapperStyle={{ color: '#8AB4B8' }} />
+                    <Line type="monotone" dataKey="presos" stroke="#4FD1C5" strokeWidth={3} name="Número de Presos" />
+                  </LineChart>
+                </ResponsiveContainer>
+              </motion.div>
+
+              {/* Gráficos 2 e 3: Crimes e Reincidência */}
+              <div className="grid md:grid-cols-2 gap-12 mb-16">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.5 }}
+                  className="bg-[#1C2A35]/60 p-8 rounded-xl border border-[#0D3A46]/50"
+                >
+                  <h2 className="text-2xl font-bold text-white mb-6 text-center">Principais Crimes (2022-2024)</h2>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <ReBarChart data={crimesComuns}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#0D3A46" />
+                      <XAxis dataKey="crime" stroke="#8AB4B8" fontSize={12} />
+                      <YAxis stroke="#8AB4B8" />
+                      <Tooltip content={<CustomTooltip />} />
+                      <Legend wrapperStyle={{ color: '#8AB4B8' }} />
+                      <Bar dataKey="2022" fill="#3B82F6" name="2022" />
+                      <Bar dataKey="2023" fill="#8B5CF6" name="2023" />
+                      <Bar dataKey="2024" fill="#4FD1C5" name="2024" />
+                    </ReBarChart>
+                  </ResponsiveContainer>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.5 }}
+                  className="bg-[#1C2A35]/60 p-8 rounded-xl border border-[#0D3A46]/50"
+                >
+                  <h2 className="text-2xl font-bold text-white mb-6 text-center">Primários vs Reincidentes (2024)</h2>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <PieChart>
+                      <Pie
+                        data={reincidenciaData} cx="50%" cy="50%" labelLine={false}
+                        label={({ name, percent }) => `${name} (${(percent * 100).toFixed(1)}%)`}
+                        outerRadius={110} fill="#8884d8" dataKey="value"
+                        stroke="#0B1016" strokeWidth={2}
+                      >
+                        {reincidenciaData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.fill} />
+                        ))}
+                      </Pie>
+                      <Tooltip content={<CustomTooltip />} />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </motion.div>
+              </div>
+
+              {/* Gráfico 4: Capacidade vs População */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.6 }}
+                className="bg-[#1C2A35]/60 p-8 rounded-xl border border-[#0D3A46]/50 mb-12"
+              >
+                <h2 className="text-2xl font-bold text-white mb-6 text-center">Capacidade vs População Atual</h2>
+                <ResponsiveContainer width="100%" height={300}>
+                  <ReBarChart data={capacidadeData}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#0D3A46" />
+                    <XAxis dataKey="categoria" stroke="#8AB4B8" />
+                    <YAxis stroke="#8AB4B8" />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Legend wrapperStyle={{ color: '#8AB4B8' }} />
+                    <Bar dataKey="quantidade" fill="#EF4444" name="Quantidade" />
+                  </ReBarChart>
+                </ResponsiveContainer>
+                <p className="text-gray-300 mt-4 text-center">
+                  O sistema prisional do DF opera com <span className="text-white font-bold">248% de ocupação</span>, evidenciando a superlotação crítica.
+                </p>
+              </motion.div>
+            </div>
+          );
+        })()}
+      </section>
+
+      {/* ==================================================================== */}
+      {/* SECÇÃO 6: NOMEAÇÕES (ID="nomeacoes")
+      {/* ==================================================================== */}
+      <section id="nomeacoes" className="py-20 px-4 bg-[#0B1016]">
         {/* ... (Conteúdo da Seção Nomeações sem alterações) ... */}
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-white mb-4">
@@ -281,7 +465,7 @@ function App() {
             Informações essenciais sobre os atos de nomeação, posse e o andamento dos trâmites burocráticos.
           </p>
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="p-8 bg-[#0B1016]/80 border border-[#0D3A46]/50 rounded-xl">
+            <div className="p-8 bg-[#1C2A35]/60 border border-[#0D3A46]/50 rounded-xl">
               <Clock className="w-8 h-8 text-[#4FD1C5] mb-4" />
               <h3 className="text-2xl font-semibold text-white mb-2">Próximas Convocatórias (2025/2026)</h3>
               <ul className="text-gray-300 space-y-3 list-disc list-inside">
@@ -290,7 +474,7 @@ function App() {
                 <li><strong className="text-white">Decisão do TCDF:</strong> Determinação para que o GDF apresente um cronograma de nomeações em 2025.</li>
               </ul>
             </div>
-            <div className="p-8 bg-[#0B1016]/80 border border-[#0D3A46]/50 rounded-xl">
+            <div className="p-8 bg-[#1C2A35]/60 border border-[#0D3A46]/50 rounded-xl">
               <Rocket className="w-8 h-8 text-[#FBBF24] mb-4" />
               <h3 className="text-2xl font-semibold text-white mb-2">Links e Documentos Oficiais</h3>
               <ul className="text-gray-300 space-y-3 list-disc list-inside">
@@ -309,8 +493,10 @@ function App() {
         </div>
       </section>
 
-      {/* SECÇÃO 6: ANÁLISE CRÍTICA (ID="analise-critica") */}
-      <section id="analise-critica" className="py-20 px-4">
+      {/* ==================================================================== */}
+      {/* SECÇÃO 7: ANÁLISE CRÍTICA (ID="analise-critica")
+      {/* ==================================================================== */}
+      <section id="analise-critica" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
         {/* ... (Conteúdo da Seção Análise Crítica sem alterações) ... */}
         <div className="max-w-4xl mx-auto">
           <motion.div
@@ -345,8 +531,10 @@ function App() {
         </div>
       </section>
 
-      {/* SECÇÃO 7: GRÁFICOS (ID="graficos") */}
-      <section id="graficos" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
+      {/* ==================================================================== */}
+      {/* SECÇÃO 8: GRÁFICOS (ID="graficos")
+      {/* ==================================================================== */}
+      <section id="graficos" className="py-20 px-4">
         {/* ... (Conteúdo da Seção Gráficos sem alterações) ... */}
         <div className="max-w-6xl mx-auto">
           <motion.h1
@@ -358,18 +546,6 @@ function App() {
             Análise Gráfica do <span className="text-[#4FD1C5]">Concurso</span>
           </motion.h1>
           {(() => {
-            const CustomTooltip = ({ active, payload, label }) => {
-              if (active && payload && payload.length) {
-                return (
-                  <div className="bg-[#0B1016] p-4 border border-[#0D3A46] rounded-lg shadow-lg">
-                    <p className="label text-white font-bold">{`${label || payload[0].name}`}</p>
-                    <p className="intro text-gray-300">{`Valor : ${payload[0].value}`}</p>
-                  </div>
-                );
-              }
-              return null;
-            };
-
             const dataDistribuicao = [
               { name: 'Nomeados', value: 272, fill: '#4FD1C5' },
               { name: 'Aguardando Nomeação (CR + Vagas)', value: 907, fill: '#FBBF24' },
@@ -434,8 +610,10 @@ function App() {
         </div>
       </section>
 
-      {/* SECÇÃO 8: LINKS ÚTEIS (ID="links") */}
-      <section id="links" className="py-20 px-4">
+      {/* ==================================================================== */}
+      {/* SECÇÃO 9: LINKS ÚTEIS (ID="links")
+      {/* ==================================================================== */}
+      <section id="links" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
         {/* ... (Conteúdo da Seção Links sem alterações) ... */}
         <div className="max-w-4xl mx-auto">
           <h2 className="text-5xl font-bold text-center text-white mb-4">
@@ -470,18 +648,17 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 9: GALERIA (ID="galeria") - NOVO FORMATO AUTOMÁTICO
+      {/* SECÇÃO 10: GALERIA (ID="galeria")
       {/* ==================================================================== */}
-      <section id="galeria" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
+      <section id="galeria" className="py-20 px-4">
+        {/* ... (Conteúdo da Seção Galeria sem alterações) ... */}
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-white mb-12">
             Galeria de Imagens
           </h2>
-          
           <div className="relative w-full max-w-3xl mx-auto">
-            {/* Imagem Principal */}
             <motion.img
-              key={currentImageIndex} // Força a re-renderização com animação
+              key={currentImageIndex} 
               src={galleryImages[currentImageIndex]} 
               alt={`Galeria Imagem ${currentImageIndex + 1}`} 
               className="w-full h-auto max-h-[70vh] object-contain rounded-lg shadow-xl"
@@ -489,8 +666,6 @@ function App() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3 }}
             />
-
-            {/* Botão Anterior */}
             <button
               onClick={prevImage}
               className="absolute top-1/2 left-0 md:-left-12 transform -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white rounded-full p-3 transition-all"
@@ -498,8 +673,6 @@ function App() {
             >
               <ChevronLeft size={24} />
             </button>
-
-            {/* Botão Próximo */}
             <button
               onClick={nextImage}
               className="absolute top-1/2 right-0 md:-right-12 transform -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white rounded-full p-3 transition-all"
@@ -507,8 +680,6 @@ function App() {
             >
               <ChevronRight size={24} />
             </button>
-
-            {/* Contador */}
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/70 text-white text-sm px-3 py-1 rounded-full">
               {currentImageIndex + 1} / {galleryImages.length}
             </div>
@@ -516,7 +687,9 @@ function App() {
         </div>
       </section>
 
-      {/* SECÇÃO 10: FOOTER */}
+      {/* ==================================================================== */}
+      {/* SECÇÃO 11: FOOTER
+      {/* ==================================================================== */}
       <section>
         {/* ... (Conteúdo do Footer sem alterações) ... */}
         <div className="py-12 px-4 bg-[#0B1016] border-t border-[#1C2A35]">
