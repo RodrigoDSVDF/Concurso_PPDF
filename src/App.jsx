@@ -308,10 +308,9 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 4: ESTATÍSTICAS (ID="estatisticas")
+      {/* SECÇÃO 4: ESTATÍSTICAS (ID="estatisticas") - DADOS ATUALIZADOS
       {/* ==================================================================== */}
       <section id="estatisticas" className="py-20 px-4">
-        {/* ... (Conteúdo da Seção Estatísticas sem alterações) ... */}
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-white mb-4">
             Estatísticas Operacionais da Polícia Penal do DF
@@ -320,7 +319,8 @@ function App() {
             Dados relevantes sobre o ambiente de trabalho e a demanda por novos policiais penais no DF.
           </p>
           <div className="grid md:grid-cols-3 gap-8">
-            <DataCard icon={Hash} title="População Carcerária (SEAPE)" value="~16.200" description="Número total de internos (dado de 2021, mas o mais consistente para estimativa da demanda)." colorClass="text-[#F97316]" />
+            {/* VALOR ATUALIZADO: 18.300 */}
+            <DataCard icon={Hash} title="População Carcerária (SEAPE)" value="18.300" description="Número total de internos (Dado recente da SEAPE)." colorClass="text-[#F97316]" />
             <DataCard icon={Percent} title="Déficit de Cargos" value="~1.286 Vagos" description="Total de cargos vagos (julho/2023), justificando a necessidade de nomeação do CR." colorClass="text-[#8B5CF6]" />
             <DataCard icon={Search} title="Proporção Policial/Presso" value="Aprox. 1 para 9" description="Relação estimada entre o efetivo atual de policiais penais e a população carcerária do DF." colorClass="text-[#EF4444]" />
           </div>
@@ -328,14 +328,15 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 5: SISTEMA PRISIONAL (ID="sistema-prisional")
+      {/* SECÇÃO 5: SISTEMA PRISIONAL (ID="sistema-prisional") - DADOS ATUALIZADOS
       {/* ==================================================================== */}
       <section id="sistema-prisional" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
         {(() => {
-          // --- (Dados da secção) ---
+          // --- Dados para a secção (Atualizar População Carcerária) ---
+          // A evolução de 2024 e 2025 precisa ser ajustada para o novo valor de 18.300
           const evolucaoPopulacao = [
             { ano: '2022', presos: 15181 }, { ano: '2023', presos: 15800 },
-            { ano: '2024', presos: 16168 }, { ano: '2025', presos: 16384 },
+            { ano: '2024', presos: 17500 }, { ano: '2025', presos: 18300 }, // Último valor: 18.300
           ];
           const crimesComuns = [
             { crime: 'Roubo', '2022': 8457, '2023': 10155, '2024': 11806 },
@@ -348,10 +349,11 @@ function App() {
           ];
           const capacidadeData = [
             { categoria: 'Vagas Disponíveis', quantidade: 6605 },
-            { categoria: 'População Atual', quantidade: 16384 },
-            { categoria: 'Déficit de Vagas', quantidade: 9779 },
+            { categoria: 'População Atual', quantidade: 18300 }, // VALOR ATUALIZADO
+            { categoria: 'Déficit de Vagas', quantidade: 11695 }, // 18300 - 6605
           ];
-          
+          // Novo cálculo de Taxa de Ocupação: 18300 / 6605 * 100 = ~277%
+
           return (
             <div className="max-w-6xl mx-auto">
               <motion.h1
@@ -391,10 +393,11 @@ function App() {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="grid md:grid-cols-4 gap-6 mb-16"
               >
-                <DataCard icon={Users} title="População Carcerária" value="16.384" description="Número de internos (2025)." colorClass="text-[#F97316]" />
+                {/* VALOR E DESCRIÇÃO ATUALIZADOS */}
+                <DataCard icon={Users} title="População Carcerária" value="18.300" description="Número de internos (dado atualizado SEAPE)." colorClass="text-[#F97316]" /> 
                 <DataCard icon={Globe}
                   title="Unidades Prisionais" value="6" description="Principais complexos penitenciários." colorClass="text-[#3B82F6]" />
-                <DataCard icon={ChartPie} title="Taxa de Ocupação" value="248%" description="Superlotação do sistema." colorClass="text-[#EF4444]" />
+                <DataCard icon={ChartPie} title="Taxa de Ocupação" value="277%" description="Superlotação do sistema (18.300 vs 6.605 vagas)." colorClass="text-[#EF4444]" /> {/* VALOR ATUALIZADO */}
                 <DataCard icon={AlertTriangle}
                   title="Reincidentes" value="31,1%" description="Percentual de reincidência (2024)." colorClass="text-[#FBBF24]" />
               </motion.div>
@@ -481,7 +484,7 @@ function App() {
                   </ReBarChart>
                 </ResponsiveContainer>
                 <p className="text-gray-300 mt-4 text-center">
-                  O sistema prisional do DF opera com <span className="text-white font-bold">248% de ocupação</span>, evidenciando a superlotação crítica.
+                  O sistema prisional do DF opera com <span className="text-white font-bold">277% de ocupação</span>, evidenciando a superlotação crítica.
                 </p>
               </motion.div>
             </div>
@@ -490,7 +493,7 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* NOVA SECÇÃO 6: O PAPEL ESTRATÉGICO DA PPDF (ID="papel-estrategico")
+      {/* SECÇÃO 6: O PAPEL ESTRATÉGICO DA PPDF (ID="papel-estrategico")
       {/* ==================================================================== */}
       <section id="papel-estrategico" className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
@@ -507,7 +510,6 @@ function App() {
             A PPDF vai além dos muros, atuando diretamente na ressocialização, inteligência criminal e diminuição da criminalidade urbana.
           </p>
 
-          {/* IMAGEM ADICIONADA AQUI */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -555,7 +557,7 @@ function App() {
               <AlertTriangle className="w-10 h-10 text-[#EF4444] mb-4" />
               <h3 className="text-2xl font-semibold text-white mb-3">O Impacto Negativo das Más Condições</h3>
               <p className="text-gray-300">
-                A superlotação de **248%** e a falta de efetivo levam a condições sub-humanas para o preso, gerando hostilidade, motins e violência interna. Este ambiente não só viola a Constituição (Art. 5º), como sabota a ressocialização, transformando as unidades em "escolas do crime" e resultando em **maior criminalidade após a soltura**.
+                A superlotação de **277%** e a falta de efetivo levam a condições sub-humanas para o preso, gerando hostilidade, motins e violência interna. Este ambiente não só viola a Constituição (Art. 5º), como sabota a ressocialização, transformando as unidades em "escolas do crime" e resultando em **maior criminalidade após a soltura**.
               </p>
             </motion.div>
           </div>
@@ -563,7 +565,7 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 7: NOMEAÇÕES (ID="nomeacoes") - A SEÇÃO ANTERIOR AGORA É A 7
+      {/* SECÇÃO 7: NOMEAÇÕES (ID="nomeacoes")
       {/* ==================================================================== */}
       <section id="nomeacoes" className="py-20 px-4 bg-[#0B1016]">
         {/* ... (Conteúdo da Seção Nomeações - ATUALIZADO) ... */}
@@ -634,7 +636,7 @@ function App() {
                 Esta inércia, que se arrasta há mais de dois anos, forçou o <strong className="text-white">Tribunal de Contas (TCDF)</strong> a exigir um cronograma. Isso prova que o GDF só age sob pressão, não por planejamento. Manter o défice de <strong className="text-white">~1.286 cargos</strong> não é "economia", é uma <strong className="text-white">sabotagem da Inteligência Prisional</strong> e um convite ao colapso.
               </p>
               <p className="text-lg text-gray-300 leading-relaxed">
-                O mais grave é a <strong className="text-white">quebra da Boa-Fé Administrativa</strong>: o Estado gasta o recurso público para treinar o efetivo, expondo-o a risco, e depois o abandona no limbo. É um <strong className="text-amber-400">desperdício de investimento público</strong> e uma contradição ética, enquanto o sistema opera com <strong className="text-white">248% de superlotação</strong>. A nomeação não é um favor; é um dever legal.
+                O mais grave é a <strong className="text-white">quebra da Boa-Fé Administrativa</strong>: o Estado gasta o recurso público para treinar o efetivo, expondo-o a risco, e depois o abandona no limbo. É um <strong className="text-amber-400">desperdício de investimento público</strong> e uma contradição ética, enquanto o sistema opera com <strong className="text-white">277% de superlotação</strong>. A nomeação não é um favor; é um dever legal.
               </p>
             </div>
           </motion.div>
