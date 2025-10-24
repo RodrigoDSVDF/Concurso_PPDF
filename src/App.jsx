@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 // Ícones (Lucide)
 import { 
-  Home, Link, ChartPie, GalleryHorizontal, ChevronLeft, ChevronRight, ShieldCheck, Building, Repeat,
+  Home, Link, ChartPie, GalleryHorizontal, ChevronLeft, ChevronRight, //ShieldCheck, Building, Repeat,
   ArrowRight, Zap, Target, Globe, Key, Rocket, BookOpen, Brain, TrendingUp, CheckCircle, Sparkles, User, Lightbulb, Search, Eye, Users, FileText, Calendar, Trophy, BarChart, Clock, Hash, Percent, AlertTriangle, LayoutGrid 
 } from 'lucide-react';
 import './App.css';
@@ -73,10 +73,20 @@ const DataCard = ({ icon: Icon, title, value, description, colorClass }) => {
 // --- Tooltip Personalizado para Gráficos (Reutilizável) ---
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
+    // Tenta obter o nome da propriedade 'name' do payload
+    const name = payload[0].payload?.name || label || "Valor";
+    const value = payload[0].value;
+
+    // Calcula a percentagem se 'percent' estiver disponível
+    const percent = payload[0].payload?.percent;
+    const percentString = percent ? ` (${(percent * 100).toFixed(0)}%)` : '';
+
     return (
       <div className="bg-[#0B1016] p-4 border border-[#0D3A46] rounded-lg shadow-lg">
-        <p className="label text-white font-bold">{`${label || payload[0].name}`}</p>
-        <p className="intro text-gray-300">{`${payload[0].name} : ${payload[0].value}`}</p>
+        <p className="label text-white font-bold">{`${name}`}</p>
+        <p className="intro text-gray-300">{`Total: ${value}${percentString}`}</p>
+        
+        {/* Para gráficos de barras com múltiplos valores */}
         {payload[1] && <p className="intro text-gray-300">{`${payload[1].name} : ${payload[1].value}`}</p>}
         {payload[2] && <p className="intro text-gray-300">{`${payload[2].name} : ${payload[2].value}`}</p>}
       </div>
@@ -314,7 +324,7 @@ function App() {
       {/* ==================================================================== */}
       {/* SECÇÃO 5: SISTEMA PRISIONAL (ID="sistema-prisional") - GRÁFICO CORRIGIDO
       {/* ==================================================================== */}
-      <section id="sistema-prisional" className="py-20 px-4 bg-[#1422E]/80 border-t border-b border-[#0D3A46]">
+      <section id="sistema-prisional" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
         {(() => {
           // --- (Dados da secção) ---
           const evolucaoPopulacao = [
@@ -418,7 +428,9 @@ function App() {
                   </ResponsiveContainer>
                 </motion.div>
 
-                {/* GRÁFICO DE PIZZA CORRIGIDO */}
+                {/* ================================== */}
+                {/* GRÁFICO DE PIZZA (MOBILE CORRIGIDO) */}
+                {/* ================================== */}
                 <motion.div
                   initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.5 }}
                   className="bg-[#1C2A35]/60 p-8 rounded-xl border border-[#0D3A46]/50"
@@ -426,19 +438,26 @@ function App() {
                   <h2 className="text-2xl font-bold text-white mb-6 text-center">Primários vs Reincidentes (2024)</h2>
                   <ResponsiveContainer width="100%" height={300}>
                     <PieChart>
+                      {/* 1. Tooltip para mostrar dados ao tocar */}
+                      <Tooltip content={<CustomTooltip />} />
+                      {/* 2. Legenda em baixo, que é responsiva */}
+                      <Legend wrapperStyle={{ color: '#8AB4B8', paddingTop: '10px' }} />
                       <Pie
-                        data={reincidenciaData} cx="50%" cy="50%" 
-                        labelLine={true} // Alterado de 'false' para 'true'
-                        outerRadius={90} // Reduzido de 110 para 90 (dar espaço às linhas)
-                        fill="#8884d8" dataKey="value"
-                        label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`} // Label simplificado
-                        stroke="#0B1016" strokeWidth={2}
+                        data={reincidenciaData} 
+                        cx="50%" 
+                        cy="50%" 
+                        labelLine={false} // Sem linhas
+                        label={false} // Sem texto dentro
+                        outerRadius={110} // Raio maior, pois não há texto
+                        fill="#8884d8" 
+                        dataKey="value"
+                        stroke="#0B1016" 
+                        strokeWidth={2}
                       >
                         {reincidenciaData.map((entry, index) => (
                           <Cell key={`cell-${index}`} fill={entry.fill} />
                         ))}
                       </Pie>
-                      <Tooltip content={<CustomTooltip />} />
                     </PieChart>
                   </ResponsiveContainer>
                 </motion.div>
@@ -574,7 +593,9 @@ function App() {
             return (
               <>
                 <div className="grid md:grid-cols-2 gap-12 mb-16">
-                  {/* GRÁFICO DE PIZZA CORRIGIDO */}
+                  {/* ================================== */}
+                  {/* GRÁFICO DE PIZZA (MOBILE CORRIGIDO) */}
+                  {/* ================================== */}
                   <motion.div
                     initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
                     className="bg-[#1C2A35]/60 p-8 rounded-xl border border-[#0D3A46]/50"
@@ -582,17 +603,24 @@ function App() {
                     <h2 className="text-2xl font-bold text-white mb-6 text-center">Distribuição: Formados vs. Nomeados</h2>
                     <ResponsiveContainer width="100%" height={300}>
                       <PieChart>
+                        {/* 1. Tooltip para mostrar dados ao tocar */}
+                        <Tooltip content={<CustomTooltip />} />
+                        {/* 2. Legenda em baixo, que é responsiva */}
+                        <Legend wrapperStyle={{ color: '#8AB4B8', paddingTop: '10px' }} />
                         <Pie
-                          data={dataDistribuicao} cx="50%" cy="50%" 
-                          labelLine={true} // Alterado de 'false' para 'true'
-                          outerRadius={90} // Reduzido de 110 para 90
-                          fill="#8884d8" dataKey="value" 
-                          label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`} // Label simplificado
-                          stroke="#0B1016" strokeWidth={2}
+                          data={dataDistribuicao} 
+                          cx="50%" 
+                          cy="50%" 
+                          labelLine={false} // Sem linhas
+                          label={false} // Sem texto dentro
+                          outerRadius={110} // Raio maior
+                          fill="#8884d8" 
+                          dataKey="value" 
+                          stroke="#0B1016" 
+                          strokeWidth={2}
                         >
                           {dataDistribuicao.map((entry, index) => (<Cell key={`cell-${index}`} fill={entry.fill} />))}
                         </Pie>
-                        <Tooltip content={<CustomTooltip />} />
                       </PieChart>
                     </ResponsiveContainer>
                   </motion.div>
