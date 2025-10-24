@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 
-// Ícones (Lucide) - Adicionei Building, Repeat, e ShieldCheck
+// Ícones (Lucide)
 import { 
   Home, Link, ChartPie, GalleryHorizontal, ChevronLeft, ChevronRight, ShieldCheck, Building, Repeat, // Para Navbar e nova secção
-  ArrowRight, Zap, Target, Globe, Key, Rocket, BookOpen, Brain, TrendingUp, CheckCircle, Sparkles, User, Lightbulb, Search, Eye, Users, FileText, Calendar, Trophy, BarChart, Clock, Hash, Percent, AlertTriangle, LayoutGrid 
+  ArrowRight, Zap, Target, Globe, Key, Rocket, BookOpen, Brain, TrendingUp, CheckCircle, Sparkles, User, Lightbulb, Search, Eye, Users, FileText, Calendar, Trophy, BarChart, Clock, Hash, Percent, AlertTriangle, LayoutGrid, UserCheck, UserX 
 } from 'lucide-react';
 import './App.css';
 
-// Bibliotecas de Animação e Gráficos - Adicionei LineChart e Line
+// Bibliotecas de Animação e Gráficos
 import Marquee from "react-fast-marquee";
 import CountUp from 'react-countup';
 import { useInView } from 'react-intersection-observer';
@@ -77,7 +77,6 @@ const CustomTooltip = ({ active, payload, label }) => {
       <div className="bg-[#0B1016] p-4 border border-[#0D3A46] rounded-lg shadow-lg">
         <p className="label text-white font-bold">{`${label || payload[0].name}`}</p>
         <p className="intro text-gray-300">{`${payload[0].name} : ${payload[0].value}`}</p>
-        {/* Adiciona mais linhas se o gráfico de barras tiver múltiplos valores */}
         {payload[1] && <p className="intro text-gray-300">{`${payload[1].name} : ${payload[1].value}`}</p>}
         {payload[2] && <p className="intro text-gray-300">{`${payload[2].name} : ${payload[2].value}`}</p>}
       </div>
@@ -136,7 +135,7 @@ function App() {
     <div className="min-h-screen bg-[#0B1016] font['Poppins',sans-serif] overflow-x-hidden">
       
       {/* ==================================================================== */}
-      {/* NAVBAR (Menu Fixo com Scroll) - "Sistema" ADICIONADO
+      {/* NAVBAR (Menu Fixo com Scroll)
       {/* ==================================================================== */}
       <nav className="sticky top-0 z-50 w-full bg-[#0B1016]/80 backdrop-blur-md border-b border-[#1C2A35]">
         <div className="max-w-6xl mx-auto px-4">
@@ -156,7 +155,6 @@ function App() {
                 <Home className="w-4 h-4 mr-2" />
                 Início
               </button>
-              {/* NOVO BOTÃO "SISTEMA" */}
               <button 
                 onClick={() => scrollToSection('sistema-prisional')} 
                 className="flex items-center text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer"
@@ -184,10 +182,9 @@ function App() {
       </nav>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 1: HERO (ID="hero")
+      {/* SECÇÃO 1: HERO (ID="hero") - TEXTO ATUALIZADO
       {/* ==================================================================== */}
       <section id="hero" className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
-        {/* ... (Conteúdo da Hero Section sem alterações) ... */}
         <div className="hidden md:block absolute top-20 left-20 w-72 h-72 bg-[#0D3A46]/20 rounded-full blur-3xl animate-pulse"></div>
         <div className="hidden md:block absolute bottom-20 right-20 w-96 h-96 bg-[#0D3A46]/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
         <div className="absolute inset-0 opacity-40"> 
@@ -209,23 +206,26 @@ function App() {
               className="mx-auto w-64 md:w-80 h-auto rounded-lg shadow-xl border-4 border-[#0D3A46]"
             />
           </div>
+          
+          {/* TEXTO ATUALIZADO COM A NOVA ÊNFASE */}
           <p className="text-xl md:text-2xl text-gray-200 mb-12 max-w-3xl mx-auto font-light leading-relaxed">
-            Dados consolidados sobre o certame PPDF 2022, status das convocações e estatísticas operacionais do sistema prisional do Distrito Federal.
+            Acompanhamento dos <strong className="text-white">1.541</strong> Policiais Penais já formados. O GDF investiu no treino, mas falha em nomear o efetivo pronto para atuar.
           </p>
+          
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <button
               className="h-14 px-8 bg-gradient-to-r from-[#4FD1C5] to-[#38B2AC] text-black font-bold rounded-xl shadow-2xl transition-all duration-300 transform hover:scale-105 border-0"
-              onClick={() => scrollToSection('vagas')}
+              onClick={() => scrollToSection('vagas-formados')}
             >
-              <FileText className="w-5 h-5 mr-2" />
-              Ver Detalhes do Concurso
+              <Users className="w-5 h-5 mr-2" />
+              Ver Formados vs. Nomeados
             </button>
             <button
               className="h-14 px-8 border-2 border-[#8AB4B8] text-white font-bold rounded-xl transition-all duration-300 hover:bg-[#1C2A35]"
               onClick={() => scrollToSection('estatisticas')}
             >
               <BarChart className="w-5 h-5 mr-2" />
-              Ver Estatísticas PPDF
+              Ver Défice do Sistema
             </button>
           </div>
         </div>
@@ -235,35 +235,58 @@ function App() {
       {/* SECÇÃO 2: MARQUEE
       {/* ==================================================================== */}
       <div className="py-3 bg-[#0D3A46]/70 border-t border-b border-[#4FD1C5]/30 overflow-hidden">
-        {/* ... (Conteúdo do Marquee sem alterações) ... */}
         <Marquee pauseOnHover={true} speed={60}>
-          <span className="text-xl text-white font-semibold mx-8 uppercase">Nomeação de Todos</span>
-          <span className="text-xl text-[#4FD1C5] font-bold mx-8 uppercase">Juntos somos mais fortes</span>
-          <span className="text-xl text-white font-semibold mx-8 uppercase">PPDF</span>
-          <span className="text-xl text-white font-semibold mx-8 uppercase">Nomeação de Todos</span>
-          <span className="text-xl text-[#4FD1C5] font-bold mx-8 uppercase">Juntos somos mais fortes</span>
-          <span className="text-xl text-white font-semibold mx-8 uppercase">PPDF</span>
+          <span className="text-xl text-white font-semibold mx-8 uppercase">1.541 Policiais Penais Formados</span>
+          <span className="text-xl text-[#4FD1C5] font-bold mx-8 uppercase">1.004 Aguardam Nomeação</span>
+          <span className="text-xl text-white font-semibold mx-8 uppercase">O GDF investiu e agora desperdiça</span>
+          <span className="text-xl text-[#4FD1C5] font-bold mx-8 uppercase">Nomeação Já!</span>
         </Marquee>
       </div>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 3: VAGAS (ID="vagas")
+      {/* SECÇÃO 3: FORMADOS vs. NOMEADOS (ID="vagas-formados") - DADOS ATUALIZADOS
       {/* ==================================================================== */}
-      <section id="vagas" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
-        {/* ... (Conteúdo da Seção Vagas sem alterações) ... */}
+      <section id="vagas-formados" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-white mb-4">
-            Análise do Concurso PPDF 2022 (Vagas e Nomeações)
+            Análise: Formados vs. Nomeados (Concurso 2022)
           </h2>
           <p className="text-center text-gray-400 mb-12 max-w-3xl mx-auto">
-            Acompanhamento dos números oficiais, nomeações já realizadas e projeções futuras.
+            O Estado já investiu na formação. Agora, falta a nomeação para suprir o défice urgente do sistema.
           </p>
+          
+          {/* DATACARDS ATUALIZADOS */}
           <div className="grid md:grid-cols-4 gap-8">
-            <DataCard icon={Users} title="Vagas Imediatas (Edital)" value="400" description="Total de vagas de provimento imediato previstas no Edital (preenchidas em diversas turmas)." colorClass="text-[#4FD1C5]" />
-            <DataCard icon={Trophy} title="Cadastro Reserva (CR)" value="779" description="Candidatos classificados no CR com potencial de nomeação dentro da validade do concurso." colorClass="text-[#FBBF24]" />
-            <DataCard icon={CheckCircle} title="Nomeações Registradas" value="~272" description="Conjunto de nomeações já publicadas no DODF (até Nov/2024 - Fonte: Artigos de Concursos)." colorClass="text-[#3B82F6]" />
-            <DataCard icon={TrendingUp} title="Projeção LDO 2026" value="990" description="Previsão orçamentária para nomeações de Policiais Penais do DF na Lei de Diretrizes Orçamentárias 2026." colorClass="text-[#EF4444]" />
+            <DataCard 
+              icon={Users} 
+              title="Total de Formados" 
+              value="1.541" 
+              description="Total de candidatos que concluíram o Curso de Formação Profissional." 
+              colorClass="text-[#4FD1C5]" 
+            />
+            <DataCard 
+              icon={UserCheck} 
+              title="Nomeações Realizadas" 
+              value="537" 
+              description="Servidores nomeados e já empossados (até a data)." 
+              colorClass="text-[#3B82F6]" 
+            />
+            <DataCard 
+              icon={UserX} 
+              title="Formados Aguardando" 
+              value="1.004" 
+              description="Profissionais treinados pelo GDF aguardando nomeação (1541 - 537)." 
+              colorClass="text-[#FBBF24]" 
+            />
+            <DataCard 
+              icon={TrendingUp} 
+              title="Finais de Fila (Ampla)" 
+              value="45" 
+              description="Número de candidatos restantes no final da fila de ampla concorrência." 
+              colorClass="text-[#EF4444]" 
+            />
           </div>
+          
           <div className="mt-10 p-6 bg-[#0D3A46]/70 rounded-lg border-l-4 border-[#4FD1C5] text-white">
             <p className="font-semibold text-lg flex items-center"><Clock className="w-5 h-5 mr-2" /> Validade do Concurso</p>
             <p className="text-gray-300 mt-1">A validade do concurso de 2022 foi **prorrogada até agosto de 2027**, garantindo mais tempo para o chamamento dos candidatos do Cadastro Reserva.</p>
@@ -275,7 +298,7 @@ function App() {
       {/* SECÇÃO 4: ESTATÍSTICAS (ID="estatisticas")
       {/* ==================================================================== */}
       <section id="estatisticas" className="py-20 px-4">
-        {/* ... (Conteúdo da Seção Estatísticas sem alterações) ... */}
+        {/* ... (Esta secção foca-se no DÉFICE, que justifica a nomeação. Sem alterações) ... */}
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-white mb-4">
             Estatísticas Operacionais da Polícia Penal do DF
@@ -292,9 +315,10 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* NOVA SECÇÃO 5: SISTEMA PRISIONAL (ID="sistema-prisional")
+      {/* SECÇÃO 5: SISTEMA PRISIONAL (ID="sistema-prisional")
       {/* ==================================================================== */}
       <section id="sistema-prisional" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
+        {/* ... (Esta secção mostra a superlotação, justificando as nomeações. Sem alterações de dados.) ... */}
         {(() => {
           // --- Dados para a nova secção ---
           const evolucaoPopulacao = [
@@ -453,10 +477,9 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 6: NOMEAÇÕES (ID="nomeacoes")
+      {/* SECÇÃO 6: NOMEAÇÕES (ID="nomeacoes") - TEXTO ATUALIZADO
       {/* ==================================================================== */}
       <section id="nomeacoes" className="py-20 px-4 bg-[#0B1016]">
-        {/* ... (Conteúdo da Seção Nomeações sem alterações) ... */}
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-white mb-4">
             Acompanhamento das Próximas Nomeações
@@ -469,8 +492,9 @@ function App() {
               <Clock className="w-8 h-8 text-[#4FD1C5] mb-4" />
               <h3 className="text-2xl font-semibold text-white mb-2">Próximas Convocatórias (2025/2026)</h3>
               <ul className="text-gray-300 space-y-3 list-disc list-inside">
-                <li><strong className="text-white">LDO 2026:</strong> Previsão orçamentária para nomear até **990** novos servidores.</li>
-                <li><strong className="text-white">Despacho de Crédito:</strong> Solicitação para custear a nomeação de um novo grupo de **150** aprovados em 2025.</li>
+                {/* TEXTO ATUALIZADO */}
+                <li><strong className="text-white">LDO 2026:</strong> Previsão orçamentária para nomear **990** novos servidores.</li>
+                <li><strong className="text-white">Profissionais Prontos:</strong> O número da LDO ainda é inferior ao total de <strong className="text-amber-400">1.004</strong> profissionais já formados que aguardam.</li>
                 <li><strong className="text-white">Decisão do TCDF:</strong> Determinação para que o GDF apresente um cronograma de nomeações em 2025.</li>
               </ul>
             </div>
@@ -494,10 +518,9 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 7: ANÁLISE CRÍTICA (ID="analise-critica")
+      {/* SECÇÃO 7: ANÁLISE CRÍTICA (ID="analise-critica") - TEXTO ATUALIZADO
       {/* ==================================================================== */}
       <section id="analise-critica" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
-        {/* ... (Conteúdo da Seção Análise Crítica sem alterações) ... */}
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -505,26 +528,31 @@ function App() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-4xl font-bold text-center text-white mb-4">
-              Análise Crítica: O Risco da Inércia
+              Análise Crítica: O Custo do Desperdício
             </h2>
             <p className="text-center text-gray-400 mb-12 max-w-3xl mx-auto">
-              Uma síntese do cenário atual, combinando dados, obrigações legais e o risco ético da paralisação do GDF.
+              A ênfase na inércia do GDF, que já investiu na formação mas falha em nomear o efetivo pronto.
             </p>
+
+            {/* TEXTO ATUALIZADO */}
             <div className="p-8 bg-[#1C2A35]/60 border-t-4 border-[#EF4444] rounded-xl shadow-2xl space-y-6">
               <div className="flex items-center">
                 <AlertTriangle className="w-10 h-10 text-[#EF4444] mr-4" />
                 <h3 className="text-2xl font-bold text-white">
-                  O Ponto de Inflexão: Dois Pesos e Duas Medidas
+                  O Ponto de Inflexão: O Desperdício do Investimento
                 </h3>
               </div>
+              
               <p className="text-lg text-gray-300 leading-relaxed">
-                A segurança do DF vive um paradoxo. Enquanto o Estado tem o dever <strong className="text-white">inalienável (Art. 5º da CF)</strong> de zelar pela integridade do preso, o mesmo Estado ignora os profissionais essenciais para essa tarefa. Com um défice de <strong className="text-white">1.262 cargos vagos</strong> (Jul/2023) e um orçamento já previsto na LDO 2026 para <strong className="text-white">753 nomeações</strong>, a inércia do GDF é injustificável.
+                A segurança do DF vive um paradoxo. O GDF investiu milhões na formação de <strong className="text-white">1.541 Policiais Penais</strong>, mas hoje, <strong className="text-white">1.004</strong> desses profissionais (1.541 formados - 537 nomeados) estão parados, aguardando nomeação.
               </p>
+              
               <p className="text-lg text-gray-300 leading-relaxed">
-                Esta paralisia, que se arrasta há mais de dois anos, forçou o <strong className="text-white">Tribunal de Contas (TCDF)</strong> a exigir um cronograma. Isso prova que o GDF só age sob pressão, não por planejamento. Manter o défice não é uma "economia", é uma <strong className="text-white">sabotagem da Inteligência Prisional</strong> e um convite ao colapso do sistema, como indica o aumento de <strong className="text-white">21% em mortes</strong> evitáveis nas unidades (2019-2024).
+                Esta inércia, que se arrasta há mais de dois anos, forçou o <strong className="text-white">Tribunal de Contas (TCDF)</strong> a exigir um cronograma. Isso prova que o GDF só age sob pressão, não por planejamento. Manter o défice de <strong className="text-white">~1.286 cargos</strong> não é "economia", é uma <strong className="text-white">sabotagem da Inteligência Prisional</strong> e um convite ao colapso.
               </p>
+
               <p className="text-lg text-gray-300 leading-relaxed">
-                O mais grave é a <strong className="text-white">quebra da Boa-Fé Administrativa</strong>: o Estado treina centenas de candidatos, expondo-os a informações sensíveis e a um ambiente de risco, e depois os abandona no limbo, sem nomeação. Esta é uma <strong className="text-white">contradição ética e moral</strong>. A nomeação não é um favor; é um dever legal e um imperativo de segurança pública.
+                O mais grave é a <strong className="text-white">quebra da Boa-Fé Administrativa</strong>: o Estado gasta o recurso público para treinar o efetivo, expondo-o a risco, e depois o abandona no limbo. É um <strong className="text-amber-400">desperdício de investimento público</strong> e uma contradição ética, enquanto o sistema opera com <strong className="text-white">248% de superlotação</strong>. A nomeação não é um favor; é um dever legal.
               </p>
             </div>
           </motion.div>
@@ -532,10 +560,9 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 8: GRÁFICOS (ID="graficos")
+      {/* SECÇÃO 8: GRÁFICOS (ID="graficos") - DADOS ATUALIZADOS
       {/* ==================================================================== */}
       <section id="graficos" className="py-20 px-4">
-        {/* ... (Conteúdo da Seção Gráficos sem alterações) ... */}
         <div className="max-w-6xl mx-auto">
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
@@ -546,14 +573,15 @@ function App() {
             Análise Gráfica do <span className="text-[#4FD1C5]">Concurso</span>
           </motion.h1>
           {(() => {
+            // --- GRÁFICOS ATUALIZADOS ---
             const dataDistribuicao = [
-              { name: 'Nomeados', value: 272, fill: '#4FD1C5' },
-              { name: 'Aguardando Nomeação (CR + Vagas)', value: 907, fill: '#FBBF24' },
+              { name: 'Nomeados', value: 537, fill: '#4FD1C5' },
+              { name: 'Formados Aguardando', value: 1004, fill: '#FBBF24' },
             ];
             const dataDemanda = [
               { name: 'Déficit de Cargos', Demanda: 1286, fill: '#EF4444' },
-              { name: 'Projeção LDO 2026', Demanda: 990, fill: '#8B5CF6' },
-              { name: 'Cadastro Reserva (CR)', Demanda: 779, fill: '#F97316' },
+              { name: 'Formados para Nomear', Demanda: 1004, fill: '#8B5CF6' },
+              { name: 'Vagas LDO 2026', Demanda: 990, fill: '#F97316' },
             ];
 
             return (
@@ -563,7 +591,7 @@ function App() {
                     initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
                     className="bg-[#1C2A35]/60 p-8 rounded-xl border border-[#0D3A46]/50"
                   >
-                    <h2 className="text-2xl font-bold text-white mb-6 text-center">Distribuição Total (Vagas + CR)</h2>
+                    <h2 className="text-2xl font-bold text-white mb-6 text-center">Distribuição: Formados vs. Nomeados</h2>
                     <ResponsiveContainer width="100%" height={300}>
                       <PieChart>
                         <Pie
@@ -582,7 +610,7 @@ function App() {
                     initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
                     className="bg-[#1C2A35]/60 p-8 rounded-xl border border-[#0D3A46]/50"
                   >
-                    <h2 className="text-2xl font-bold text-white mb-6 text-center">Demanda por Novos Policiais</h2>
+                    <h2 className="text-2xl font-bold text-white mb-6 text-center">Demanda vs. Efetivo Disponível</h2>
                     <ResponsiveContainer width="100%" height={300}>
                       <ReBarChart data={dataDemanda}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#0D3A46" />
@@ -595,14 +623,16 @@ function App() {
                     </ResponsiveContainer>
                   </motion.div>
                 </div>
+                
+                {/* --- DATACARDS ATUALIZADOS --- */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
                   className="grid md:grid-cols-4 gap-6"
                 >
-                  <DataCard icon={Users} title="Total de Vagas (Edital + CR)" value="1.179" description="Soma das 400 vagas imediatas + 779 do CR." colorClass="text-[#4FD1C5]" />
-                  <DataCard icon={CheckCircle} title="Nomeações" value="~272" description="Servidores já nomeados (até Nov/2024)." colorClass="text-[#3B82F6]" />
-                  <DataCard icon={LayoutGrid} title="Déficit Atual" value="~1.286" description="Cargos vagos (Julho/2023)." colorClass="text-[#EF4444]" />
-                  <DataCard icon={TrendingUp} title="Projeção LDO" value="990" description="Previsão de nomeações (LDO 2026)." colorClass="text-[#F97316]" />
+                  <DataCard icon={Users} title="Total de Formados" value="1.541" description="Profissionais que concluíram o CFP." colorClass="text-[#4FD1C5]" />
+                  <DataCard icon={UserCheck} title="Nomeações Realizadas" value="537" description="Servidores já nomeados (até Nov/2024)." colorClass="text-[#3B82F6]" />
+                  <DataCard icon={UserX} title="Formados Aguardando" value="1.004" description="Profissionais prontos aguardando nomeação." colorClass="text-[#FBBF24]" />
+                  <DataCard icon={LayoutGrid} title="Déficit de Cargos" value="~1.286" description="Cargos vagos no sistema (Julho/2023)." colorClass="text-[#EF4444]" />
                 </motion.div>
               </>
             );
