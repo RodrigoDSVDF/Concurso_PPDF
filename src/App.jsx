@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 // Ícones (Lucide)
 import { 
-  Home, Link, ChartPie, GalleryHorizontal, ChevronLeft, ChevronRight, ShieldCheck, Building, Repeat, // Para Navbar e nova secção
+  Home, Link, ChartPie, GalleryHorizontal, ChevronLeft, ChevronRight, ShieldCheck, Building, Repeat,
   ArrowRight, Zap, Target, Globe, Key, Rocket, BookOpen, Brain, TrendingUp, CheckCircle, Sparkles, User, Lightbulb, Search, Eye, Users, FileText, Calendar, Trophy, BarChart, Clock, Hash, Percent, AlertTriangle, LayoutGrid 
 } from 'lucide-react';
 import './App.css';
@@ -182,7 +182,7 @@ function App() {
       </nav>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 1: HERO (ID="hero") - TEXTO ATUALIZADO
+      {/* SECÇÃO 1: HERO (ID="hero")
       {/* ==================================================================== */}
       <section id="hero" className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
         {/* ... (Conteúdo da Hero Section) ... */}
@@ -230,9 +230,10 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 2: MARQUEE - NÚMEROS ATUALIZADOS
+      {/* SECÇÃO 2: MARQUEE
       {/* ==================================================================== */}
       <div className="py-3 bg-[#0D3A46]/70 border-t border-b border-[#4FD1C5]/30 overflow-hidden">
+        {/* ... (Conteúdo do Marquee - com números corretos) ... */}
         <Marquee pauseOnHover={true} speed={60}>
           <span className="text-xl text-white font-semibold mx-8 uppercase">1.541 Policiais Penais Formados</span>
           <span className="text-xl text-[#4FD1C5] font-bold mx-8 uppercase">904 Aguardam Nomeação</span>
@@ -242,9 +243,10 @@ function App() {
       </div>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 3: FORMADOS vs. NOMEADOS (ID="vagas-formados") - NÚMEROS ATUALIZADOS
+      {/* SECÇÃO 3: FORMADOS vs. NOMEADOS (ID="vagas-formados")
       {/* ==================================================================== */}
       <section id="vagas-formados" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
+        {/* ... (Conteúdo da Seção Formados vs. Nomeados - com números corretos) ... */}
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-white mb-4">
             Análise: Formados vs. Nomeados (Concurso 2022)
@@ -252,7 +254,6 @@ function App() {
           <p className="text-center text-gray-400 mb-12 max-w-3xl mx-auto">
             O Estado já investiu na formação. Agora, falta a nomeação para suprir o défice urgente do sistema.
           </p>
-          
           <div className="grid md:grid-cols-4 gap-8">
             <DataCard 
               icon={Users} 
@@ -283,7 +284,6 @@ function App() {
               colorClass="text-[#EF4444]" 
             />
           </div>
-          
           <div className="mt-10 p-6 bg-[#0D3A46]/70 rounded-lg border-l-4 border-[#4FD1C5] text-white">
             <p className="font-semibold text-lg flex items-center"><Clock className="w-5 h-5 mr-2" /> Validade do Concurso</p>
             <p className="text-gray-300 mt-1">A validade do concurso de 2022 foi **prorrogada até agosto de 2027**, garantindo mais tempo para o chamamento dos candidatos do Cadastro Reserva.</p>
@@ -312,11 +312,11 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 5: SISTEMA PRISIONAL (ID="sistema-prisional")
+      {/* SECÇÃO 5: SISTEMA PRISIONAL (ID="sistema-prisional") - GRÁFICO CORRIGIDO
       {/* ==================================================================== */}
-      <section id="sistema-prisional" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
-        {/* ... (Conteúdo da Seção Sistema Prisional sem alterações) ... */}
+      <section id="sistema-prisional" className="py-20 px-4 bg-[#1422E]/80 border-t border-b border-[#0D3A46]">
         {(() => {
+          // --- (Dados da secção) ---
           const evolucaoPopulacao = [
             { ano: '2022', presos: 15181 }, { ano: '2023', presos: 15800 },
             { ano: '2024', presos: 16168 }, { ano: '2025', presos: 16384 },
@@ -417,6 +417,8 @@ function App() {
                     </ReBarChart>
                   </ResponsiveContainer>
                 </motion.div>
+
+                {/* GRÁFICO DE PIZZA CORRIGIDO */}
                 <motion.div
                   initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.5 }}
                   className="bg-[#1C2A35]/60 p-8 rounded-xl border border-[#0D3A46]/50"
@@ -425,9 +427,11 @@ function App() {
                   <ResponsiveContainer width="100%" height={300}>
                     <PieChart>
                       <Pie
-                        data={reincidenciaData} cx="50%" cy="50%" labelLine={false}
-                        label={({ name, percent }) => `${name} (${(percent * 100).toFixed(1)}%)`}
-                        outerRadius={110} fill="#8884d8" dataKey="value"
+                        data={reincidenciaData} cx="50%" cy="50%" 
+                        labelLine={true} // Alterado de 'false' para 'true'
+                        outerRadius={90} // Reduzido de 110 para 90 (dar espaço às linhas)
+                        fill="#8884d8" dataKey="value"
+                        label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`} // Label simplificado
                         stroke="#0B1016" strokeWidth={2}
                       >
                         {reincidenciaData.map((entry, index) => (
@@ -439,6 +443,7 @@ function App() {
                   </ResponsiveContainer>
                 </motion.div>
               </div>
+
               <motion.div
                 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.6 }}
                 className="bg-[#1C2A35]/60 p-8 rounded-xl border border-[#0D3A46]/50 mb-12"
@@ -464,7 +469,7 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 6: NOMEAÇÕES (ID="nomeacoes") - NÚMEROS ATUALIZADOS
+      {/* SECÇÃO 6: NOMEAÇÕES (ID="nomeacoes")
       {/* ==================================================================== */}
       <section id="nomeacoes" className="py-20 px-4 bg-[#0B1016]">
         {/* ... (Conteúdo da Seção Nomeações - ATUALIZADO) ... */}
@@ -505,7 +510,7 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 7: ANÁLISE CRÍTICA (ID="analise-critica") - NÚMEROS ATUALIZADOS
+      {/* SECÇÃO 7: ANÁLISE CRÍTICA (ID="analise-critica")
       {/* ==================================================================== */}
       <section id="analise-critica" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
         {/* ... (Conteúdo da Seção Análise Crítica - ATUALIZADO) ... */}
@@ -543,10 +548,9 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 8: GRÁFICOS (ID="graficos") - NÚMEROS ATUALIZADOS
+      {/* SECÇÃO 8: GRÁFICOS (ID="graficos") - GRÁFICO E NÚMEROS CORRIGIDOS
       {/* ==================================================================== */}
       <section id="graficos" className="py-20 px-4">
-        {/* ... (Conteúdo da Seção Gráficos - ATUALIZADO) ... */}
         <div className="max-w-6xl mx-auto">
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
@@ -570,6 +574,7 @@ function App() {
             return (
               <>
                 <div className="grid md:grid-cols-2 gap-12 mb-16">
+                  {/* GRÁFICO DE PIZZA CORRIGIDO */}
                   <motion.div
                     initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
                     className="bg-[#1C2A35]/60 p-8 rounded-xl border border-[#0D3A46]/50"
@@ -578,9 +583,12 @@ function App() {
                     <ResponsiveContainer width="100%" height={300}>
                       <PieChart>
                         <Pie
-                          data={dataDistribuicao} cx="50%" cy="50%" labelLine={false}
-                          label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
-                          outerRadius={110} fill="#8884d8" dataKey="value" stroke="#0B1016" strokeWidth={2}
+                          data={dataDistribuicao} cx="50%" cy="50%" 
+                          labelLine={true} // Alterado de 'false' para 'true'
+                          outerRadius={90} // Reduzido de 110 para 90
+                          fill="#8884d8" dataKey="value" 
+                          label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`} // Label simplificado
+                          stroke="#0B1016" strokeWidth={2}
                         >
                           {dataDistribuicao.map((entry, index) => (<Cell key={`cell-${index}`} fill={entry.fill} />))}
                         </Pie>
