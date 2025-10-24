@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 
 // Ícones (Lucide)
 import { 
-  Home, Link, ChartPie, GalleryHorizontal, ChevronLeft, ChevronRight, //ShieldCheck, Building, Repeat,
-  ArrowRight, Zap, Target, Globe, Key, Rocket, BookOpen, Brain, TrendingUp, CheckCircle, Sparkles, User, Lightbulb, Search, Eye, Users, FileText, Calendar, Trophy, BarChart, Clock, Hash, Percent, AlertTriangle, LayoutGrid 
+  Home, Link, ChartPie, GalleryHorizontal, ChevronLeft, ChevronRight, 
+  ArrowRight, Zap, Target, Globe, Key, Rocket, BookOpen, Brain, TrendingUp, CheckCircle, Sparkles, User, Lightbulb, Search, Eye, Users, FileText, Calendar, Trophy, BarChart, Clock, Hash, Percent, AlertTriangle, LayoutGrid, Handshake, Shield, Monitor
 } from 'lucide-react';
 import './App.css';
 
@@ -73,11 +73,8 @@ const DataCard = ({ icon: Icon, title, value, description, colorClass }) => {
 // --- Tooltip Personalizado para Gráficos (Reutilizável) ---
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
-    // Tenta obter o nome da propriedade 'name' do payload
     const name = payload[0].payload?.name || label || "Valor";
     const value = payload[0].value;
-
-    // Calcula a percentagem se 'percent' estiver disponível
     const percent = payload[0].payload?.percent;
     const percentString = percent ? ` (${(percent * 100).toFixed(0)}%)` : '';
 
@@ -86,7 +83,6 @@ const CustomTooltip = ({ active, payload, label }) => {
         <p className="label text-white font-bold">{`${name}`}</p>
         <p className="intro text-gray-300">{`Total: ${value}${percentString}`}</p>
         
-        {/* Para gráficos de barras com múltiplos valores */}
         {payload[1] && <p className="intro text-gray-300">{`${payload[1].name} : ${payload[1].value}`}</p>}
         {payload[2] && <p className="intro text-gray-300">{`${payload[2].name} : ${payload[2].value}`}</p>}
       </div>
@@ -171,6 +167,14 @@ function App() {
               >
                 <BarChart className="w-4 h-4 mr-2" />
                 Sistema
+              </button>
+              {/* NOVO LINK PARA PAPEL ESTRATÉGICO */}
+              <button 
+                onClick={() => scrollToSection('papel-estrategico')} 
+                className="flex items-center text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer"
+              >
+                <Shield className="w-4 h-4 mr-2" />
+                Estratégia
               </button>
               <button 
                 onClick={() => scrollToSection('links')} 
@@ -322,7 +326,7 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 5: SISTEMA PRISIONAL (ID="sistema-prisional") - GRÁFICO CORRIGIDO
+      {/* SECÇÃO 5: SISTEMA PRISIONAL (ID="sistema-prisional")
       {/* ==================================================================== */}
       <section id="sistema-prisional" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
         {(() => {
@@ -428,9 +432,7 @@ function App() {
                   </ResponsiveContainer>
                 </motion.div>
 
-                {/* ================================== */}
-                {/* GRÁFICO DE PIZZA (MOBILE CORRIGIDO) */}
-                {/* ================================== */}
+                {/* GRÁFICO DE PIZZA CORRIGIDO */}
                 <motion.div
                   initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.5 }}
                   className="bg-[#1C2A35]/60 p-8 rounded-xl border border-[#0D3A46]/50"
@@ -438,19 +440,17 @@ function App() {
                   <h2 className="text-2xl font-bold text-white mb-6 text-center">Primários vs Reincidentes (2024)</h2>
                   <ResponsiveContainer width="100%" height={300}>
                     <PieChart>
-                      {/* 1. Tooltip para mostrar dados ao tocar */}
                       <Tooltip content={<CustomTooltip />} />
-                      {/* 2. Legenda em baixo, que é responsiva */}
                       <Legend wrapperStyle={{ color: '#8AB4B8', paddingTop: '10px' }} />
                       <Pie
                         data={reincidenciaData} 
                         cx="50%" 
                         cy="50%" 
-                        labelLine={false} // Sem linhas
-                        label={false} // Sem texto dentro
-                        outerRadius={110} // Raio maior, pois não há texto
+                        labelLine={false} 
+                        label={false} 
+                        outerRadius={110} 
                         fill="#8884d8" 
-                        dataKey="value"
+                        dataKey="value" 
                         stroke="#0B1016" 
                         strokeWidth={2}
                       >
@@ -488,7 +488,65 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 6: NOMEAÇÕES (ID="nomeacoes")
+      {/* NOVA SECÇÃO 6: O PAPEL ESTRATÉGICO DA PPDF (ID="papel-estrategico")
+      {/* ==================================================================== */}
+      <section id="papel-estrategico" className="py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <motion.h2
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-4xl font-bold text-center text-white mb-4"
+          >
+            O Papel Estratégico da Polícia Penal do DF
+          </motion.h2>
+          <p className="text-center text-gray-400 mb-12 max-w-3xl mx-auto">
+            A PPDF vai além dos muros, atuando diretamente na ressocialização, inteligência criminal e diminuição da criminalidade urbana.
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Cartão 1: Agentes de Ressocialização e Cidadania */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} viewport={{ once: true }}
+              className="p-6 bg-[#1C2A35]/60 border border-[#0D3A46]/50 rounded-xl hover:border-[#FBBF24]"
+            >
+              <Handshake className="w-10 h-10 text-[#FBBF24] mb-4" />
+              <h3 className="text-2xl font-semibold text-white mb-3">Ressocialização e Diminuição da Criminalidade</h3>
+              <p className="text-gray-300">
+                O policial penal é o principal ator da Lei de Execução Penal (LEP). Eles gerenciam e facilitam programas de trabalho, educação e saúde. Uma custódia humanizada e profissionalizada é o caminho mais eficaz para a **diminuição da reincidência**, transformando o preso em um cidadão produtivo e reduzindo, a longo prazo, a criminalidade na sociedade.
+              </p>
+            </motion.div>
+
+            {/* Cartão 2: Inteligência e Combate ao Crime Organizado */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.4 }} viewport={{ once: true }}
+              className="p-6 bg-[#1C2A35]/60 border border-[#0D3A46]/50 rounded-xl hover:border-[#4FD1C5]"
+            >
+              <Monitor className="w-10 h-10 text-[#4FD1C5] mb-4" />
+              <h3 className="text-2xl font-semibold text-white mb-3">Linha de Frente Contra o Crime Organizado</h3>
+              <p className="text-gray-300">
+                O sistema prisional é o centro de articulação das maiores facções. O trabalho de **Inteligência Prisional** da PPDF é essencial para desmantelar esquemas de dentro para fora, protegendo as ruas do DF. A falta de efetivo enfraquece esta inteligência e permite que o crime organizado floresça sem vigilância adequada.
+              </p>
+            </motion.div>
+
+            {/* Cartão 3: Custo Social da Negligência Prisional */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.6 }} viewport={{ once: true }}
+              className="p-6 bg-[#1C2A35]/60 border border-[#0D3A46]/50 rounded-xl hover:border-[#EF4444]"
+            >
+              <AlertTriangle className="w-10 h-10 text-[#EF4444] mb-4" />
+              <h3 className="text-2xl font-semibold text-white mb-3">O Impacto Negativo das Más Condições</h3>
+              <p className="text-gray-300">
+                A superlotação de **248%** e a falta de efetivo levam a condições sub-humanas para o preso, gerando hostilidade, motins e violência interna. Este ambiente não só viola a Constituição (Art. 5º), como sabota a ressocialização, transformando as unidades em "escolas do crime" e resultando em **maior criminalidade após a soltura**.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ==================================================================== */}
+      {/* SECÇÃO 7: NOMEAÇÕES (ID="nomeacoes") - A SEÇÃO ANTERIOR AGORA É A 7
       {/* ==================================================================== */}
       <section id="nomeacoes" className="py-20 px-4 bg-[#0B1016]">
         {/* ... (Conteúdo da Seção Nomeações - ATUALIZADO) ... */}
@@ -529,7 +587,7 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 7: ANÁLISE CRÍTICA (ID="analise-critica")
+      {/* SECÇÃO 8: ANÁLISE CRÍTICA (ID="analise-critica")
       {/* ==================================================================== */}
       <section id="analise-critica" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
         {/* ... (Conteúdo da Seção Análise Crítica - ATUALIZADO) ... */}
@@ -567,9 +625,10 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 8: GRÁFICOS (ID="graficos") - GRÁFICO E NÚMEROS CORRIGIDOS
+      {/* SECÇÃO 9: GRÁFICOS (ID="graficos")
       {/* ==================================================================== */}
-      <section id="graficos" className="py-20 px-4">
+      <section id="graficos" className="py-20 px-4 bg-[#0B1016]">
+        {/* ... (Conteúdo da Seção Gráficos - GRÁFICOS CORRIGIDOS) ... */}
         <div className="max-w-6xl mx-auto">
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
@@ -593,31 +652,23 @@ function App() {
             return (
               <>
                 <div className="grid md:grid-cols-2 gap-12 mb-16">
-                  {/* ================================== */}
-                  {/* GRÁFICO DE PIZZA (MOBILE CORRIGIDO) */}
-                  {/* ================================== */}
+                  {/* GRÁFICO DE PIZZA CORRIGIDO */}
                   <motion.div
-                    initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
+                    initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }} viewport={{ once: true }}
                     className="bg-[#1C2A35]/60 p-8 rounded-xl border border-[#0D3A46]/50"
                   >
                     <h2 className="text-2xl font-bold text-white mb-6 text-center">Distribuição: Formados vs. Nomeados</h2>
                     <ResponsiveContainer width="100%" height={300}>
                       <PieChart>
-                        {/* 1. Tooltip para mostrar dados ao tocar */}
                         <Tooltip content={<CustomTooltip />} />
-                        {/* 2. Legenda em baixo, que é responsiva */}
                         <Legend wrapperStyle={{ color: '#8AB4B8', paddingTop: '10px' }} />
                         <Pie
                           data={dataDistribuicao} 
-                          cx="50%" 
-                          cy="50%" 
-                          labelLine={false} // Sem linhas
-                          label={false} // Sem texto dentro
-                          outerRadius={110} // Raio maior
-                          fill="#8884d8" 
+                          cx="50%" cy="50%" 
+                          labelLine={false} label={false} 
+                          outerRadius={110} 
                           dataKey="value" 
-                          stroke="#0B1016" 
-                          strokeWidth={2}
+                          stroke="#0B1016" strokeWidth={2}
                         >
                           {dataDistribuicao.map((entry, index) => (<Cell key={`cell-${index}`} fill={entry.fill} />))}
                         </Pie>
@@ -626,7 +677,7 @@ function App() {
                   </motion.div>
 
                   <motion.div
-                    initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
+                    initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }} viewport={{ once: true }}
                     className="bg-[#1C2A35]/60 p-8 rounded-xl border border-[#0D3A46]/50"
                   >
                     <h2 className="text-2xl font-bold text-white mb-6 text-center">Demanda vs. Efetivo Disponível</h2>
@@ -644,7 +695,7 @@ function App() {
                 </div>
                 
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
+                  initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }} viewport={{ once: true }}
                   className="grid md:grid-cols-4 gap-6"
                 >
                   <DataCard icon={Users} title="Total de Formados" value="1.541" description="Profissionais que concluíram o CFP." colorClass="text-[#4FD1C5]" />
@@ -661,7 +712,7 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 9: LINKS ÚTEIS (ID="links")
+      {/* SECÇÃO 10: LINKS ÚTEIS (ID="links")
       {/* ==================================================================== */}
       <section id="links" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
         {/* ... (Conteúdo da Seção Links sem alterações) ... */}
@@ -688,9 +739,9 @@ function App() {
             return (
               <div className="grid md:grid-cols-2 gap-6">
                 <LinkCard href="https://www.dodf.df.gov.br/" icon={FileText} title="Diário Oficial (DODF)" description="Fonte primária para todos os atos de nomeação e convocações oficiais." iconColor="text-[#3B82F6]" />
-                <LinkCard href="https://www.seape.df.gov.br/" icon={Globe} title="Portal SEAPE/DF" description="Secretaria de Estado de Administração Penitenciária do DF." iconColor="text-[#4FD1C5]" />
-                <LinkCard href="https://www.institutoaocp.org.br/" icon={BookOpen} title="Instituto AOCP" description="Página da banca organizadora com resultados e homologação." iconColor="text-[#FBBF24]" />
-                <LinkCard href="#" icon={Key} title="Assinatura Digital" description="Informações sobre como obter e usar o certificado digital para a posse." iconColor="text-[#EF4444]" />
+                <LinkCard href="https://www.seape.df.gov.br/" icon={Globe} title="Portal SEAPE/DF" description="Secretaria de Estado de Administração Penitenciária do DF." colorClass="text-[#4FD1C5]" />
+                <LinkCard href="https://www.institutoaocp.org.br/" icon={BookOpen} title="Instituto AOCP" description="Página da banca organizadora com resultados e homologação." colorClass="text-[#FBBF24]" />
+                <LinkCard href="#" icon={Key} title="Assinatura Digital" description="Informações sobre como obter e usar o certificado digital para a posse." colorClass="text-[#EF4444]" />
               </div>
             );
           })()}
@@ -698,7 +749,7 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 10: GALERIA (ID="galeria")
+      {/* SECÇÃO 11: GALERIA (ID="galeria")
       {/* ==================================================================== */}
       <section id="galeria" className="py-20 px-4">
         {/* ... (Conteúdo da Seção Galeria sem alterações) ... */}
@@ -738,7 +789,7 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 11: FOOTER
+      {/* SECÇÃO 12: FOOTER
       {/* ==================================================================== */}
       <section>
         {/* ... (Conteúdo do Footer sem alterações) ... */}
