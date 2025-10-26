@@ -326,9 +326,13 @@ function App() {
       {/* ==================================================================== */}
       <section id="sistema-prisional" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
         {(() => {
+          // DADOS ATUALIZADOS (2022, 2023) COM BASE NOS BOLETINS
+          // DADOS (2024, 2025) MANTIDOS
           const evolucaoPopulacao = [
-            { ano: '2022', presos: 15181 }, { ano: '2023', presos: 15800 },
-            { ano: '2024', presos: 17500 }, { ano: '2025', presos: 18300 },
+            { ano: '2022', presos: 15327 }, // CORRIGIDO: Era 15181 (Fonte: Boletim 2023, p.1)
+            { ano: '2023', presos: 15412 }, // CORRIGIDO: Era 15800 (Fonte: Boletim 2023, p.1)
+            { ano: '2024', presos: 17500 }, // MANTIDO
+            { ano: '2025', presos: 18300 }, // MANTIDO
           ];
           const crimesComuns = [
             { crime: 'Roubo', '2022': 8457, '2023': 10155, '2024': 11806 },
@@ -385,8 +389,16 @@ function App() {
                 className="grid md:grid-cols-4 gap-6 mb-16"
               >
                 <DataCard icon={Users} title="População Carcerária" value="18.300" description="Número de internos (dado atualizado SEAPE)." colorClass="text-[#F97316]" />
-                <DataCard icon={Globe}
-                  title="Unidades Prisionais" value="6" description="Principais complexos penitenciários." colorClass="text-[#3B82F6]" />
+                
+                {/* DADOS CORRIGIDOS SOBRE UNIDADES PRISIONAIS */}
+                <DataCard 
+                  icon={Globe}
+                  title="Unidades Prisionais" 
+                  value="8" 
+                  description="Total de unidades (CDP I/II, PDF I/II, CIR, CPP, PFDF, ATP)." 
+                  colorClass="text-[#3B82F6]" 
+                />
+                
                 <DataCard icon={ChartPie} title="Taxa de Ocupação" value="277%" description="Superlotação do sistema (18.300 vs 6.605 vagas)." colorClass="text-[#EF4444]" />
                 <DataCard icon={AlertTriangle}
                   title="Reincidentes" value="31,1%" description="Percentual de reincidência (2024)." colorClass="text-[#FBBF24]" />
@@ -397,13 +409,14 @@ function App() {
               >
                 <h2 className="text-2xl font-bold text-white mb-6 text-center">Evolução da População Carcerária (2022-2025)</h2>
                 <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={evolucaoPopulacao}>
+                  {/* DADOS DO GRÁFICO ATUALIZADOS */}
+                  <LineChart data={evolucaoPopulacao}> 
                     <CartesianGrid strokeDasharray="3 3" stroke="#0D3A46" />
                     <XAxis dataKey="ano" stroke="#8AB4B8" />
                     <YAxis stroke="#8AB4B8" />
                     <Tooltip content={<CustomTooltip />} />
                     <Legend wrapperStyle={{ color: '#8AB4B8' }} />
-                    <Line type="monotone" dataKey="presos" stroke="#4FD1C5" strokeWidth={3} name="Número de Presos" />
+                    <Line type="monotone" dataKey="presos" stroke="#4FD1C5" strokeWidth={3} name="Número de Presos (em UP)" />
                   </LineChart>
                 </ResponsiveContainer>
               </motion.div>
@@ -808,3 +821,4 @@ function App() {
 }
 
 export default App;
+
