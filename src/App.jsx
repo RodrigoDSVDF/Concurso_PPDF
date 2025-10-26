@@ -349,6 +349,37 @@ function App() {
             { categoria: 'Déficit de Vagas', quantidade: 11695 },
           ];
 
+          // ==================================================
+          // NOVOS DADOS DE MORTALIDADE (2020-2023)
+          // ==================================================
+          const evolucaoMortalidade = [
+            { ano: '2020', obitos: 38 },
+            { ano: '2021', obitos: 38 },
+            { ano: '2022', obitos: 31 },
+            { ano: '2023', obitos: 58 }, // Total PPL (UP + CIME)
+          ];
+
+          const causasObito2023_UP = [
+            { name: 'Asfixia/Suicídio', value: 7, fill: '#EF4444' }, 
+            { name: 'A Esclarecer', value: 7, fill: '#A1A1AA' }, 
+            { name: 'Cardiopatia/IAM', value: 7, fill: '#F97316' }, 
+            { name: 'Criminal', value: 5, fill: '#FBBF24' }, 
+            { name: 'SEPSE', value: 4, fill: '#EAB308' }, 
+            { name: 'CA/Neoplasia', value: 3, fill: '#8B5CF6' }, 
+            { name: 'Outras Doenças', value: 8, fill: '#3B82F6' }, // (TB 2, Cerebro 2, Pneumo 1, Digest 1, Mening 1, Ap. Resp 1)
+            { name: 'Acidental', value: 2, fill: '#10B981' }, 
+          ]; // Total: 43 óbitos em UP
+
+          const obitosPorUnidade2023 = [
+            { unidade: 'CIR', obitos: 15 },
+            { unidade: 'CDP II', obitos: 9 },
+            { unidade: 'CPP', obitos: 8 },
+            { unidade: 'PDF II', obitos: 4 },
+            { unidade: 'PDF I', obitos: 3 },
+            { unidade: 'PFDF', obitos: 3 },
+            { unidade: 'CDP I', obitos: 1 },
+          ]; // Total: 43 óbitos em UP
+
           return (
             <div className="max-w-6xl mx-auto">
               <motion.h1
@@ -489,6 +520,89 @@ function App() {
                   O sistema prisional do DF opera com <span className="text-white font-bold">277% de ocupação</span>, evidenciando a superlotação crítica.
                 </p>
               </motion.div>
+
+              {/* ====================================================== */}
+              {/* NOVA SEÇÃO DE GRÁFICOS DE MORTALIDADE */}
+              {/* ====================================================== */}
+              <motion.h2
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.7 }}
+                viewport={{ once: true }}
+                className="text-4xl font-bold text-white mb-12 text-center mt-20"
+              >
+                Análise de Mortalidade <span className="text-[#EF4444]">(2020-2023)</span>
+              </motion.h2>
+              <p className="text-center text-gray-400 mb-12 max-w-3xl mx-auto -mt-8">
+                Dados extraídos dos boletins epidemiológicos da SEAPE-DF, focando no período recente.
+              </p>
+
+              {/* Gráficos de Evolução e Causas (Lado a Lado) */}
+              <div className="grid md:grid-cols-2 gap-12 mb-16">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.8 }} viewport={{ once: true }}
+                  className="bg-[#1C2A35]/60 p-8 rounded-xl border border-[#0D3A46]/50"
+                >
+                  <h2 className="text-2xl font-bold text-white mb-6 text-center">Evolução da Mortalidade PPL (Total)</h2>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <LineChart data={evolucaoMortalidade}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#0D3A46" />
+                      <XAxis dataKey="ano" stroke="#8AB4B8" />
+                      <YAxis stroke="#8AB4B8" />
+                      <Tooltip content={<CustomTooltip />} />
+                      <Legend wrapperStyle={{ color: '#8AB4B8' }} />
+                      <Line type="monotone" dataKey="obitos" stroke="#EF4444" strokeWidth={3} name="Total de Óbitos (UP + CIME)" />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.8 }} viewport={{ once: true }}
+                  className="bg-[#1C2A35]/60 p-8 rounded-xl border border-[#0D3A46]/50"
+                >
+                  <h2 className="text-2xl font-bold text-white mb-6 text-center">Causas de Óbito (UP - 2023)</h2>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <PieChart>
+                      <Tooltip content={<CustomTooltip />} />
+                      <Legend wrapperStyle={{ color: '#8AB4B8', paddingTop: '10px' }} />
+                      <Pie
+                        data={causasObito2023_UP}
+                        cx="50%" cy="50%"
+                        labelLine={false} label={false}
+                        outerRadius={110}
+                        dataKey="value"
+                        stroke="#0B1016" strokeWidth={2}
+                      >
+                        {causasObito2023_UP.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.fill} />
+                        ))}
+                      </Pie>
+                    </PieChart>
+                  </ResponsiveContainer>
+                </motion.div>
+              </div>
+
+              {/* Gráfico de Óbitos por Unidade (Full Width) */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.9 }} viewport={{ once: true }}
+                className="bg-[#1C2A35]/60 p-8 rounded-xl border border-[#0D3A46]/50 mb-12"
+              >
+                <h2 className="text-2xl font-bold text-white mb-6 text-center">Óbitos por Unidade Prisional (UP - 2023)</h2>
+                <ResponsiveContainer width="100%" height={300}>
+                  <ReBarChart data={obitosPorUnidade2023}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#0D3A46" />
+                    <XAxis dataKey="unidade" stroke="#8AB4B8" />
+                    <YAxis stroke="#8AB4B8" />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Legend wrapperStyle={{ color: '#8AB4B8' }} />
+                    <Bar dataKey="obitos" fill="#F97316" name="Óbitos em 2023 (UP)" />
+                  </ReBarChart>
+                </ResponsiveContainer>
+                <p className="text-gray-300 mt-4 text-center">
+                  Nota: Os 15 óbitos do CIME (monitoramento eletrônico) não estão incluídos neste gráfico de unidades.
+                </p>
+              </motion.div>
+              
             </div>
           );
         })()}
@@ -821,4 +935,5 @@ function App() {
 }
 
 export default App;
+
 
