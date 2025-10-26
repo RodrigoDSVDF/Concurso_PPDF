@@ -3,7 +3,9 @@ import { useState, useEffect } from 'react';
 // Ícones (Lucide)
 import { 
   Home, Link, ChartPie, GalleryHorizontal, ChevronLeft, ChevronRight, 
-  ArrowRight, Zap, Target, Globe, Key, Rocket, BookOpen, Brain, TrendingUp, CheckCircle, Sparkles, User, Lightbulb, Search, Eye, Users, FileText, Calendar, Trophy, BarChart, Clock, Hash, Percent, AlertTriangle, LayoutGrid, Handshake, Shield, Monitor
+  ArrowRight, Zap, Target, Globe, Key, Rocket, BookOpen, Brain, TrendingUp, CheckCircle, Sparkles, User, Lightbulb, Search, Eye, Users, FileText, Calendar, Trophy, BarChart, Clock, Hash, Percent, AlertTriangle, LayoutGrid, Handshake, Shield, Monitor,
+  Menu, // Adicionado para menu mobile
+  X     // Adicionado para fechar menu mobile
 } from 'lucide-react';
 import './App.css';
 
@@ -97,6 +99,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 // ====================================================================
 function App() {
   const [isVisible, setIsVisible] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Estado para o menu mobile
 
   // --- Lógica da Galeria ---
   const galleryImages = [
@@ -141,7 +144,7 @@ function App() {
     <div className="min-h-screen bg-[#0B1016] font['Poppins',sans-serif] overflow-x-hidden">
       
       {/* ==================================================================== */}
-      {/* NAVBAR (Menu Fixo com Scroll) */}
+      {/* NAVBAR (Menu Fixo com Scroll) - ATUALIZADO PARA MOBILE */}
       {/* ==================================================================== */}
       <nav className="sticky top-0 z-50 w-full bg-[#0B1016]/80 backdrop-blur-md border-b border-[#1C2A35]">
         <div className="max-w-6xl mx-auto px-4">
@@ -153,7 +156,8 @@ function App() {
               PPDF<span className="text-[#4FD1C5]">.info</span>
             </span>
             
-            <div className="flex space-x-2">
+            {/* Menu Desktop */}
+            <div className="hidden md:flex space-x-2">
               <button 
                 onClick={() => scrollToSection('hero')} 
                 className="flex items-center text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer"
@@ -168,7 +172,6 @@ function App() {
                 <BarChart className="w-4 h-4 mr-2" />
                 Sistema
               </button>
-              {/* NOVO LINK PARA PAPEL ESTRATÉGICO */}
               <button 
                 onClick={() => scrollToSection('papel-estrategico')} 
                 className="flex items-center text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer"
@@ -191,9 +194,63 @@ function App() {
                 Galeria
               </button>
             </div>
+
+            {/* Botão Menu Mobile */}
+            <div className="md:hidden">
+              <button onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle Menu">
+                {isMenuOpen ? <X className="w-6 h-6 text-white" /> : <Menu className="w-6 h-6 text-white" />}
+              </button>
+            </div>
           </div>
         </div>
       </nav>
+
+      {/* Menu Mobile Dropdown */}
+      {isMenuOpen && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          className="absolute top-16 left-0 w-full bg-[#0B1016]/95 z-40 p-4 border-b border-[#1C2A35] md:hidden"
+        >
+          <div className="flex flex-col space-y-2">
+            <button 
+              onClick={() => { scrollToSection('hero'); setIsMenuOpen(false); }}
+              className="flex items-center text-gray-300 hover:text-white px-3 py-2 rounded-md text-base font-medium transition-colors cursor-pointer"
+            >
+              <Home className="w-4 h-4 mr-2" />
+              Início
+            </button>
+            <button 
+              onClick={() => { scrollToSection('sistema-prisional'); setIsMenuOpen(false); }}
+              className="flex items-center text-gray-300 hover:text-white px-3 py-2 rounded-md text-base font-medium transition-colors cursor-pointer"
+            >
+              <BarChart className="w-4 h-4 mr-2" />
+              Sistema
+            </button>
+            <button 
+              onClick={() => { scrollToSection('papel-estrategico'); setIsMenuOpen(false); }}
+              className="flex items-center text-gray-300 hover:text-white px-3 py-2 rounded-md text-base font-medium transition-colors cursor-pointer"
+            >
+              <Shield className="w-4 h-4 mr-2" />
+              Estratégia
+            </button>
+            <button 
+              onClick={() => { scrollToSection('links'); setIsMenuOpen(false); }}
+              className="flex items-center text-gray-300 hover:text-white px-3 py-2 rounded-md text-base font-medium transition-colors cursor-pointer"
+            >
+              <Link className="w-4 h-4 mr-2" />
+              Links
+            </button>
+            <button 
+              onClick={() => { scrollToSection('galeria'); setIsMenuOpen(false); }}
+              className="flex items-center text-gray-300 hover:text-white px-3 py-2 rounded-md text-base font-medium transition-colors cursor-pointer"
+            >
+              <GalleryHorizontal className="w-4 h-4 mr-2" />
+              Galeria
+            </button>
+          </div>
+        </motion.div>
+      )}
 
       {/* ==================================================================== */}
       {/* SECÇÃO 1: HERO (ID="hero") - IMAGEM DE FUNDO MAIS VISÍVEL */}
@@ -314,8 +371,10 @@ function App() {
             Dados relevantes sobre o ambiente de trabalho e a demanda por novos policiais penais no DF.
           </p>
           <div className="grid md:grid-cols-3 gap-8">
-            <DataCard icon={Hash} title="População Carcerária (SEAPE)" value="18.300" description="Número total de internos (Dado recente da SEAPE)." colorClass="text-[#F97316]" />
-            <DataCard icon={Percent} title="Déficit de Cargos" value="1.286 Vagos" description="Total de cargos vagos (julho/2023), justificando a necessidade de nomeação do CR." colorClass="text-[#8B5CF6]" />
+            {/* ATUALIZADO COM FONTE */}
+            <DataCard icon={Hash} title="População Carcerária" value="18.300" description="Número total de internos (Fonte: SEAPE-DF)." colorClass="text-[#F97316]" />
+            {/* ATUALIZADO COM FONTE */}
+            <DataCard icon={Percent} title="Déficit de Cargos" value="1.286 Vagos" description="Total de cargos vagos (Jul/2023, Fonte: SEAPE-DF)." colorClass="text-[#8B5CF6]" />
             <DataCard icon={Search} title="Proporção Policial/Presso" value="Aprox. 1 para 9" description="Relação estimada entre o efetivo atual de policiais penais e a população carcerária do DF." colorClass="text-[#EF4444]" />
           </div>
         </div>
@@ -421,9 +480,9 @@ function App() {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="grid md:grid-cols-4 gap-6 mb-16"
               >
-                <DataCard icon={Users} title="População Carcerária" value="18.300" description="Número de internos (dado atualizado SEAPE)." colorClass="text-[#F97316]" />
+                {/* ATUALIZADO COM FONTE */}
+                <DataCard icon={Users} title="População Carcerária" value="18.300" description="Número de internos (Fonte: SEAPE-DF)." colorClass="text-[#F97316]" />
                 
-                {/* DADOS CORRIGIDOS SOBRE UNIDADES PRISIONAIS */}
                 <DataCard 
                   icon={Globe}
                   title="Unidades Prisionais" 
@@ -442,7 +501,6 @@ function App() {
               >
                 <h2 className="text-2xl font-bold text-white mb-6 text-center">Evolução da População Carcerária (2022-2025)</h2>
                 <ResponsiveContainer width="100%" height={300}>
-                  {/* DADOS DO GRÁFICO ATUALIZADOS */}
                   <LineChart data={evolucaoPopulacao}> 
                     <CartesianGrid strokeDasharray="3 3" stroke="#0D3A46" />
                     <XAxis dataKey="ano" stroke="#8AB4B8" />
@@ -488,7 +546,7 @@ function App() {
                         cy="50%" 
                         labelLine={false} 
                         label={false} 
-                        outerRadius={110} 
+                        outerRadius="80%" // ATUALIZADO P/ MOBILE
                         fill="#8884d8" 
                         dataKey="value" 
                         stroke="#0B1016" 
@@ -535,8 +593,9 @@ function App() {
               >
                 Análise de Mortalidade <span className="text-[#EF4444]">(2019-2025)</span>
               </motion.h2>
+              {/* ATUALIZADO COM FONTE */}
               <p className="text-center text-gray-400 mb-12 max-w-3xl mx-auto -mt-8">
-                Dados extraídos dos boletins epidemiológicos (SEAPE/SES) e levantamentos da CLDF.
+                Dados extraídos de boletins epidemiológicos (Fonte: SEAPE-DF) e levantamentos da CLDF.
               </p>
 
               {/* NOVA LINHA DE DATACARDS - 2023, 2024, 2025 */}
@@ -547,25 +606,28 @@ function App() {
                 viewport={{ once: true }}
                 className="grid md:grid-cols-3 gap-6 mb-16"
               >
+                {/* ATUALIZADO COM FONTE */}
                 <DataCard 
                   icon={AlertTriangle} 
                   title="Óbitos em 2023" 
                   value="58" 
-                  description="Total de mortes (43 em UP, 15 no CIME)." 
+                  description="Total de mortes (43 em UP, 15 no CIME). Fonte: SEAPE-DF." 
                   colorClass="text-[#F87171]" 
                 />
+                {/* ATUALIZADO COM FONTE */}
                 <DataCard 
                   icon={TrendingUp} 
                   title="Óbitos em 2024" 
                   value="46" 
-                  description="Aumento de 21% em relação a 2019 (Fonte: CLDF)." 
+                  description="Aumento de 21% de 2019 (Fonte: SEAPE/CLDF)." 
                   colorClass="text-[#F97316]" 
                 />
+                {/* ATUALIZADO COM FONTE */}
                 <DataCard 
                   icon={FileText} 
                   title="Óbitos em 2025 (Parcial)" 
                   value="18" 
-                  description="Mortes registradas de Jan a Set/2025 (40% 'a esclarecer')." 
+                  description="Mortes de Jan a Set/2025 (Fonte: CLDF)." 
                   colorClass="text-[#FBBF24]" 
                 />
               </motion.div>
@@ -602,7 +664,7 @@ function App() {
                         data={causasObito2023_UP}
                         cx="50%" cy="50%"
                         labelLine={false} label={false}
-                        outerRadius={110}
+                        outerRadius="80%" // ATUALIZADO P/ MOBILE
                         dataKey="value"
                         stroke="#0B1016" strokeWidth={2}
                       >
@@ -827,7 +889,7 @@ function App() {
                           data={dataDistribuicao} 
                           cx="50%" cy="50%" 
                           labelLine={false} label={false} 
-                          outerRadius={110} 
+                          outerRadius="80%" // ATUALIZADO P/ MOBILE
                           dataKey="value" 
                           stroke="#0B1016" strokeWidth={2}
                         >
@@ -864,7 +926,8 @@ function App() {
                     title="Nomeações Realizadas" value="637" description="Servidores já nomeados (até Nov/2024)." colorClass="text-[#3B82F6]" />
                   <DataCard icon={Users}
                     title="Formados Aguardando" value="904" description="Profissionais prontos aguardando nomeação." colorClass="text-[#FBBF24]" />
-                  <DataCard icon={LayoutGrid} title="Déficit de Cargos" value="1.286" description="Cargos vagos no sistema (Julho/2023)." colorClass="text-[#EF4444]" />
+                  {/* ATUALIZADO COM FONTE */}
+                  <DataCard icon={LayoutGrid} title="Déficit de Cargos" value="1.286" description="Cargos vagos (Jul/2023, Fonte: SEAPE-DF)." colorClass="text-[#EF4444]" />
                 </motion.div>
               </>
             );
@@ -957,7 +1020,7 @@ function App() {
                 © 2024 INFORMATIVO CONCURSO PPDF | Dados do concurso 2022.
               </p>
               <p className="text-gray-500 text-sm mt-1">
-                Site de acompanhamento baseado em publicações do DODF e relatórios públicos.
+                Site de acompanhamento baseado em publicações do DODF e relatórios públicos (Fonte: SEAPE-DF/CLDF).
               </p>
             </div>
         </div>
