@@ -196,15 +196,15 @@ function App() {
       </nav>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 1: HERO (ID="hero") */}
+      {/* SECÇÃO 1: HERO (ID="hero") - IMAGEM DE FUNDO MAIS VISÍVEL */}
       {/* ==================================================================== */}
       <section id="hero" className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
         <div className="hidden md:block absolute top-20 left-20 w-72 h-72 bg-[#0D3A46]/20 rounded-full blur-3xl animate-pulse"></div>
         <div className="hidden md:block absolute bottom-20 right-20 w-96 h-96 bg-[#0D3A46]/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute inset-0 opacity-40"> 
+        <div className="absolute inset-0 opacity-70"> {/* AUMENTADO: de opacity-40 para opacity-70 */}
           <img src={ppdf02Img} alt="Fundo" className="w-full h-full object-cover object-center md:object-right"/>
         </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0B1016]/70 via-[#14222E]/60 to-[#0B1016]/70"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0B1016]/50 via-[#14222E]/40 to-[#0B1016]/50"></div> {/* REDUZIDO: opacidade do gradiente */}
         <div className={`relative z-10 text-center max-w-5xl mx-auto transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#4FD1C5]/30 to-[#38B2AC]/40 border border-[#4FD1C5]/50 rounded-full text-[#4FD1C5] text-sm font-medium mb-8 backdrop-blur-sm">
             <BarChart className="w-4 h-4 mr-2" />
@@ -482,7 +482,7 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 6: O PAPEL ESTRATÉGICO DA PPDF (ID="papel-estrategico") */}
+      {/* SECÇÃO 6: O PAPEL ESTRATÉGICO DA PPDF (ID="papel-estrategico") - IMAGEM REDUZIDA */}
       {/* ==================================================================== */}
       <section id="papel-estrategico" className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
@@ -509,7 +509,7 @@ function App() {
             <img 
               src={ppdf12Img} 
               alt="Policiais Penais em Ação" 
-              className="rounded-lg shadow-xl border border-[#0D3A46]/50 max-w-full md:max-w-md h-auto" 
+              className="rounded-lg shadow-xl border border-[#0D3A46]/50 max-w-full md:max-w-xs h-auto" 
             />
           </motion.div>
 
