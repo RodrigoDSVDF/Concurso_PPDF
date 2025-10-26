@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'; // <-- LINHA CORRIGIDA
+import { useState, useEffect } from 'react'; // <-- Linha de importação principal
 
 // Ícones (Lucide)
 import { 
@@ -582,7 +582,7 @@ function App() {
               </motion.div>
 
               {/* ====================================================== */}
-              {/* SEÇÃO DE GRÁFICOS DE MORTALIDADE (ATUALIZADA) */}
+              {/* SEÇÃO DE GRÁFICOS DE MORTALIDADE (FONTES CORRIGIDAS) */}
               {/* ====================================================== */}
               <motion.h2
                 initial={{ opacity: 0, y: -20 }}
@@ -593,12 +593,12 @@ function App() {
               >
                 Análise de Mortalidade <span className="text-[#EF4444]">(2019-2025)</span>
               </motion.h2>
-              {/* ATUALIZADO COM FONTE */}
+              {/* ATUALIZADO COM FONTE CORRETA */}
               <p className="text-center text-gray-400 mb-12 max-w-3xl mx-auto -mt-8">
-                Dados extraídos de boletins epidemiológicos (Fonte: SEAPE-DF) e levantamentos da CLDF.
+                Dados dos boletins epidemiológicos (Fonte: Secretaria de Saúde do DF - SES-DF) e levantamentos da CLDF.
               </p>
 
-              {/* NOVA LINHA DE DATACARDS - 2023, 2024, 2025 */}
+              {/* NOVA LINHA DE DATACARDS - FONTES CORRIGIDAS */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -606,28 +606,28 @@ function App() {
                 viewport={{ once: true }}
                 className="grid md:grid-cols-3 gap-6 mb-16"
               >
-                {/* ATUALIZADO COM FONTE */}
+                {/* ATUALIZADO COM FONTE CORRETA */}
                 <DataCard 
                   icon={AlertTriangle} 
                   title="Óbitos em 2023" 
                   value="58" 
-                  description="Total de mortes (43 em UP, 15 no CIME). Fonte: SEAPE-DF." 
+                  description="Total (43 em UP, 15 no CIME). Fonte: SES-DF / SEAPE-DF." 
                   colorClass="text-[#F87171]" 
                 />
-                {/* ATUALIZADO COM FONTE */}
+                {/* ATUALIZADO COM FONTE CORRETA */}
                 <DataCard 
                   icon={TrendingUp} 
                   title="Óbitos em 2024" 
                   value="46" 
-                  description="Aumento de 21% de 2019 (Fonte: SEAPE/CLDF)." 
+                  description="Aumento de 21% de 2019 (Fonte: SES-DF / CLDF)." 
                   colorClass="text-[#F97316]" 
                 />
-                {/* ATUALIZADO COM FONTE */}
+                {/* ATUALIZADO COM FONTE CORRETA */}
                 <DataCard 
                   icon={FileText} 
                   title="Óbitos em 2025 (Parcial)" 
                   value="18" 
-                  description="Mortes de Jan a Set/2025 (Fonte: CLDF)." 
+                  description="Mortes de Jan a Set/2025 (Fonte: CLDF / Imprensa)." 
                   colorClass="text-[#FBBF24]" 
                 />
               </motion.div>
@@ -1011,7 +1011,7 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 12: FOOTER */}
+      {/* SECÇÃO 12: FOOTER (FONTE CORRIGIDA) */}
       {/* ==================================================================== */}
       <section>
         <div className="py-12 px-4 bg-[#0B1016] border-t border-[#1C2A35]">
@@ -1019,9 +1019,9 @@ function App() {
               <p className="text-gray-400 text-lg">
                 © 2024 INFORMATIVO CONCURSO PPDF | Dados do concurso 2022.
               </p>
-              {/* ATUALIZADO COM FONTE */}
+              {/* ATUALIZADO COM FONTE CORRETA */}
               <p className="text-gray-500 text-sm mt-1">
-                Site de acompanhamento baseado em publicações do DODF e relatórios públicos (Fonte: SEAPE-DF/CLDF).
+                Site de acompanhamento baseado em publicações do DODF e relatórios públicos (Fontes: SES-DF, SEAPE-DF, CLDF).
               </p>
             </div>
         </div>
