@@ -350,13 +350,15 @@ function App() {
           ];
 
           // ==================================================
-          // NOVOS DADOS DE MORTALIDADE (2020-2023)
+          // DADOS DE MORTALIDADE (2019-2024) - ATUALIZADOS
           // ==================================================
           const evolucaoMortalidade = [
+            { ano: '2019', obitos: 38 }, // ADICIONADO (Fonte: Mortes...pdf)
             { ano: '2020', obitos: 38 },
             { ano: '2021', obitos: 38 },
             { ano: '2022', obitos: 31 },
             { ano: '2023', obitos: 58 }, // Total PPL (UP + CIME)
+            { ano: '2024', obitos: 46 }, // ADICIONADO (Fonte: Mortes...pdf)
           ];
 
           const causasObito2023_UP = [
@@ -522,7 +524,7 @@ function App() {
               </motion.div>
 
               {/* ====================================================== */}
-              {/* NOVA SEÇÃO DE GRÁFICOS DE MORTALIDADE */}
+              {/* SEÇÃO DE GRÁFICOS DE MORTALIDADE (ATUALIZADA) */}
               {/* ====================================================== */}
               <motion.h2
                 initial={{ opacity: 0, y: -20 }}
@@ -531,19 +533,50 @@ function App() {
                 viewport={{ once: true }}
                 className="text-4xl font-bold text-white mb-12 text-center mt-20"
               >
-                Análise de Mortalidade <span className="text-[#EF4444]">(2020-2023)</span>
+                Análise de Mortalidade <span className="text-[#EF4444]">(2019-2025)</span>
               </motion.h2>
               <p className="text-center text-gray-400 mb-12 max-w-3xl mx-auto -mt-8">
-                Dados extraídos dos boletins epidemiológicos da SEAPE-DF, focando no período recente.
+                Dados extraídos dos boletins epidemiológicos (SEAPE/SES) e levantamentos da CLDF.
               </p>
+
+              {/* NOVA LINHA DE DATACARDS - 2023, 2024, 2025 */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.75 }}
+                viewport={{ once: true }}
+                className="grid md:grid-cols-3 gap-6 mb-16"
+              >
+                <DataCard 
+                  icon={AlertTriangle} 
+                  title="Óbitos em 2023" 
+                  value="58" 
+                  description="Total de mortes (43 em UP, 15 no CIME)." 
+                  colorClass="text-[#F87171]" 
+                />
+                <DataCard 
+                  icon={TrendingUp} 
+                  title="Óbitos em 2024" 
+                  value="46" 
+                  description="Aumento de 21% em relação a 2019 (Fonte: CLDF)." 
+                  colorClass="text-[#F97316]" 
+                />
+                <DataCard 
+                  icon={FileText} 
+                  title="Óbitos em 2025 (Parcial)" 
+                  value="18" 
+                  description="Mortes registradas de Jan a Set/2025 (40% 'a esclarecer')." 
+                  colorClass="text-[#FBBF24]" 
+                />
+              </motion.div>
 
               {/* Gráficos de Evolução e Causas (Lado a Lado) */}
               <div className="grid md:grid-cols-2 gap-12 mb-16">
                 <motion.div
-                  initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.8 }} viewport={{ once: true }}
+                  initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.9 }} viewport={{ once: true }}
                   className="bg-[#1C2A35]/60 p-8 rounded-xl border border-[#0D3A46]/50"
                 >
-                  <h2 className="text-2xl font-bold text-white mb-6 text-center">Evolução da Mortalidade PPL (Total)</h2>
+                  <h2 className="text-2xl font-bold text-white mb-6 text-center">Evolução da Mortalidade PPL (2019-2024)</h2>
                   <ResponsiveContainer width="100%" height={300}>
                     <LineChart data={evolucaoMortalidade}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#0D3A46" />
@@ -557,7 +590,7 @@ function App() {
                 </motion.div>
 
                 <motion.div
-                  initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.8 }} viewport={{ once: true }}
+                  initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.9 }} viewport={{ once: true }}
                   className="bg-[#1C2A35]/60 p-8 rounded-xl border border-[#0D3A46]/50"
                 >
                   <h2 className="text-2xl font-bold text-white mb-6 text-center">Causas de Óbito (UP - 2023)</h2>
@@ -584,7 +617,7 @@ function App() {
 
               {/* Gráfico de Óbitos por Unidade (Full Width) */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.9 }} viewport={{ once: true }}
+                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 1.0 }} viewport={{ once: true }}
                 className="bg-[#1C2A35]/60 p-8 rounded-xl border border-[#0D3A46]/50 mb-12"
               >
                 <h2 className="text-2xl font-bold text-white mb-6 text-center">Óbitos por Unidade Prisional (UP - 2023)</h2>
