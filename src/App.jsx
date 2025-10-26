@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'; // <-- LINHA CORRIGIDA
 
 // Ícones (Lucide)
 import { 
@@ -1019,6 +1019,7 @@ function App() {
               <p className="text-gray-400 text-lg">
                 © 2024 INFORMATIVO CONCURSO PPDF | Dados do concurso 2022.
               </p>
+              {/* ATUALIZADO COM FONTE */}
               <p className="text-gray-500 text-sm mt-1">
                 Site de acompanhamento baseado em publicações do DODF e relatórios públicos (Fonte: SEAPE-DF/CLDF).
               </p>
