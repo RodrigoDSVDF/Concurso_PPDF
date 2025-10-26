@@ -963,7 +963,7 @@ function App() {
               <div className="grid md:grid-cols-2 gap-6">
                 <LinkCard href="https://www.dodf.df.gov.br/" icon={FileText} title="Diário Oficial (DODF)" description="Fonte primária para todos os atos de nomeação e convocações oficiais." iconColor="text-[#3B82F6]" />
                 <LinkCard href="https://www.seape.df.gov.br/" icon={Globe} title="Portal SEAPE/DF" description="Secretaria de Estado de Administração Penitenciária do DF." iconColor="text-[#4FD1C5]" />
-                <LinkCard href="https://www.institutoaocp.org.br/" icon={BookOpen} title="Instituto AOCP" description="Página da banca organizadora com resultados e homologação." iconColor="text-[#FBBF24]" />
+                <LinkCard href="https://www.institutoaocp.org.br/concursos/389" icon={BookOpen} title="Instituto AOCP" description="Página da banca organizadora com resultados e homologação." iconColor="text-[#FBBF24]" />
                 <LinkCard href="#" icon={Key} title="Assinatura Digital" description="Informações sobre como obter e usar o certificado digital para a posse." iconColor="text-[#EF4444]" />
               </div>
             );
