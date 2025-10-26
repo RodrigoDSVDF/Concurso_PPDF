@@ -34,14 +34,13 @@ import ppdf12Img from './assets/ppdf12.png';
 // COMPONENTES AUXILIARES
 // ====================================================================
 
-// --- DataCard (O mesmo que já tínhamos) ---
+// --- DataCard (Atualizado para remover "~") ---
 const DataCard = ({ icon: Icon, title, value, description, colorClass }) => {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.3,
   });
 
-  const prefix = value.startsWith('~') ? '~' : '';
   const numericValue = parseInt(value.replace(/[^0-9]/g, ''), 10);
   const separator = numericValue > 999 ? '.' : '';
 
@@ -61,10 +60,9 @@ const DataCard = ({ icon: Icon, title, value, description, colorClass }) => {
             end={numericValue} 
             duration={2.5}
             separator={separator}
-            prefix={prefix}
           />
         ) : (
-          `${prefix}0`
+          '0'
         )}
       </p>
       <p className="text-gray-400 text-sm">{description}</p>
@@ -143,7 +141,7 @@ function App() {
     <div className="min-h-screen bg-[#0B1016] font['Poppins',sans-serif] overflow-x-hidden">
       
       {/* ==================================================================== */}
-      {/* NAVBAR (Menu Fixo com Scroll)
+      {/* NAVBAR (Menu Fixo com Scroll) */}
       {/* ==================================================================== */}
       <nav className="sticky top-0 z-50 w-full bg-[#0B1016]/80 backdrop-blur-md border-b border-[#1C2A35]">
         <div className="max-w-6xl mx-auto px-4">
@@ -198,10 +196,9 @@ function App() {
       </nav>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 1: HERO (ID="hero")
+      {/* SECÇÃO 1: HERO (ID="hero") */}
       {/* ==================================================================== */}
       <section id="hero" className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
-        {/* ... (Conteúdo da Hero Section) ... */}
         <div className="hidden md:block absolute top-20 left-20 w-72 h-72 bg-[#0D3A46]/20 rounded-full blur-3xl animate-pulse"></div>
         <div className="hidden md:block absolute bottom-20 right-20 w-96 h-96 bg-[#0D3A46]/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
         <div className="absolute inset-0 opacity-40"> 
@@ -246,10 +243,9 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 2: MARQUEE
+      {/* SECÇÃO 2: MARQUEE */}
       {/* ==================================================================== */}
       <div className="py-3 bg-[#0D3A46]/70 border-t border-b border-[#4FD1C5]/30 overflow-hidden">
-        {/* ... (Conteúdo do Marquee - com números corretos) ... */}
         <Marquee pauseOnHover={true} speed={60}>
           <span className="text-xl text-white font-semibold mx-8 uppercase">1.541 Policiais Penais Formados</span>
           <span className="text-xl text-[#4FD1C5] font-bold mx-8 uppercase">904 Aguardam Nomeação</span>
@@ -259,10 +255,9 @@ function App() {
       </div>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 3: FORMADOS vs. NOMEADOS (ID="vagas-formados")
+      {/* SECÇÃO 3: FORMADOS vs. NOMEADOS (ID="vagas-formados") */}
       {/* ==================================================================== */}
       <section id="vagas-formados" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
-        {/* ... (Conteúdo da Seção Formados vs. Nomeados - com números corretos) ... */}
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-white mb-4">
             Análise: Formados vs. Nomeados (Concurso 2022)
@@ -296,7 +291,7 @@ function App() {
               icon={TrendingUp} 
               title="Finais de Fila (Ampla/Cotas)" 
               value="43" 
-              description="Número de candidatos  que possivelmente pedirão final de fila na nomeação de 600." 
+              description="Número de candidatos que possivelmente pedirão final de fila na nomeação de 600." 
               colorClass="text-[#EF4444]" 
             />
           </div>
@@ -308,7 +303,7 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 4: ESTATÍSTICAS (ID="estatisticas") - DADOS ATUALIZADOS
+      {/* SECÇÃO 4: ESTATÍSTICAS (ID="estatisticas") - DADOS ATUALIZADOS */}
       {/* ==================================================================== */}
       <section id="estatisticas" className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
@@ -319,24 +314,21 @@ function App() {
             Dados relevantes sobre o ambiente de trabalho e a demanda por novos policiais penais no DF.
           </p>
           <div className="grid md:grid-cols-3 gap-8">
-            {/* VALOR ATUALIZADO: 18.300 */}
             <DataCard icon={Hash} title="População Carcerária (SEAPE)" value="18.300" description="Número total de internos (Dado recente da SEAPE)." colorClass="text-[#F97316]" />
-            <DataCard icon={Percent} title="Déficit de Cargos" value="~1.286 Vagos" description="Total de cargos vagos (julho/2023), justificando a necessidade de nomeação do CR." colorClass="text-[#8B5CF6]" />
+            <DataCard icon={Percent} title="Déficit de Cargos" value="1.286 Vagos" description="Total de cargos vagos (julho/2023), justificando a necessidade de nomeação do CR." colorClass="text-[#8B5CF6]" />
             <DataCard icon={Search} title="Proporção Policial/Presso" value="Aprox. 1 para 9" description="Relação estimada entre o efetivo atual de policiais penais e a população carcerária do DF." colorClass="text-[#EF4444]" />
           </div>
         </div>
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 5: SISTEMA PRISIONAL (ID="sistema-prisional") - DADOS ATUALIZADOS
+      {/* SECÇÃO 5: SISTEMA PRISIONAL (ID="sistema-prisional") - DADOS ATUALIZADOS */}
       {/* ==================================================================== */}
       <section id="sistema-prisional" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
         {(() => {
-          // --- Dados para a secção (Atualizar População Carcerária) ---
-          // A evolução de 2024 e 2025 precisa ser ajustada para o novo valor de 18.300
           const evolucaoPopulacao = [
             { ano: '2022', presos: 15181 }, { ano: '2023', presos: 15800 },
-            { ano: '2024', presos: 17500 }, { ano: '2025', presos: 18300 }, // Último valor: 18.300
+            { ano: '2024', presos: 17500 }, { ano: '2025', presos: 18300 },
           ];
           const crimesComuns = [
             { crime: 'Roubo', '2022': 8457, '2023': 10155, '2024': 11806 },
@@ -349,10 +341,9 @@ function App() {
           ];
           const capacidadeData = [
             { categoria: 'Vagas Disponíveis', quantidade: 6605 },
-            { categoria: 'População Atual', quantidade: 18300 }, // VALOR ATUALIZADO
-            { categoria: 'Déficit de Vagas', quantidade: 11695 }, // 18300 - 6605
+            { categoria: 'População Atual', quantidade: 18300 },
+            { categoria: 'Déficit de Vagas', quantidade: 11695 },
           ];
-          // Novo cálculo de Taxa de Ocupação: 18300 / 6605 * 100 = ~277%
 
           return (
             <div className="max-w-6xl mx-auto">
@@ -393,11 +384,10 @@ function App() {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="grid md:grid-cols-4 gap-6 mb-16"
               >
-                {/* VALOR E DESCRIÇÃO ATUALIZADOS */}
-                <DataCard icon={Users} title="População Carcerária" value="18.300" description="Número de internos (dado atualizado SEAPE)." colorClass="text-[#F97316]" /> 
+                <DataCard icon={Users} title="População Carcerária" value="18.300" description="Número de internos (dado atualizado SEAPE)." colorClass="text-[#F97316]" />
                 <DataCard icon={Globe}
                   title="Unidades Prisionais" value="6" description="Principais complexos penitenciários." colorClass="text-[#3B82F6]" />
-                <DataCard icon={ChartPie} title="Taxa de Ocupação" value="277%" description="Superlotação do sistema (18.300 vs 6.605 vagas)." colorClass="text-[#EF4444]" /> {/* VALOR ATUALIZADO */}
+                <DataCard icon={ChartPie} title="Taxa de Ocupação" value="277%" description="Superlotação do sistema (18.300 vs 6.605 vagas)." colorClass="text-[#EF4444]" />
                 <DataCard icon={AlertTriangle}
                   title="Reincidentes" value="31,1%" description="Percentual de reincidência (2024)." colorClass="text-[#FBBF24]" />
               </motion.div>
@@ -437,7 +427,6 @@ function App() {
                   </ResponsiveContainer>
                 </motion.div>
 
-                {/* GRÁFICO DE PIZZA CORRIGIDO */}
                 <motion.div
                   initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.5 }}
                   className="bg-[#1C2A35]/60 p-8 rounded-xl border border-[#0D3A46]/50"
@@ -493,7 +482,7 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 6: O PAPEL ESTRATÉGICO DA PPDF (ID="papel-estrategico")
+      {/* SECÇÃO 6: O PAPEL ESTRATÉGICO DA PPDF (ID="papel-estrategico") */}
       {/* ==================================================================== */}
       <section id="papel-estrategico" className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
@@ -520,12 +509,11 @@ function App() {
             <img 
               src={ppdf12Img} 
               alt="Policiais Penais em Ação" 
-              className="rounded-lg shadow-xl border border-[#0D3A46]/50 max-w-full md:max-w-2xl h-auto" 
+              className="rounded-lg shadow-xl border border-[#0D3A46]/50 max-w-full md:max-w-md h-auto" 
             />
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {/* Cartão 1: Agentes de Ressocialização e Cidadania */}
             <motion.div
               initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} viewport={{ once: true }}
               className="p-6 bg-[#1C2A35]/60 border border-[#0D3A46]/50 rounded-xl hover:border-[#FBBF24]"
@@ -537,7 +525,6 @@ function App() {
               </p>
             </motion.div>
 
-            {/* Cartão 2: Inteligência e Combate ao Crime Organizado */}
             <motion.div
               initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.4 }} viewport={{ once: true }}
               className="p-6 bg-[#1C2A35]/60 border border-[#0D3A46]/50 rounded-xl hover:border-[#4FD1C5]"
@@ -549,7 +536,6 @@ function App() {
               </p>
             </motion.div>
 
-            {/* Cartão 3: Custo Social da Negligência Prisional */}
             <motion.div
               initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.6 }} viewport={{ once: true }}
               className="p-6 bg-[#1C2A35]/60 border border-[#0D3A46]/50 rounded-xl hover:border-[#EF4444]"
@@ -565,10 +551,9 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 7: NOMEAÇÕES (ID="nomeacoes")
+      {/* SECÇÃO 7: NOMEAÇÕES (ID="nomeacoes") */}
       {/* ==================================================================== */}
       <section id="nomeacoes" className="py-20 px-4 bg-[#0B1016]">
-        {/* ... (Conteúdo da Seção Nomeações - ATUALIZADO) ... */}
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-white mb-4">
             Acompanhamento das Próximas Nomeações
@@ -606,10 +591,9 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 8: ANÁLISE CRÍTICA (ID="analise-critica")
+      {/* SECÇÃO 8: ANÁLISE CRÍTICA (ID="analise-critica") */}
       {/* ==================================================================== */}
       <section id="analise-critica" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
-        {/* ... (Conteúdo da Seção Análise Crítica - ATUALIZADO) ... */}
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -633,7 +617,7 @@ function App() {
                 A segurança do DF vive um paradoxo. O GDF investiu milhões na formação de <strong className="text-white">1.541 Policiais Penais</strong>, mas hoje, <strong className="text-white">904</strong> desses profissionais (1.541 formados - 637 nomeados) estão parados, aguardando nomeação.
               </p>
               <p className="text-lg text-gray-300 leading-relaxed">
-                Esta inércia, que se arrasta há mais de dois anos, forçou o <strong className="text-white">Tribunal de Contas (TCDF)</strong> a exigir um cronograma. Isso prova que o GDF só age sob pressão, não por planejamento. Manter o défice de <strong className="text-white">~1.286 cargos</strong> não é "economia", é uma <strong className="text-white">sabotagem da Inteligência Prisional</strong> e um convite ao colapso.
+                Esta inércia, que se arrasta há mais de dois anos, forçou o <strong className="text-white">Tribunal de Contas (TCDF)</strong> a exigir um cronograma. Isso prova que o GDF só age sob pressão, não por planejamento. Manter o défice de <strong className="text-white">1.286 cargos</strong> não é "economia", é uma <strong className="text-white">sabotagem da Inteligência Prisional</strong> e um convite ao colapso.
               </p>
               <p className="text-lg text-gray-300 leading-relaxed">
                 O mais grave é a <strong className="text-white">quebra da Boa-Fé Administrativa</strong>: o Estado gasta o recurso público para treinar o efetivo, expondo-o a risco, e depois o abandona no limbo. É um <strong className="text-amber-400">desperdício de investimento público</strong> e uma contradição ética, enquanto o sistema opera com <strong className="text-white">277% de superlotação</strong>. A nomeação não é um favor; é um dever legal.
@@ -644,10 +628,9 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 9: GRÁFICOS (ID="graficos")
+      {/* SECÇÃO 9: GRÁFICOS (ID="graficos") */}
       {/* ==================================================================== */}
       <section id="graficos" className="py-20 px-4 bg-[#0B1016]">
-        {/* ... (Conteúdo da Seção Gráficos - GRÁFICOS CORRIGIDOS) ... */}
         <div className="max-w-6xl mx-auto">
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
@@ -671,7 +654,6 @@ function App() {
             return (
               <>
                 <div className="grid md:grid-cols-2 gap-12 mb-16">
-                  {/* GRÁFICO DE PIZZA CORRIGIDO */}
                   <motion.div
                     initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }} viewport={{ once: true }}
                     className="bg-[#1C2A35]/60 p-8 rounded-xl border border-[#0D3A46]/50"
@@ -722,7 +704,7 @@ function App() {
                     title="Nomeações Realizadas" value="637" description="Servidores já nomeados (até Nov/2024)." colorClass="text-[#3B82F6]" />
                   <DataCard icon={Users}
                     title="Formados Aguardando" value="904" description="Profissionais prontos aguardando nomeação." colorClass="text-[#FBBF24]" />
-                  <DataCard icon={LayoutGrid} title="Déficit de Cargos" value="~1.286" description="Cargos vagos no sistema (Julho/2023)." colorClass="text-[#EF4444]" />
+                  <DataCard icon={LayoutGrid} title="Déficit de Cargos" value="1.286" description="Cargos vagos no sistema (Julho/2023)." colorClass="text-[#EF4444]" />
                 </motion.div>
               </>
             );
@@ -731,10 +713,9 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 10: LINKS ÚTEIS (ID="links")
+      {/* SECÇÃO 10: LINKS ÚTEIS (ID="links") */}
       {/* ==================================================================== */}
       <section id="links" className="py-20 px-4 bg-[#14222E]/80 border-t border-b border-[#0D3A46]">
-        {/* ... (Conteúdo da Seção Links sem alterações) ... */}
         <div className="max-w-4xl mx-auto">
           <h2 className="text-5xl font-bold text-center text-white mb-4">
             Links Úteis e Documentos
@@ -768,10 +749,9 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 11: GALERIA (ID="galeria")
+      {/* SECÇÃO 11: GALERIA (ID="galeria") */}
       {/* ==================================================================== */}
       <section id="galeria" className="py-20 px-4">
-        {/* ... (Conteúdo da Seção Galeria sem alterações) ... */}
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-white mb-12">
             Galeria de Imagens
@@ -808,10 +788,9 @@ function App() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECÇÃO 12: FOOTER
+      {/* SECÇÃO 12: FOOTER */}
       {/* ==================================================================== */}
       <section>
-        {/* ... (Conteúdo do Footer sem alterações) ... */}
         <div className="py-12 px-4 bg-[#0B1016] border-t border-[#1C2A35]">
             <div className="max-w-6xl mx-auto text-center">
               <p className="text-gray-400 text-lg">
