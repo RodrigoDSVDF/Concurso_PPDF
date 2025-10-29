@@ -789,7 +789,7 @@ function App() {
               <h3 className="text-2xl font-semibold text-white mb-2">Próximas Convocatórias (2025/2026)</h3>
               <ul className="text-gray-300 space-y-3 list-disc list-inside">
                 <li><strong className="text-white">LDO 2026:</strong> Previsão orçamentária para nomear **990** novos servidores.</li>
-                <li><strong className="text-white">Profissionais Prontos:</strong> O número da LDO é próximo do total de <strong className="text-amber-400">904</strong> profissionais já formados que aguardam.</li>
+                <li><strong className="text-white">Profissionais Prontos:</strong> O número da LDO é próximo do total de <strong className="text-amber-400">928</strong> profissionais já formados que aguardam.</li>
                 <li><strong className="text-white">Decisão do TCDF:</strong> Determinação para que o GDF apresente um cronograma de nomeações em 2025.</li>
               </ul>
             </div>
@@ -836,7 +836,7 @@ function App() {
                 </h3>
               </div>
               <p className="text-lg text-gray-300 leading-relaxed">
-                A segurança do DF vive um paradoxo. O GDF investiu milhões na formação de <strong className="text-white">1.541 Policiais Penais</strong>, mas hoje, <strong className="text-white">904</strong> desses profissionais (1.541 formados - 637 nomeados) estão parados, aguardando nomeação.
+                A segurança do DF vive um paradoxo. O GDF investiu milhões na formação de <strong className="text-white">1.541 Policiais Penais</strong>, mas hoje, <strong className="text-white">928</strong> desses profissionais (1.541 formados - 637 nomeados) estão parados, aguardando nomeação.
               </p>
               <p className="text-lg text-gray-300 leading-relaxed">
                 Esta inércia, que se arrasta há mais de dois anos, forçou o <strong className="text-white">Tribunal de Contas (TCDF)</strong> a exigir um cronograma. Isso prova que o GDF só age sob pressão, não por planejamento. Manter o défice de <strong className="text-white">1.286 cargos</strong> não é "economia", é uma <strong className="text-white">sabotagem da Inteligência Prisional</strong> e um convite ao colapso.
