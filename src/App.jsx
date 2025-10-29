@@ -865,11 +865,11 @@ function App() {
           {(() => {
             const dataDistribuicao = [
               { name: 'Nomeados', value: 637, fill: '#4FD1C5' },
-              { name: 'Formados Aguardando', value: 904, fill: '#FBBF24' },
+              { name: 'Formados Aguardando', value: 928, fill: '#FBBF24' },
             ];
             const dataDemanda = [
               { name: 'Déficit de Cargos', Demanda: 1286, fill: '#EF4444' },
-              { name: 'Formados para Nomear', Demanda: 904, fill: '#8B5CF6' },
+              { name: 'Formados para Nomear', Demanda: 928, fill: '#8B5CF6' },
               { name: 'Vagas LDO 2026', Demanda: 990, fill: '#F97316' },
             ];
 
@@ -925,7 +925,7 @@ function App() {
                   <DataCard icon={CheckCircle}
                     title="Nomeações Realizadas" value="637" description="Servidores já nomeados (até Nov/2024)." colorClass="text-[#3B82F6]" />
                   <DataCard icon={Users}
-                    title="Formados Aguardando" value="904" description="Profissionais prontos aguardando nomeação." colorClass="text-[#FBBF24]" />
+                    title="Formados Aguardando" value="928" description="Profissionais prontos aguardando nomeação." colorClass="text-[#FBBF24]" />
                   {/* ATUALIZADO COM FONTE */}
                   <DataCard icon={LayoutGrid} title="Déficit de Cargos" value="1.286" description="Cargos vagos (Jul/2023, Fonte: SEAPE-DF)." colorClass="text-[#EF4444]" />
                 </motion.div>
