@@ -305,7 +305,7 @@ function App() {
       <div className="py-3 bg-[#0D3A46]/70 border-t border-b border-[#4FD1C5]/30 overflow-hidden">
         <Marquee pauseOnHover={true} speed={60}>
           <span className="text-xl text-white font-semibold mx-8 uppercase">1.541 Policiais Penais Formados</span>
-          <span className="text-xl text-[#4FD1C5] font-bold mx-8 uppercase">904 Aguardam Nomeação</span>
+          <span className="text-xl text-[#4FD1C5] font-bold mx-8 uppercase">928 Aguardam Nomeação</span>
           <span className="text-xl text-white font-semibold mx-8 uppercase">O GDF investiu e agora desperdiça</span>
           <span className="text-xl text-[#4FD1C5] font-bold mx-8 uppercase">Nomeação Já!</span>
         </Marquee>
@@ -340,7 +340,7 @@ function App() {
             <DataCard 
               icon={Users} 
               title="Formados Aguardando" 
-              value="904" 
+              value="928" 
               description="Profissionais treinados pelo GDF aguardando nomeação (1541 - 637)." 
               colorClass="text-[#FBBF24]" 
             />
@@ -375,7 +375,7 @@ function App() {
             <DataCard icon={Hash} title="População Carcerária" value="18.300" description="Número total de internos (Fonte: SEAPE-DF)." colorClass="text-[#F97316]" />
             {/* ATUALIZADO COM FONTE */}
             <DataCard icon={Percent} title="Déficit de Cargos" value="1.286 Vagos" description="Total de cargos vagos (Jul/2023, Fonte: SEAPE-DF)." colorClass="text-[#8B5CF6]" />
-            <DataCard icon={Search} title="Proporção Policial/Presso" value="Aprox. 1 para 9" description="Relação estimada entre o efetivo atual de policiais penais e a população carcerária do DF." colorClass="text-[#EF4444]" />
+            <DataCard icon={Search} title="Proporção Policial/Preso" value="Aprox. 1 para 9" description="Relação estimada entre o efetivo atual de policiais penais e a população carcerária do DF." colorClass="text-[#EF4444]" />
           </div>
         </div>
       </section>
