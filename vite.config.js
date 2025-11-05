@@ -5,16 +5,17 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(),tailwindcss()],
+  plugins: [react(), tailwindcss()],
   
-  // VVVV ESTA LINHA É CRÍTICA VVVV
-  // Deve ser o nome do seu repositório, com barras
-  base: '/Concurso_PPDF/', 
-  // ^^^^ GARANTA QUE ESTÁ ASSIM ^^^^
+  // VVVV AJUSTE PARA DOMÍNIO PERSONALIZADO VVVV
+  // O site será servido a partir da raiz (ex: "www.meusite.com/")
+  // e não de um subdiretório.
+  base: '/', 
+  // ^^^^ Esta é a mudança principal ^^^^
   
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
-  },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
 })
